@@ -51,7 +51,29 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.9.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.9\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.9.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.9\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.PowerPoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\MicrosoftOfficeCore.15.0.0\lib\net35\Office.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.8.2.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.8.2\lib\net45\RazorEngine.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -70,6 +92,12 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Wired.Razor, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Wired.Razor.0.9.0.0\lib\net452\Wired.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Wired.RazorPdf, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Wired.RazorPdf.1.0.0.0\lib\net452\Wired.RazorPdf.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -337,23 +365,28 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Anexgrid.cs" />
     <Compile Include="Models\Ciclo.cs" />
     <Compile Include="Models\ConfigEntrega.cs" />
     <Compile Include="Models\Curso.cs" />
     <Compile Include="Models\CursoAlumno.cs" />
     <Compile Include="Models\CursoDocente.cs" />
     <Compile Include="Models\Documento.cs" />
+    <Compile Include="Models\HashHelper.cs" />
     <Compile Include="Models\HojaVida.cs" />
     <Compile Include="Models\HojaVidaDocenteCRP.cs" />
     <Compile Include="Models\HojaVidaDocenteEX.cs" />
     <Compile Include="Models\HojaVidaDocenteFA.cs" />
     <Compile Include="Models\HojaVidaDocenteFC.cs" />
+    <Compile Include="Models\Meta.cs" />
     <Compile Include="Models\MetadataDocumento.cs" />
     <Compile Include="Models\ModeloDatos.cs" />
     <Compile Include="Models\Notificacion.cs" />
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\PlanEstudio.cs" />
+    <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\Semestre.cs" />
+    <Compile Include="Models\SessionHelper.cs" />
     <Compile Include="Models\sysdiagrams.cs" />
     <Compile Include="Models\TipoDocumento.cs" />
     <Compile Include="Models\TipoPersona.cs" />
@@ -536,6 +569,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\User\Models\" />
     <Folder Include="Controllers\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
