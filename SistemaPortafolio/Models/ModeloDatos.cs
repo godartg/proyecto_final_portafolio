@@ -23,17 +23,22 @@
         public virtual DbSet<HojaVidaDocenteEX> HojaVidaDocenteEX { get; set; }
         public virtual DbSet<HojaVidaDocenteFA> HojaVidaDocenteFA { get; set; }
         public virtual DbSet<HojaVidaDocenteFC> HojaVidaDocenteFC { get; set; }
+        //public virtual DbSet<HojaVidaDocenteActividadesDesarrolloProfesional> HojaVidaDocenteActividadesDesarrolloProfesionals { get; set; }
+        //public virtual DbSet<HojaVidaDocenteActividadServicios> HojaVidaDocenteActividadServicios { get; set; }
+        //public virtual DbSet<HojaVidaDocenteHonoresPremios> HojaVidaDocenteHonoresPremios { get; set; }
+        //public virtual DbSet<HojaVidaDocenteMembresia> HojaVidaDocenteMembresia { get; set; }
+        //public virtual DbSet<HojaVidaDocentePublicaciones> HojaVidaDocentePublicaciones { get; set; }
         public virtual DbSet<MetadataDocumento> MetadataDocumento { get; set; }
         public virtual DbSet<Notificacion> Notificacion { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<PlanEstudio> PlanEstudio { get; set; }
         public virtual DbSet<Semestre> Semestre { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TipoDocumento> TipoDocumento { get; set; }
         public virtual DbSet<TipoPersona> TipoPersona { get; set; }
         public virtual DbSet<TipoUsuario> TipoUsuario { get; set; }
         public virtual DbSet<Unidad> Unidad { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
