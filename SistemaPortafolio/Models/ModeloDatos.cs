@@ -42,6 +42,8 @@
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Database.SetInitializer<ModeloDatos>(null);
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Ciclo>()
                 .Property(e => e.nombre)
                 .IsUnicode(false);
