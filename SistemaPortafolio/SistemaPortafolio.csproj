@@ -376,15 +376,13 @@
     <Compile Include="Migrations\201906292209487_InitialDb.Designer.cs">
       <DependentUpon>201906292209487_InitialDb.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="Migrations\201906292251250_CursoKeyChanged.cs" />
     <Compile Include="Migrations\201906292251250_CursoKeyChanged.Designer.cs">
       <DependentUpon>201906292251250_CursoKeyChanged.cs</DependentUpon>
-=======
+    </Compile>
     <Compile Include="Migrations\201906292235144_HojaDeVida.cs" />
     <Compile Include="Migrations\201906292235144_HojaDeVida.Designer.cs">
       <DependentUpon>201906292235144_HojaDeVida.cs</DependentUpon>
->>>>>>> 52e6f848e3bcef255833ffa426190b4db0466b23
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Anexgrid.cs" />
@@ -619,13 +617,11 @@
     <EmbeddedResource Include="Migrations\201906292209487_InitialDb.resx">
       <DependentUpon>201906292209487_InitialDb.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
     <EmbeddedResource Include="Migrations\201906292251250_CursoKeyChanged.resx">
       <DependentUpon>201906292251250_CursoKeyChanged.cs</DependentUpon>
-=======
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906292235144_HojaDeVida.resx">
       <DependentUpon>201906292235144_HojaDeVida.cs</DependentUpon>
->>>>>>> 52e6f848e3bcef255833ffa426190b4db0466b23
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
