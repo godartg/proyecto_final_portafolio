@@ -21,7 +21,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult AgregarEditar(string id)
+        public ActionResult AgregarEditar(int id)
         {
             ViewBag.ciclo = curso.listarciclo();
             ViewBag.plan = curso.obtenerplan(Convert.ToInt32(Session["plan_id"].ToString()));
@@ -29,7 +29,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             ViewBag.cursodocen = curso.ObtenerCursoDocente(id);
             ViewBag.curso = curso.listarcurso(Convert.ToInt32(Session["plan_id"].ToString()));
             return View(
-                id == "" || id == null ? new Curso()
+                id == null ? new Curso()
                 : curso.Obtener(id)
                 );
         }
@@ -56,7 +56,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 if (docente != null)
                 {
                     foreach (var d in docente)
-                        model.CursoDocente.Add(new CursoDocente { persona_id = d, curso_cod = model.curso_cod });
+                        model.CursoDocente.Add(new CursoDocente { persona_id = d, curso_id = model.curso_id });
                 }
                 //fin
 
@@ -81,7 +81,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 if (docente != null)
                 {
                     foreach (var d in docente)
-                        model.CursoDocente.Add(new CursoDocente { persona_id = d, curso_cod = model.curso_cod });
+                        model.CursoDocente.Add(new CursoDocente { persona_id = d, curso_id = model.curso_id });
                 }
                 //fin
 
@@ -110,7 +110,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         }
         
 
-        public ActionResult Ver(string id)
+        public ActionResult Ver(int id)
         {
             ViewBag.cursodocente = curso.listardocente(id);
             return View(curso.Obtener(id));

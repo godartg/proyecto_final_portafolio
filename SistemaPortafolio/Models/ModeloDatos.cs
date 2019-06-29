@@ -101,20 +101,20 @@
             modelBuilder.Entity<Curso>()
                 .HasMany(e => e.MetadataDocumento)
                 .WithRequired(e => e.Curso)
-                .HasForeignKey(e => e.cod_curso)
+                .HasForeignKey(e => e.curso_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<CursoAlumno>()
-                .Property(e => e.curso_cod)
-                .IsUnicode(false);
+                .Property(e => e.curso_id);
+
 
             modelBuilder.Entity<CursoDocente>()
-                .Property(e => e.curso_cod)
-                .IsUnicode(false);
+                .Property(e => e.curso_id);
+
 
             modelBuilder.Entity<Documento>()
-                .Property(e => e.curso_cod)
-                .IsUnicode(false);
+                .Property(e => e.curso_id);
+                
 
             modelBuilder.Entity<Documento>()
                 .Property(e => e.archivo)
@@ -202,8 +202,8 @@
                 .IsUnicode(false);
 
             modelBuilder.Entity<MetadataDocumento>()
-                .Property(e => e.cod_curso)
-                .IsUnicode(false);
+                .Property(e => e.curso_id);
+            
 
             modelBuilder.Entity<MetadataDocumento>()
                 .Property(e => e.tamanio)

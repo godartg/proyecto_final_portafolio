@@ -29,8 +29,8 @@ namespace SistemaPortafolio.Areas.User.Controllers
         public ActionResult Evaluar(string id)
         {
             string[] separar = id.Split('_');
-            ViewBag.documento = evaluar.listardocumentoa(separar[0],separar[1]);
-            ViewBag.docente = evaluar.listardocentea(separar[0], separar[1]);
+            ViewBag.documento = evaluar.listardocumentoa(Convert.ToInt32(separar[0]),separar[1]);
+            ViewBag.docente = evaluar.listardocentea(Convert.ToInt32(separar[0]), separar[1]);
             ViewBag.unidad = evaluar.listarunidad();
             return View();
         }
@@ -64,10 +64,10 @@ namespace SistemaPortafolio.Areas.User.Controllers
         {
             foreach(var c in curso_cod)
             {
-                model.curso_cod = c;
+                model.estado = c;
             }
             model.GuardarEstado();
-            return Redirect("~/User/EvaluacionDocumento/Evaluar/" + model.curso_cod + "_" + personaid);
+            return Redirect("~/User/EvaluacionDocumento/Evaluar/" + model.curso_id + "_" + personaid);
         }
     }
 }

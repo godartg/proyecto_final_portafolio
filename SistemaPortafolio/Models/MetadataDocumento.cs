@@ -23,8 +23,7 @@ namespace SistemaPortafolio.Models
         public int? documento_id { get; set; }
 
         [Required]
-        [StringLength(100)]
-        public string cod_curso { get; set; }
+        public int curso_id { get; set; }
 
         public int persona_id { get; set; }
 
@@ -159,7 +158,7 @@ namespace SistemaPortafolio.Models
                                select new
                                {
                                    metadata_id = MetadataDocumento.metadata_id,
-                                   cod_curso = MetadataDocumento.cod_curso,
+                                   curso_id = MetadataDocumento.curso_id,
                                    persona_id = MetadataDocumento.persona_id,
                                    semestre_id = MetadataDocumento.semestre_id,
                                    tipodocumento_id = MetadataDocumento.tipodocumento_id,
@@ -182,7 +181,7 @@ namespace SistemaPortafolio.Models
                         MetadataDocumento doc = new MetadataDocumento();
 
                         doc.metadata_id = c.metadata_id;
-                        doc.cod_curso = c.cod_curso;
+                        doc.curso_id = c.curso_id;
                         doc.persona_id = c.persona_id;
                         doc.semestre_id = c.semestre_id;
                         doc.tipodocumento_id = c.tipodocumento_id;

@@ -45,8 +45,8 @@ namespace SistemaPortafolio.Areas.User.Controllers
 
             string[] separar = Session["enlace"].ToString().Split('_');
             ViewBag.verificarpersona = documento.verificarpersona(separar[1]);
-            ViewBag.documento = documento.listardocumentoo(separar[0], separar[1], buscar);
-            ViewBag.docente = documento.listardocente(separar[0], separar[1]);
+            ViewBag.documento = documento.listardocumentoo(Convert.ToInt32(separar[0]), separar[1], buscar);
+            ViewBag.docente = documento.listardocente(Convert.ToInt32(separar[0]), separar[1]);
             ViewBag.tipodocumento = documento.listartipodocumento2(separar[1]);
             ViewBag.unidad = documento.listarunidad();
             return View();
@@ -151,7 +151,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
                 }
 
                 string nombrearchivo = "";
-                busqueda = semestre.id_semestre + "_" + model.tipodocumento_id + "_" + model.id_unidad + "_" + model.curso_cod + "_" + model.persona_id + "_" + model.documento_id;
+                busqueda = semestre.id_semestre + "_" + model.tipodocumento_id + "_" + model.id_unidad + "_" + model.curso_id + "_" + model.persona_id + "_" + model.documento_id;
                 DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Server/Docs/"));
 
                 foreach (var fi in di.GetFiles())
@@ -270,7 +270,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
         {
             Documento doc = new Documento();
             doc = documento.obtenerdocumento(id);
-            string codcurso = doc.curso_cod;
+            var codcurso = doc.curso_id;
             doc.EliminarDocumento();
 
             var file = Path.Combine(HttpContext.Server.MapPath("/Server/Docs/"), doc.archivo);

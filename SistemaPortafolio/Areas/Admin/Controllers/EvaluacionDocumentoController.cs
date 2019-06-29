@@ -34,8 +34,8 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             }
             string[] separar = Session["enlace"].ToString().Split('_');
             ViewBag.verificarpersona = evaluar.verificarpersona(separar[1]);
-            ViewBag.documento = evaluar.listardocumentoo(separar[0], separar[1], buscar);
-            ViewBag.docente = evaluar.listardocente(separar[0], separar[1]);
+            ViewBag.documento = evaluar.listardocumentoo(Convert.ToInt32(separar[0]), separar[1], buscar);
+            ViewBag.docente = evaluar.listardocente(Convert.ToInt32(separar[0]), separar[1]);
             ViewBag.tipodocumento = evaluar.listartipodocumento2(separar[1]);
             ViewBag.unidad = evaluar.listarunidad();
             return View();
@@ -70,10 +70,10 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         {
             foreach(var c in curso_cod)
             {
-                model.curso_cod = c;
+                model.estado = c;
             }
             model.GuardarEstado();
-            return Redirect("~/Admin/EvaluacionDocumento/Evaluar/" + model.curso_cod + "_" + personaid);
+            return Redirect("~/Admin/EvaluacionDocumento/Evaluar/" + model.curso_id + "_" + personaid);
         }
     }
 }

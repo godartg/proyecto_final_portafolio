@@ -569,7 +569,7 @@ namespace SistemaPortafolio.Models
             }
         }
 
-        public ResponseModel agregarcurso(string codigo, int persona)
+        public ResponseModel agregarcurso(int codigo, int persona)
         {
             var rm = new ResponseModel();
             try
@@ -578,7 +578,7 @@ namespace SistemaPortafolio.Models
                 {
                     CursoDocente cursos = new CursoDocente();
 
-                    cursos = db.CursoDocente.Where(x => x.curso_cod.Equals(codigo) && x.persona_id == persona).SingleOrDefault();
+                    cursos = db.CursoDocente.Where(x => x.curso_id == codigo && x.persona_id == persona).SingleOrDefault();
 
                     if (cursos != null)
                     {

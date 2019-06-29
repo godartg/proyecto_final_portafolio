@@ -369,6 +369,10 @@
     <Compile Include="Migrations\201906292209487_InitialDb.Designer.cs">
       <DependentUpon>201906292209487_InitialDb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906292251250_CursoKeyChanged.cs" />
+    <Compile Include="Migrations\201906292251250_CursoKeyChanged.Designer.cs">
+      <DependentUpon>201906292251250_CursoKeyChanged.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Anexgrid.cs" />
     <Compile Include="Models\Ciclo.cs" />
@@ -588,6 +592,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201906292209487_InitialDb.resx">
       <DependentUpon>201906292209487_InitialDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906292251250_CursoKeyChanged.resx">
+      <DependentUpon>201906292251250_CursoKeyChanged.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

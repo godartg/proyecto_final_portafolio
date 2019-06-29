@@ -13,8 +13,7 @@ namespace SistemaPortafolio.Models
         public int cursodocente_id { get; set; }
 
         [Required]
-        [StringLength(100)]
-        public string curso_cod { get; set; }
+        public int curso_id { get; set; }
 
         public int persona_id { get; set; }
 

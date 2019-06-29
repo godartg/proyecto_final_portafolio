@@ -31,16 +31,16 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             return View();
         }
 
-        public JsonResult AgregarCurso(string[] codigo = null, string[] persona = null)
+        public JsonResult AgregarCurso(int[] codigo = null, string[] persona = null)
         {
             var rm = new ResponseModel();
 
-            string codigoc = "";
+            var curso_id = 0;
             int personaa = 0;
 
             foreach(var c in codigo)
             {
-                codigoc = c;
+                curso_id = c;
             }
             foreach(var p in persona)
             {
@@ -49,7 +49,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
             Session["idd_personaa"] = personaa.ToString();
 
-            rm = alumno.agregarcurso(codigoc.Trim(), personaa);
+            rm = alumno.agregarcurso(curso_id, personaa);
 
             if (rm.response)
             {

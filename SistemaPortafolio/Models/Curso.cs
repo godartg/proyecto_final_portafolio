@@ -22,6 +22,8 @@ namespace SistemaPortafolio.Models
         }
 
         [Key]
+        public int  curso_id { get; set; }
+
         [StringLength(100)]
         public string curso_cod { get; set; }
 
@@ -47,6 +49,10 @@ namespace SistemaPortafolio.Models
         [Required]
         [StringLength(100)]
         public string estado { get; set; }
+
+        [Required]
+        [StringLength(150)]
+        public string tipo_curso { get; set; }
 
         public virtual Ciclo Ciclo { get; set; }
 
@@ -79,10 +85,10 @@ namespace SistemaPortafolio.Models
                         query.Where(x => x.plan_id == id);
                     }
 
-                    if (grilla.columna == "curso_cod")
+                    if (grilla.columna == "curso_id")
                     {
-                        query = grilla.columna_orden == "DESC" ? query.OrderByDescending(x => x.curso_cod)
-                                                               : query.OrderBy(x => x.curso_cod);
+                        query = grilla.columna_orden == "DESC" ? query.OrderByDescending(x => x.curso_id)
+                                                               : query.OrderBy(x => x.curso_id);
                     }
 
                     if (grilla.columna == "ciclo_id")
@@ -178,11 +184,11 @@ namespace SistemaPortafolio.Models
 
                     var registro = new CursoDocente();
 
-                    if (this.curso_cod != null)
+                    if (this.curso_id != null)
                     {
                         db.Database.ExecuteSqlCommand(
-                        "DELETE FROM CursoDocente WHERE curso_cod = @curso_cod",
-                        new SqlParameter("curso_cod", this.curso_cod)
+                        "DELETE FROM CursoDocente WHERE curso_id = @curso_id",
+                        new SqlParameter("curso_id", this.curso_id)
                         );
 
                         try
@@ -197,10 +203,10 @@ namespace SistemaPortafolio.Models
                         }
 
                         registro = db.CursoDocente
-                                    .Where(x => x.curso_cod.Contains(this.curso_cod)).SingleOrDefault();
+                                    .Where(x => x.curso_id == this.curso_id).SingleOrDefault();
 
                         var d = db.Curso
-                                    .Where(x => x.curso_cod.Contains(this.curso_cod)).SingleOrDefault();
+                                    .Where(x => x.curso_id == this.curso_id).SingleOrDefault();
 
                         var cursodocente = this.CursoDocente;
 
@@ -226,8 +232,8 @@ namespace SistemaPortafolio.Models
                             foreach (var c in this.CursoDocente)
                             {
                                 db.Database.ExecuteSqlCommand(
-                            "insert into CursoDocente values(@curso_cod,@persona_id)",
-                            new SqlParameter("curso_cod", this.curso_cod),
+                            "insert into CursoDocente values(@curso_id,@persona_id)",
+                            new SqlParameter("curso_id", this.curso_id),
                             new SqlParameter("persona_id", c.persona_id)
                             );
                             }
@@ -242,7 +248,7 @@ namespace SistemaPortafolio.Models
                     else
                     {
                         registro = db.CursoDocente
-                                    .Where(x => x.curso_cod.Contains(this.curso_cod)).SingleOrDefault();
+                                    .Where(x => x.curso_id == this.curso_id).SingleOrDefault();
                         db.Entry(this).State = EntityState.Added;
                     }
 
@@ -288,11 +294,11 @@ namespace SistemaPortafolio.Models
 
                     var registro = new CursoDocente();
 
-                    if (this.curso_cod != null)
+                    if (this.curso_id != null)
                     {
                         db.Database.ExecuteSqlCommand(
-                        "DELETE FROM CursoDocente WHERE curso_cod = @curso_cod",
-                        new SqlParameter("curso_cod", this.curso_cod)
+                        "DELETE FROM CursoDocente WHERE curso_id = @curso_id",
+                        new SqlParameter("curso_id", this.curso_id)
                         );
 
                         try
@@ -307,7 +313,7 @@ namespace SistemaPortafolio.Models
                         }
 
                         registro = db.CursoDocente
-                                    .Where(x => x.curso_cod.Contains(this.curso_cod)).SingleOrDefault();
+                                    .Where(x => x.curso_id == this.curso_id).SingleOrDefault();
 
                         var cursodocente = this.CursoDocente;
                         this.CursoDocente = null;
@@ -317,7 +323,7 @@ namespace SistemaPortafolio.Models
                     else
                     {
                         registro = db.CursoDocente
-                                    .Where(x => x.curso_cod.Contains(this.curso_cod)).SingleOrDefault();
+                                    .Where(x => x.curso_id == this.curso_id).SingleOrDefault();
                         db.Entry(this).State = EntityState.Added;
                     }
 
@@ -351,8 +357,8 @@ namespace SistemaPortafolio.Models
                 using (var db = new ModeloDatos())
                 {
                     db.Database.ExecuteSqlCommand(
-                            "delete from CursoDocente where curso_cod = @curso_cod",
-                            new SqlParameter("curso_cod", this.curso_cod)
+                            "delete from CursoDocente where curso_id = @curso_id",
+                            new SqlParameter("curso_id", this.curso_id)
                             );
                     db.Entry(this).State = EntityState.Deleted;
                     db.SaveChanges();
@@ -364,7 +370,7 @@ namespace SistemaPortafolio.Models
             }
         }
 
-        public Curso Obtener(string id)
+        public Curso Obtener(int id)
         {
             var curso = new Curso();
 
@@ -373,7 +379,7 @@ namespace SistemaPortafolio.Models
                 using (var db = new ModeloDatos())
                 {
                     curso = db.Curso.Include("Ciclo").Include("PlanEstudio").
-                        Where(x => x.curso_cod.Contains(id)).
+                        Where(x => x.curso_id == id).
                         SingleOrDefault();
                 }
             }
@@ -385,7 +391,7 @@ namespace SistemaPortafolio.Models
             return curso;
         }
 
-        public CursoDocente ObtenerCursoDocente(string id)
+        public CursoDocente ObtenerCursoDocente(int id)
         {
             var curso = new CursoDocente();
 
@@ -394,7 +400,7 @@ namespace SistemaPortafolio.Models
                 using (var db = new ModeloDatos())
                 {
                     curso = db.CursoDocente.Include("Curso").Include("Persona").
-                        Where(x => x.curso_cod.Contains(id)).
+                        Where(x => x.curso_id == id).
                         SingleOrDefault();
                 }
             }
@@ -469,7 +475,7 @@ namespace SistemaPortafolio.Models
             return curso;
         }
 
-        public CursoDocente listardocente(string id)
+        public CursoDocente listardocente(int id)
         {
             var cursodocente = new CursoDocente();
 
@@ -477,7 +483,7 @@ namespace SistemaPortafolio.Models
             {
                 using (var db = new ModeloDatos())
                 {
-                    cursodocente = db.CursoDocente.Include("Persona").Where(x => x.curso_cod.Contains(id)).SingleOrDefault();
+                    cursodocente = db.CursoDocente.Include("Persona").Where(x => x.curso_id == id).SingleOrDefault();
                 }
             }
             catch (Exception e)
