@@ -7,6 +7,8 @@ namespace SistemaPortafolio.Models
     using System.Data.Entity.Spatial;
     using System.Linq;
     using System.Data.Entity;
+    using System.IO;
+    using System.Web;
 
     [Table("Semestre")]
     public partial class Semestre
@@ -194,7 +196,7 @@ namespace SistemaPortafolio.Models
         }
 
         //metodo guardar
-        public void Guardar()
+        public void Guardar(string sem_ant)
         {
             try
             {
@@ -202,11 +204,18 @@ namespace SistemaPortafolio.Models
                 {
                     if (this.semestre_id > 0)
                     {
+
                         db.Entry(this).State = EntityState.Modified; //si el valor es mayor que cero solo modifica
+                        Directory.Move(
+                            HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + sem_ant),
+                            HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + this.nombre));
+
                     }
                     else
                     {
                         db.Entry(this).State = EntityState.Added; //si el valor es  cero va a agregar
+                        string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/"), "Portafolio_" + this.nombre);
+                        Directory.CreateDirectory(path);
                     }
                     db.SaveChanges();
                 }
