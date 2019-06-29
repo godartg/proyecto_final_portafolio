@@ -73,7 +73,7 @@ insert into CURSO VALUES ('SI-075','1','10','GERENCIA DE TI','3','2','2','4','SI
 
 insert into TipoPersona VALUES('Docente','Activo');
 insert into TipoPersona VALUES('Alumno','Activo');
-
+select * from TipoPersona
 insert into Persona values(1,'00568978','00635487','Alberto','Flor Rodriguez','alflor@egx.com','986656532','Activo')
 insert into Persona values(1,'00568979','00635488','Henry','Chaina','hchaina@hotmail.com','986656539','Activo')
 insert into Persona values(1,'00235650','00369898','Elard','Rodriguez','erodriguez@upt.pe','965876879','Activo')
@@ -88,7 +88,7 @@ insert into PERSONA VALUES(2,'70788545','2014049092','Andrea','Faucheux','andrea
 insert into PERSONA VALUES(2,'09090800','2013000290','Angelica','Milla','amilla@hotmail.com','952969595','Activo');
 insert into PERSONA VALUES(2,'79095500','2013000999','Guido','Pacsi','gpacsi@hotmail.com','952119325','Activo');
 insert into PERSONA VALUES(2,'70748523','2013000215','Sergio','Perez','sperez@hotmail.com','952969595','Activo');
-
+select * from PERSONA
 insert into CursoDocente values('SI-572',4)
 insert into CursoDocente values('SI-874',4)
 insert into CursoDocente values('SI-875',1)
@@ -101,11 +101,12 @@ insert into USUARIO VALUES(4,1,'elanchipa','e10adc3949ba59abbe56e057f20f883e','u
 insert into USUARIO VALUES(1,2,'aflor','e10adc3949ba59abbe56e057f20f883e','user_default.png','Activo');
 
 insert into HOJAVIDA values(1);
-insert into HojaVidaDocenteFA values(1,'Institucion Prueba','Titulo Prueba');
+insert into HojaVidaDocenteFA values(1,'Institucion Prueba','Titulo Prueba', '2010');
 insert into HojaVidaDocenteFC values(1,'Institucion Prueba','320 horas','60 dias','Curso Prueba');
 insert into HojaVidaDocenteCRP values(1,'Certificacion Prueba','Institucion Prueba','2005');
-insert into HojaVidaDocenteEX values(1,'Institucion Prueba','05/06/2006','05/12/2006','Funcion Prueba');
-
+insert into HojaVidaDocenteEX values(1,'Institucion Prueba','05/06/2006','05/12/2006','Funcion Prueba', 'academica');
+insert into HojaVidaDocenteEX values(1,'Institucion Prueba','05/06/2006','05/12/2006','Funcion Prueba2', 'no academica');
+select * from HojaVidaDocenteFA
 insert into TIPODOCUMENTO VALUES(1,'.docx','Curriculum Vitae ICACIT');
 insert into TIPODOCUMENTO VALUES(1,'.docx','Silabo');
 insert into TIPODOCUMENTO VALUES(1,'.xlsx','Prueba de Entrada');
@@ -135,3 +136,5 @@ insert into ConfigEntrega VALUES(2,'Configuracion de Entrega Unidad II','01/06/2
 insert into ConfigEntrega VALUES(3,'Configuracion de Entrega Unidad III','01/06/2019','30/06/2019','Activo');
 select * from ConfigEntrega
 insert into Notificacion VALUES(4,1,'¡Urgente!','Cambio de Documentos','Debe cambiar los documentos marcados como Rechazado','15/06/2019','No Leido');
+
+
