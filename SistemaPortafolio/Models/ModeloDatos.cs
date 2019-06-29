@@ -23,11 +23,11 @@
         public virtual DbSet<HojaVidaDocenteEX> HojaVidaDocenteEX { get; set; }
         public virtual DbSet<HojaVidaDocenteFA> HojaVidaDocenteFA { get; set; }
         public virtual DbSet<HojaVidaDocenteFC> HojaVidaDocenteFC { get; set; }
-        //public virtual DbSet<HojaVidaDocenteActividadesDesarrolloProfesional> HojaVidaDocenteActividadesDesarrolloProfesionals { get; set; }
-        //public virtual DbSet<HojaVidaDocenteActividadServicios> HojaVidaDocenteActividadServicios { get; set; }
-        //public virtual DbSet<HojaVidaDocenteHonoresPremios> HojaVidaDocenteHonoresPremios { get; set; }
-        //public virtual DbSet<HojaVidaDocenteMembresia> HojaVidaDocenteMembresia { get; set; }
-        //public virtual DbSet<HojaVidaDocentePublicaciones> HojaVidaDocentePublicaciones { get; set; }
+        public virtual DbSet<HojaVidaDocenteActividadesDesarrolloProfesional> HojaVidaDocenteActividadesDesarrolloProfesionals { get; set; }
+        public virtual DbSet<HojaVidaDocenteActividadServicios> HojaVidaDocenteActividadServicios { get; set; }
+        public virtual DbSet<HojaVidaDocenteHonoresPremios> HojaVidaDocenteHonoresPremios { get; set; }
+        public virtual DbSet<HojaVidaDocenteMembresia> HojaVidaDocenteMembresia { get; set; }
+        public virtual DbSet<HojaVidaDocentePublicaciones> HojaVidaDocentePublicaciones { get; set; }
         public virtual DbSet<MetadataDocumento> MetadataDocumento { get; set; }
         public virtual DbSet<Notificacion> Notificacion { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }

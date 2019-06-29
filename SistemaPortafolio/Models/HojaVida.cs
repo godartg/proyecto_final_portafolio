@@ -259,11 +259,11 @@ namespace SistemaPortafolio.Models
                     var q2 = db.HojaVidaDocenteEX.Include("HojaVida").Include("HojaVida.Persona").Include("HojaVida.Persona.TipoPersona").Where(x => x.HojaVida.Persona.TipoPersona.nombre.Equals("Docente")).Count();
                     var q3 = db.HojaVidaDocenteFA.Include("HojaVida").Include("HojaVida.Persona").Include("HojaVida.Persona.TipoPersona").Where(x => x.HojaVida.Persona.TipoPersona.nombre.Equals("Docente")).Count();
                     var q4 = db.HojaVidaDocenteFC.Include("HojaVida").Include("HojaVida.Persona").Include("HojaVida.Persona.TipoPersona").Where(x => x.HojaVida.Persona.TipoPersona.nombre.Equals("Docente")).Count();
-                    //var q5 = db.HojaVidaDocenteActividadesDesarrolloProfesionals.Include("HojaVida").Include("HojaVida.Persona").Include("HojaVida.Persona.TipoPersona").Where(x => x.HojaVida.Persona.TipoPersona.nombre.Equals("Docente")).Count();
-                    //var q6 = db.HojaVidaDocenteActividadServicios.Include("HojaVida").Include("HojaVida.Persona").Include("HojaVida.Persona.TipoPersona").Where(x => x.HojaVida.Persona.TipoPersona.nombre.Equals("Docente")).Count();
-                    //var q7 = db.HojaVidaDocenteHonoresPremios.Include("HojaVida").Include("HojaVida.Persona").Include("HojaVida.Persona.TipoPersona").Where(x => x.HojaVida.Persona.TipoPersona.nombre.Equals("Docente")).Count();
-                    //var q8 = db.HojaVidaDocenteMembresia.Include("HojaVida").Include("HojaVida.Persona").Include("HojaVida.Persona.TipoPersona").Where(x => x.HojaVida.Persona.TipoPersona.nombre.Equals("Docente")).Count();
-                    //var q9 = db.HojaVidaDocentePublicaciones.Include("HojaVida").Include("HojaVida.Persona").Include("HojaVida.Persona.TipoPersona").Where(x => x.HojaVida.Persona.TipoPersona.nombre.Equals("Docente")).Count();
+                    var q5 = db.HojaVidaDocenteActividadesDesarrolloProfesionals.Include("HojaVida").Include("HojaVida.Persona").Include("HojaVida.Persona.TipoPersona").Where(x => x.HojaVida.Persona.TipoPersona.nombre.Equals("Docente")).Count();
+                    var q6 = db.HojaVidaDocenteActividadServicios.Include("HojaVida").Include("HojaVida.Persona").Include("HojaVida.Persona.TipoPersona").Where(x => x.HojaVida.Persona.TipoPersona.nombre.Equals("Docente")).Count();
+                    var q7 = db.HojaVidaDocenteHonoresPremios.Include("HojaVida").Include("HojaVida.Persona").Include("HojaVida.Persona.TipoPersona").Where(x => x.HojaVida.Persona.TipoPersona.nombre.Equals("Docente")).Count();
+                    var q8 = db.HojaVidaDocenteMembresia.Include("HojaVida").Include("HojaVida.Persona").Include("HojaVida.Persona.TipoPersona").Where(x => x.HojaVida.Persona.TipoPersona.nombre.Equals("Docente")).Count();
+                    var q9 = db.HojaVidaDocentePublicaciones.Include("HojaVida").Include("HojaVida.Persona").Include("HojaVida.Persona.TipoPersona").Where(x => x.HojaVida.Persona.TipoPersona.nombre.Equals("Docente")).Count();
 
                     usuarios = new string[9, 2];
 
@@ -279,17 +279,17 @@ namespace SistemaPortafolio.Models
                     usuarios[3, 0] = "HojaVidaDocenteFC";
                     usuarios[3, 1] = q4 + "";
 
-                    //usuarios[4, 0] = "HojaVidaDocenteActividadesDesarrolloProfesionals";
-                    //usuarios[4, 1] = q5 + "";
+                    usuarios[4, 0] = "HojaVidaDocenteActividadesDesarrolloProfesionals";
+                    usuarios[4, 1] = q5 + "";
 
-                    //usuarios[5, 0] = "HojaVidaDocenteActividadServicios";
-                    //usuarios[5, 1] = q6 + "";
+                    usuarios[5, 0] = "HojaVidaDocenteActividadServicios";
+                    usuarios[5, 1] = q6 + "";
 
-                    //usuarios[6, 0] = "HojaVidaDocenteHonoresPremios";
-                    //usuarios[6, 1] = q7 + "";
+                    usuarios[6, 0] = "HojaVidaDocenteHonoresPremios";
+                    usuarios[6, 1] = q7 + "";
 
-                    //usuarios[7, 0] = "HojaVidaDocenteMembresia";
-                    //usuarios[7, 1] = q8 + "";
+                    usuarios[7, 0] = "HojaVidaDocenteMembresia";
+                    usuarios[7, 1] = q8 + "";
 
                     //usuarios[8, 0] = "HojaVidaDocentePublicaciones";
                     //usuarios[8, 1] = q9 + "";
