@@ -292,6 +292,11 @@
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Areas\Admin\Views\HojaVida\AgregarEditarADP.cshtml" />
+    <Content Include="Areas\Admin\Views\HojaVida\AgregarEditarAS.cshtml" />
+    <Content Include="Areas\Admin\Views\HojaVida\AgregarEditarHP.cshtml" />
+    <Content Include="Areas\Admin\Views\HojaVida\AgregarEditarM.cshtml" />
+    <Content Include="Areas\Admin\Views\HojaVida\AgregarEditarP.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -361,6 +366,8 @@
     <Compile Include="Areas\User\Controllers\NotificacionController.cs" />
     <Compile Include="Areas\User\Controllers\PerfilController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Filters\AdminFilters.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -368,6 +375,10 @@
     <Compile Include="Migrations\201906292209487_InitialDb.cs" />
     <Compile Include="Migrations\201906292209487_InitialDb.Designer.cs">
       <DependentUpon>201906292209487_InitialDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906292235144_HojaDeVida.cs" />
+    <Compile Include="Migrations\201906292235144_HojaDeVida.Designer.cs">
+      <DependentUpon>201906292235144_HojaDeVida.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Anexgrid.cs" />
@@ -379,10 +390,15 @@
     <Compile Include="Models\Documento.cs" />
     <Compile Include="Models\HashHelper.cs" />
     <Compile Include="Models\HojaVida.cs" />
+    <Compile Include="Models\HojaVidaDocenteActividadesDesarrolloProfesional.cs" />
+    <Compile Include="Models\HojaVidaDocenteActividadServicios.cs" />
     <Compile Include="Models\HojaVidaDocenteCRP.cs" />
     <Compile Include="Models\HojaVidaDocenteEX.cs" />
     <Compile Include="Models\HojaVidaDocenteFA.cs" />
     <Compile Include="Models\HojaVidaDocenteFC.cs" />
+    <Compile Include="Models\HojaVidaDocenteHonoresPremios.cs" />
+    <Compile Include="Models\HojaVidaDocenteMembresia.cs" />
+    <Compile Include="Models\HojaVidaDocentePublicaciones.cs" />
     <Compile Include="Models\Meta.cs" />
     <Compile Include="Models\MetadataDocumento.cs" />
     <Compile Include="Models\ModeloDatos.cs" />
@@ -565,6 +581,10 @@
     <Content Include="Server\Docs\Informe Final del Curso\web 2.docx_1_13_3_SI-572_4_3.docx" />
     <Content Include="Server\Docs\Informe Final del Curso\web 2.docx_1_13_3_SI-572_4_4.docx" />
     <Content Include="Server\Docs\Otros\web 2.docx_1_8_2_SI-874_4_2.docx" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -575,8 +595,12 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\HojaVidaDocenteActividadesDesarrolloProfesional\" />
+    <Folder Include="Areas\Admin\Views\HojaVidaDocenteActividadServicios\" />
+    <Folder Include="Areas\Admin\Views\HojaVidaDocenteHonoresPremios\" />
+    <Folder Include="Areas\Admin\Views\HojaVidaDocenteMembresia\" />
+    <Folder Include="Areas\Admin\Views\HojaVidaDocentePublicaciones\" />
     <Folder Include="Areas\User\Models\" />
-    <Folder Include="Controllers\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
@@ -588,6 +612,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201906292209487_InitialDb.resx">
       <DependentUpon>201906292209487_InitialDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906292235144_HojaDeVida.resx">
+      <DependentUpon>201906292235144_HojaDeVida.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
