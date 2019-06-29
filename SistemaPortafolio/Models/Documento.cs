@@ -1201,7 +1201,7 @@ namespace SistemaPortafolio.Models
             return lista;
         }
 
-        public Unidad obtenersemestre(int id)
+        public Unidad obtenersemestre(int? id)
         {
             var semestre = new Unidad();
 
