@@ -399,14 +399,15 @@ namespace SistemaPortafolio.Models
             return documento;
         }
 
-        public List<Documento> listardocumentoo(int cod_cur, string persona, string buscar)
+        public List<Documento> listardocumentoo(string cod_cur, string persona, string buscar)
         {
             var documento = new List<Documento>();
-
             try
             {
                 using (var db = new ModeloDatos())
                 {
+                    int _curso_id = db.Curso.Where(x=>x.curso_cod == cod_cur).Select(x=>x.curso_id).FirstOrDefault();
+                    
                     if (buscar == null || buscar == "")
                     {
                         return documento;
@@ -415,7 +416,7 @@ namespace SistemaPortafolio.Models
                     bool canConvert = long.TryParse(buscar, out number1);
                     if (canConvert)
                     {
-                        documento = db.Documento.Include("Curso").Include("TipoDocumento").Include("Persona").Include("Unidad").Include(x => x.Persona.TipoPersona).Where(x => x.curso_id == cod_cur && x.persona_id.ToString().Equals(persona)).Where(x => x.tipodocumento_id.ToString().Equals(buscar)).ToList();
+                        documento = db.Documento.Include("Curso").Include("TipoDocumento").Include("Persona").Include("Unidad").Include(x => x.Persona.TipoPersona).Where(x => x.curso_id == _curso_id && x.persona_id.ToString().Equals(persona)).Where(x => x.tipodocumento_id.ToString().Equals(buscar)).ToList();
 
                         TipoDocumento doc = new TipoDocumento();
                         doc = db.TipoDocumento.Where(x => x.tipodocumento_id.ToString().Equals(buscar)).SingleOrDefault();
@@ -431,7 +432,7 @@ namespace SistemaPortafolio.Models
                     }
                     else
                     {
-                        documento = db.Documento.Include("Curso").Include("TipoDocumento").Include("Persona").Include("Unidad").Include(x => x.Persona.TipoPersona).Where(x => x.curso_id == cod_cur && x.persona_id.ToString().Equals(persona)).Where(x => x.TipoDocumento.nombre.ToLower() != "informe prueba de entrada" && x.TipoDocumento.nombre.ToLower() != "informe final del curso").ToList();
+                        documento = db.Documento.Include("Curso").Include("TipoDocumento").Include("Persona").Include("Unidad").Include(x => x.Persona.TipoPersona).Where(x => x.curso_id == _curso_id && x.persona_id.ToString().Equals(persona)).Where(x => x.TipoDocumento.nombre.ToLower() != "informe prueba de entrada" && x.TipoDocumento.nombre.ToLower() != "informe final del curso").ToList();
                         HttpContext.Current.Session["buscar"] = "informe portafolio del curso";
                     }
 
@@ -504,15 +505,17 @@ namespace SistemaPortafolio.Models
             return documento;
         }
 
-        public CursoDocente listardocente(int cod_cur, string persona)
+        public CursoDocente listardocente(string cod_cur, string persona)
         {
             var docente = new CursoDocente();
 
             try
             {
+                
                 using (var db = new ModeloDatos())
                 {
-                    docente = db.CursoDocente.Include("Curso").Include(x => x.Curso.Ciclo).Include("Persona").Include(x => x.Persona.TipoPersona).Where(x => x.curso_id == cod_cur && x.persona_id.ToString().Equals(persona)).SingleOrDefault();
+                    int _curso_id = db.Curso.Where(x => x.curso_cod == cod_cur).Select(x => x.curso_id).FirstOrDefault();
+                    docente = db.CursoDocente.Include("Curso").Include(x => x.Curso.Ciclo).Include("Persona").Include(x => x.Persona.TipoPersona).Where(x => x.curso_id == _curso_id && x.persona_id.ToString().Equals(persona)).SingleOrDefault();
                 }
             }
             catch (Exception e)

@@ -34,8 +34,8 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             }
             string[] separar = Session["enlace"].ToString().Split('_');
             ViewBag.verificarpersona = evaluar.verificarpersona(separar[1]);
-            ViewBag.documento = evaluar.listardocumentoo(Convert.ToInt32(separar[0]), separar[1], buscar);
-            ViewBag.docente = evaluar.listardocente(Convert.ToInt32(separar[0]), separar[1]);
+            ViewBag.documento = evaluar.listardocumentoo(separar[0], separar[1], buscar);
+            ViewBag.docente = evaluar.listardocente(separar[0], separar[1]);
             ViewBag.tipodocumento = evaluar.listartipodocumento2(separar[1]);
             ViewBag.unidad = evaluar.listarunidad();
             return View();
