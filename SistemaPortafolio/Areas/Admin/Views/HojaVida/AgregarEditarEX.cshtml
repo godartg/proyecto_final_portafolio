@@ -36,12 +36,12 @@
                     <div class="form-group">
                         <label>Fecha de Inicio:</label>
                         @try
-                {
-                    System.DateTime dt;
-                    dt = Convert.ToDateTime(Model.fechainicio);
+                        {
+                            System.DateTime dt;
+                            dt = Convert.ToDateTime(Model.fechainicio);
 
-                    string fecha;
-                    fecha = dt.ToString("yyyy-MM-dd");
+                            string fecha;
+                            fecha = dt.ToString("yyyy-MM-dd");
 
                             <input type="date" name="fechainicio" value="@fecha" class="form-control" />
                         }
@@ -54,12 +54,12 @@
                     <div class="form-group">
                         <label>Fecha de Culminación::</label>
                         @try
-                {
-                    System.DateTime dt;
-                    dt = Convert.ToDateTime(Model.fechafin);
+                        {
+                            System.DateTime dt;
+                            dt = Convert.ToDateTime(Model.fechafin);
 
-                    string fecha;
-                    fecha = dt.ToString("yyyy-MM-dd");
+                            string fecha;
+                            fecha = dt.ToString("yyyy-MM-dd");
 
                             <input type="date" name="fechafin" value="@fecha" class="form-control" />
                         }
@@ -74,7 +74,14 @@
                         @Html.EditorFor(model => model.funcion, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.funcion, "", new { @class = "text-danger" })
                     </div>
-
+                    <div class="form-group">
+                        <label>Tipo de Produccion:</label>
+                        <select name="tiempo_duracion" class="form-control">
+                            <option @(Model.tipo == "Academica" ? "selected" : "") value="Academica">Academica</option>
+                            <option @(Model.tipo == "No academica" ? "selected" : "") value="No academica">No academica</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.tipo, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
 
@@ -101,55 +108,60 @@
                         <th>
                             Funcion
                         </th>
+                        <th>
+                            Tipo
+                        </th>
                         <th>Opción</th>
                     </tr>
 
                     @foreach (var item in ViewData["listado"] as List<SistemaPortafolio.Models.HojaVidaDocenteEX>)
             {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.institucion)
-                            </td>
-                            <td>
-                                @try
-                                {
-                                    System.DateTime dt;
-                                    dt = Convert.ToDateTime(item.fechainicio);
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.institucion)
+                        </td>
+                        <td>
+                            @try
+                            {
+                                System.DateTime dt;
+                                dt = Convert.ToDateTime(item.fechainicio);
 
-                                    string fecha_inicio;
-                                    fecha_inicio = dt.ToString("dd/MM/yyyy");
-                                    @fecha_inicio
-                                }
-                                catch (Exception e)
-                                {
+                                string fecha_inicio;
+                                fecha_inicio = dt.ToString("dd/MM/yyyy");
+                                @fecha_inicio
+                            }
+                            catch (Exception e)
+                            {
 
-                                }
-                            </td>
-                            <td>
-                                @try
-                                {
-                                    System.DateTime dt;
-                                    dt = Convert.ToDateTime(item.fechafin);
+                            }
+                        </td>
+                        <td>
+                            @try
+                            {
+                                System.DateTime dt;
+                                dt = Convert.ToDateTime(item.fechafin);
 
-                                    string fechafin;
-                                    fechafin = dt.ToString("dd/MM/yyyy");
-                                    @fechafin
-                                }
-                                catch (Exception e)
-                                {
+                                string fechafin;
+                                fechafin = dt.ToString("dd/MM/yyyy");
+                                @fechafin
+                            }
+                            catch (Exception e)
+                            {
 
-                                }
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.funcion)
-                            </td>
-                            <td>
-                                <i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/Admin/HojaVida/AgregarEditarEX/@item.hojavidadocenteex_id" class="glyphicon glyphicon-pencil btn btn-sm btn-info"></a></i>
-                            </td>
-                            <td>
-                                <i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/Admin/HojaVidaDocenteEX/Eliminar/@item.hojavidadocenteex_id" class="glyphicon glyphicon-remove btn btn-sm btn-danger"></a></i>
-                            </td>
-                        </tr>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.funcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tipo)
+                        </td>
+                        <td>
+                            <i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/Admin/HojaVida/AgregarEditarEX/@item.hojavidadocenteex_id" class="glyphicon glyphicon-pencil btn btn-sm btn-info"></a></i>
+
+                            <i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/Admin/HojaVidaDocenteEX/Eliminar/@item.hojavidadocenteex_id" class="glyphicon glyphicon-remove btn btn-sm btn-danger"></a></i>
+                        </td>
+                    </tr>
                     }
 
                 </table>

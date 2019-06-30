@@ -18,6 +18,11 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         HojaVidaDocenteFC hojavidadocentefc = new HojaVidaDocenteFC();
         HojaVidaDocenteEX hojavidadocenteex = new HojaVidaDocenteEX();
         HojaVidaDocenteCRP hojavidadocentecrp = new HojaVidaDocenteCRP();
+        HojaVidaDocenteActividadesDesarrolloProfesional hojavidadocenteadp = new HojaVidaDocenteActividadesDesarrolloProfesional();
+        HojaVidaDocenteActividadServicios hojavidadocenteas = new HojaVidaDocenteActividadServicios();
+        HojaVidaDocenteHonoresPremios hojavidadocentehp = new HojaVidaDocenteHonoresPremios();
+        HojaVidaDocenteMembresia hojavidadocentem = new HojaVidaDocenteMembresia();
+        HojaVidaDocentePublicaciones hojavidadocentep = new HojaVidaDocentePublicaciones();
         Usuario usuario = new Usuario().Obtener(SessionHelper.GetUser());
 
         Parser parser = new Parser();
@@ -57,7 +62,11 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             ViewData["hojavidadocentefc"] = hojavidadocentefc.Listar(usuario.Persona.persona_id);
             ViewData["hojavidadocenteex"] = hojavidadocenteex.Listar(usuario.Persona.persona_id);
             ViewData["hojavidadocentecrp"] = hojavidadocentecrp.Listar(usuario.Persona.persona_id);
-
+            ViewData["hojavidadocenteadp"] = hojavidadocenteadp.Listar(usuario.Persona.persona_id);
+            ViewData["hojavidadocenteas"] = hojavidadocenteas.Listar(usuario.Persona.persona_id);
+            ViewData["hojavidadocentehp"] = hojavidadocentehp.Listar(usuario.Persona.persona_id);
+            ViewData["hojavidadocentem"] = hojavidadocentem.Listar(usuario.Persona.persona_id);
+            ViewData["hojavidadocentep"] = hojavidadocentep.Listar(usuario.Persona.persona_id);
             var generator = new MvcGenerator(ControllerContext);
             var pdf = generator.GeneratePdf(hoja, "Imprimir");
             return new FileContentResult(pdf, "application/pdf");
@@ -214,6 +223,156 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             }
 
             return Redirect("~/Admin/HojaVida/AgregarEditarCRP");
+        }
+        //AgregarEditarP
+        [HttpGet]
+        public ActionResult AgregarEditarP(int id = 0)
+        {
+
+            if (id > 0)
+            {
+                hojavidadocentep = hojavidadocentep.Obtener(id);
+            }
+            else
+            {
+                hojavidadocentep.hojavida_id = ObtenerHojaVidaId(id);
+            }
+
+            ViewData["listado"] = hojavidadocentep.Listar(usuario.Persona.persona_id);
+
+            return View(hojavidadocentep);
+        }
+
+        [HttpPost]
+        public ActionResult AgregarEditarP(HojaVidaDocentePublicaciones model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                model.Guardar();
+            }
+
+            return Redirect("~/Admin/HojaVida/AgregarEditarP");
+        }
+        //AgregarEditarADP
+        [HttpGet]
+        public ActionResult AgregarEditarADP(int id = 0)
+        {
+
+            if (id > 0)
+            {
+                hojavidadocenteadp = hojavidadocenteadp.Obtener(id);
+            }
+            else
+            {
+                hojavidadocenteadp.hojavida_id = ObtenerHojaVidaId(id);
+            }
+
+            ViewData["listado"] = hojavidadocenteadp.Listar(usuario.Persona.persona_id);
+
+            return View(hojavidadocenteadp);
+        }
+
+        [HttpPost]
+        public ActionResult AgregarEditarADP(HojaVidaDocenteActividadesDesarrolloProfesional model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                model.Guardar();
+            }
+
+            return Redirect("~/Admin/HojaVida/AgregarEditarADP");
+        }
+        //AgregarEditarAS
+        [HttpGet]
+        public ActionResult AgregarEditarAS(int id = 0)
+        {
+
+            if (id > 0)
+            {
+                hojavidadocenteas = hojavidadocenteas.Obtener(id);
+            }
+            else
+            {
+                hojavidadocenteas.hojavida_id = ObtenerHojaVidaId(id);
+            }
+
+            ViewData["listado"] = hojavidadocenteas.Listar(usuario.Persona.persona_id);
+
+            return View(hojavidadocenteas);
+        }
+
+        [HttpPost]
+        public ActionResult AgregarEditarAS(HojaVidaDocenteActividadServicios model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                model.Guardar();
+            }
+
+            return Redirect("~/Admin/HojaVida/AgregarEditarAS");
+        }
+        //AgregarEditarHP
+        [HttpGet]
+        public ActionResult AgregarEditarHP(int id = 0)
+        {
+
+            if (id > 0)
+            {
+                hojavidadocentehp = hojavidadocentehp.Obtener(id);
+            }
+            else
+            {
+                hojavidadocentehp.hojavida_id = ObtenerHojaVidaId(id);
+            }
+
+            ViewData["listado"] = hojavidadocentehp.Listar(usuario.Persona.persona_id);
+
+            return View(hojavidadocentehp);
+        }
+
+        [HttpPost]
+        public ActionResult AgregarEditarHP(HojaVidaDocenteHonoresPremios model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                model.Guardar();
+            }
+
+            return Redirect("~/Admin/HojaVida/AgregarEditarHP");
+        }
+        //AgregarEditarM
+        [HttpGet]
+        public ActionResult AgregarEditarM(int id = 0)
+        {
+
+            if (id > 0)
+            {
+                hojavidadocentem = hojavidadocentem.Obtener(id);
+            }
+            else
+            {
+                hojavidadocentem.hojavida_id = ObtenerHojaVidaId(id);
+            }
+
+            ViewData["listado"] = hojavidadocentem.Listar(usuario.Persona.persona_id);
+
+            return View(hojavidadocentem);
+        }
+
+        [HttpPost]
+        public ActionResult AgregarEditarM(HojaVidaDocenteMembresia model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                model.Guardar();
+            }
+
+            return Redirect("~/Admin/HojaVida/AgregarEditarM");
         }
     }
 }

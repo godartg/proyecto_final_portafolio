@@ -1,15 +1,18 @@
 ﻿@model SistemaPortafolio.Models.HojaVidaDocenteHonoresPremios
 <div class="panel panel-default">
     <div class="panel-body">
-        <h2>CERTIFICACIONES O REGISTROS PROFESIONALES</h2>
+        <h2>HONORES Y PREMIOS</h2>
 
         <div class="row">
             <div class="col-lg-6">
-                <a href="~/Admin/HojaVida/AgregarEditarHP/" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a Experiencias
+                <a href="~/Admin/HojaVida/AgregarEditarADP/" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a Actividades de desarrollo profesional
                 </a>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 text-right">
+                <a href="~/Admin/HojaVida/AgregarEditarM/" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> Ir a membresias
+                </a>
             </div>
         </div>
         <br />
@@ -20,7 +23,7 @@
             @Html.HiddenFor(x => x.hojavida_id)
 
             <div class="panel panel-default">
-                <div class="panel-heading">Información de Certificaciones O Registros Profesionales</div>
+                <div class="panel-heading">Información de Honores y Premios</div>
                 <div class="panel-body">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -31,7 +34,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Certificación:</label>
+                        <label>Titulo:</label>
                         @Html.EditorFor(model => model.titulo , new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.titulo, "", new { @class = "text-danger" })
                     </div>
@@ -65,7 +68,7 @@
         }
         <br />
         <div class="panel panel-default">
-            <div class="panel-heading">Mis Certificaciones O Registros Profesionales</div>
+            <div class="panel-heading">Mis honores y premios</div>
             <div class="panel-body">
                 <table class="table table-hover table-responsive">
                     <tr>
@@ -107,8 +110,7 @@
                         </td>
                         <td>
                             <i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/Admin/HojaVida/AgregarEditarHP/@item.idHojaVidaDocenteHonoresPremios" class="glyphicon glyphicon-pencil btn btn-sm btn-info"></a></i>
-                        </td>
-                        <td>
+                        
                             <i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/Admin/HojaVidaDocenteHonoresPremios/Eliminar/@item.idHojaVidaDocenteHonoresPremios" class="glyphicon glyphicon-remove btn btn-sm btn-danger"></a></i>
                         </td>
                     </tr>
