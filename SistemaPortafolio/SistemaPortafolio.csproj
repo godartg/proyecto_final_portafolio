@@ -297,7 +297,14 @@
     <Content Include="Areas\Admin\Views\HojaVida\AgregarEditarHP.cshtml" />
     <Content Include="Areas\Admin\Views\HojaVida\AgregarEditarM.cshtml" />
     <Content Include="Areas\Admin\Views\HojaVida\AgregarEditarP.cshtml" />
+    <Content Include="Areas\User\Views\Silabos\Create.cshtml" />
+    <Content Include="Areas\User\Views\Silabos\Delete.cshtml" />
+    <Content Include="Areas\User\Views\Silabos\Details.cshtml" />
+    <Content Include="Areas\User\Views\Silabos\Edit.cshtml" />
+    <Content Include="Areas\User\Views\Silabos\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -370,6 +377,7 @@
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\Controllers\NotificacionController.cs" />
     <Compile Include="Areas\User\Controllers\PerfilController.cs" />
+    <Compile Include="Areas\User\Controllers\SilabosController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -392,6 +400,10 @@
     <Compile Include="Migrations\201906300258526_ColumnSeccionAddedToCurso.cs" />
     <Compile Include="Migrations\201906300258526_ColumnSeccionAddedToCurso.Designer.cs">
       <DependentUpon>201906300258526_ColumnSeccionAddedToCurso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906302229064_TablaCursoDocenteAgregada.cs" />
+    <Compile Include="Migrations\201906302229064_TablaCursoDocenteAgregada.Designer.cs">
+      <DependentUpon>201906302229064_TablaCursoDocenteAgregada.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Anexgrid.cs" />
@@ -635,6 +647,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906300258526_ColumnSeccionAddedToCurso.resx">
       <DependentUpon>201906300258526_ColumnSeccionAddedToCurso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906302229064_TablaCursoDocenteAgregada.resx">
+      <DependentUpon>201906302229064_TablaCursoDocenteAgregada.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,97 @@
+﻿@model SistemaPortafolio.Models.Silabo
+
+@{
+    ViewBag.Title = "CREAR SÍLABO";
+}
+
+<h2>CREAR SÍLABO</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @*<h4>Silabo</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.cursodocente_id, "CURSO :", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("cursodocente_id", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.cursodocente_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.descripcion, "DESCRIPCIÓN :", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.descripcion ,new { @class = "form-control " })
+                @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.bibliografia, "BIBLIOGRAFÍA :", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.bibliografia, new { @class = "form-control " })
+                @Html.ValidationMessageFor(model => model.bibliografia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.competencias_curso, "COMPETENCIAS :", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.competencias_curso, new { @class = "form-control " })
+                @Html.ValidationMessageFor(model => model.competencias_curso, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.temas, "TEMAS :",htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.temas, new { @class = "form-control " })
+                @Html.ValidationMessageFor(model => model.temas, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.resultados, "RESULTADOS :", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <table class="table table-bordered bg-gray-light">
+                    <tr>
+                        <th>Resultados del programa</th>
+                        <th>Descripcion</th>
+                        <th>Aporte</th>
+                    </tr>
+                    <tr>
+                        <td>1a. Aplicación de Ciencias </td>
+                        <td>Aplica los conocimientos y habilidades en matemáticas, ciencias e ingeniería para resolver problemas de ingeniería sistemas.</td>
+                        <td><input/></td>
+                    </tr>
+                        <tr>
+                        <td>1a. Aplicación de Ciencias </td>
+                        <td>Aplica los conocimientos y habilidades en matemáticas, ciencias e ingeniería para resolver problemas de ingeniería sistemas.</td>
+                        <td><input/></td>
+                    </tr>
+                </table>
+                @*@Html.TextAreaFor(model => model.resultados, new {@class = "form-control "})
+                @Html.ValidationMessageFor(model => model.resultados, "", new {@class = "text-danger"})*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="CREAR" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

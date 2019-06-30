@@ -1,0 +1,63 @@
+﻿@model IEnumerable<SistemaPortafolio.Models.Silabo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CursoDocente.cursodocente_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bibliografia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.competencias_curso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.temas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.resultados)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CursoDocente.cursodocente_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bibliografia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.competencias_curso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.temas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.resultados)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.silabo_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.silabo_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.silabo_id })
+        </td>
+    </tr>
+}
+
+</table>

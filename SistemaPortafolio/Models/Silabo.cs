@@ -7,7 +7,7 @@ using System.Web;
 
 namespace SistemaPortafolio.Models
 {
-    [Table("CursoDocente")]
+    [Table("Silabo")]
     public class Silabo
     {
         [Key]
@@ -24,13 +24,14 @@ namespace SistemaPortafolio.Models
 
         [Column(TypeName = "text")]
         public string competencias_curso { get; set; }
-
+ 
         [Column(TypeName = "text")]
         public string temas { get; set; }
 
         [StringLength(150)]
-        public string resultados { get; set; } 
+        public string resultados { get; set; }
 
+        [ForeignKey("cursodocente_id")]
         public virtual CursoDocente CursoDocente { get; set; }
     }
 }

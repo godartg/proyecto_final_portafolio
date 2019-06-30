@@ -9,9 +9,10 @@ namespace SistemaPortafolio.Models
     [Table("CursoDocente")]
     public partial class CursoDocente
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CursoDocente()
         {
-            Silabos = new HashSet<Silabo>();
+            Silabo = new HashSet<Silabo>();
         }
 
         [Key]
@@ -26,6 +27,7 @@ namespace SistemaPortafolio.Models
 
         public virtual Persona Persona { get; set; }
 
-        public ICollection<Silabo> Silabos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Silabo> Silabo { get; set; }
     }
 }

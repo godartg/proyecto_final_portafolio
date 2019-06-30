@@ -120,7 +120,7 @@
                 .Property(e => e.curso_id);
 
             modelBuilder.Entity<CursoDocente>()
-                .HasMany(e => e.Silabos)
+                .HasMany(e => e.Silabo)
                 .WithRequired(e => e.CursoDocente)
                 .HasForeignKey(e => e.cursodocente_id)
                 .WillCascadeOnDelete(false);
@@ -349,7 +349,10 @@
                 .WithRequired(e => e.Semestre)
                 .HasForeignKey(e => e.id_semestre)
                 .WillCascadeOnDelete(false);
-            
+
+            modelBuilder.Entity<Silabo>()
+                .Property(e => e.silabo_id);
+
             modelBuilder.Entity<TipoDocumento>()
                 .Property(e => e.extension)
                 .IsUnicode(false);

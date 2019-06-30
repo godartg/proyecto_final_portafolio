@@ -1,0 +1,66 @@
+﻿@model SistemaPortafolio.Models.Silabo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Silabo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CursoDocente.cursodocente_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CursoDocente.cursodocente_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bibliografia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bibliografia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.competencias_curso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.competencias_curso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.temas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.temas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.resultados)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resultados)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.silabo_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
