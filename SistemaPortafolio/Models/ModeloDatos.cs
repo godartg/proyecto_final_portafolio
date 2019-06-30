@@ -38,12 +38,14 @@
         public virtual DbSet<TipoUsuario> TipoUsuario { get; set; }
         public virtual DbSet<Unidad> Unidad { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Silabo> Silabo { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer<ModeloDatos>(null);
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Ciclo>()
                 .Property(e => e.nombre)
                 .IsUnicode(false);
@@ -106,12 +108,22 @@
                 .HasForeignKey(e => e.curso_id)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Curso>()
+                .Property(e => e.seccion)
+                .IsUnicode(false);
+
             modelBuilder.Entity<CursoAlumno>()
                 .Property(e => e.curso_id);
 
 
             modelBuilder.Entity<CursoDocente>()
                 .Property(e => e.curso_id);
+
+            modelBuilder.Entity<CursoDocente>()
+                .HasMany(e => e.Silabos)
+                .WithRequired(e => e.CursoDocente)
+                .HasForeignKey(e => e.cursodocente_id)
+                .WillCascadeOnDelete(false);
 
 
             modelBuilder.Entity<Documento>()
@@ -337,7 +349,7 @@
                 .WithRequired(e => e.Semestre)
                 .HasForeignKey(e => e.id_semestre)
                 .WillCascadeOnDelete(false);
-
+            
             modelBuilder.Entity<TipoDocumento>()
                 .Property(e => e.extension)
                 .IsUnicode(false);

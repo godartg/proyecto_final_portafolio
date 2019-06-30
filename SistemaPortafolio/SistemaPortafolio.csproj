@@ -384,6 +384,10 @@
     <Compile Include="Migrations\201906292235144_HojaDeVida.Designer.cs">
       <DependentUpon>201906292235144_HojaDeVida.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906300258526_ColumnSeccionAddedToCurso.cs" />
+    <Compile Include="Migrations\201906300258526_ColumnSeccionAddedToCurso.Designer.cs">
+      <DependentUpon>201906300258526_ColumnSeccionAddedToCurso.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Anexgrid.cs" />
     <Compile Include="Models\Ciclo.cs" />
@@ -412,6 +416,7 @@
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\Semestre.cs" />
     <Compile Include="Models\SessionHelper.cs" />
+    <Compile Include="Models\Silabo.cs" />
     <Compile Include="Models\sysdiagrams.cs" />
     <Compile Include="Models\TipoDocumento.cs" />
     <Compile Include="Models\TipoPersona.cs" />
@@ -622,6 +627,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906292235144_HojaDeVida.resx">
       <DependentUpon>201906292235144_HojaDeVida.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906300258526_ColumnSeccionAddedToCurso.resx">
+      <DependentUpon>201906300258526_ColumnSeccionAddedToCurso.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

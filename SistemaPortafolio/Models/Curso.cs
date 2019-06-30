@@ -54,6 +54,9 @@ namespace SistemaPortafolio.Models
         [StringLength(150)]
         public string tipo_curso { get; set; }
 
+        [StringLength(100)]
+        public string seccion { get; set; }
+
         public virtual Ciclo Ciclo { get; set; }
 
         public virtual PlanEstudio PlanEstudio { get; set; }

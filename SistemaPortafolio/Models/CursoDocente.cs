@@ -9,6 +9,11 @@ namespace SistemaPortafolio.Models
     [Table("CursoDocente")]
     public partial class CursoDocente
     {
+        public CursoDocente()
+        {
+            Silabos = new HashSet<Silabo>();
+        }
+
         [Key]
         public int cursodocente_id { get; set; }
 
@@ -20,5 +25,7 @@ namespace SistemaPortafolio.Models
         public virtual Curso Curso { get; set; }
 
         public virtual Persona Persona { get; set; }
+
+        public ICollection<Silabo> Silabos { get; set; }
     }
 }
