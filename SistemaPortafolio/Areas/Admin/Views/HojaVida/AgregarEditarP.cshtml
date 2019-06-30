@@ -1,12 +1,12 @@
 ﻿@model SistemaPortafolio.Models.HojaVidaDocentePublicaciones
 <div class="panel panel-default">
     <div class="panel-body">
-        <h2>CERTIFICACIONES O REGISTROS PROFESIONALES</h2>
+        <h2>PUBLICACIONES</h2>
 
         <div class="row">
             <div class="col-lg-6">
-                <a href="~/Admin/HojaVida/AgregarEditarP/" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a Experiencias
+                <a href="~/Admin/HojaVida/AgregarEditarM/" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a membresias
                 </a>
             </div>
             <div class="col-lg-6">
@@ -20,30 +20,17 @@
             @Html.HiddenFor(x => x.hojavida_id)
 
             <div class="panel panel-default">
-                <div class="panel-heading">Información de Certificaciones O Registros Profesionales</div>
+                <div class="panel-heading">Información de Publicaciones</div>
                 <div class="panel-body">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                     <div class="form-group">
                         <label>Tipo de Produccion:</label>
-                        @Html.EditorFor(model => model.tipoProduccion, new { htmlAttributes = new { @class = "form-control" } })
+                        <select name="tiempo_duracion" class="form-control">
+                            <option @(Model.tipoProduccion == "Articulo" ? "selected" : "") value="Articulo">Articulo</option>
+                            <option @(Model.tipoProduccion == "Otros" ? "selected" : "") value="Otros">Otros</option>
+                        </select>
                         @Html.ValidationMessageFor(model => model.tipoProduccion, "", new { @class = "text-danger" })
-                        @{
-                            List<SelectListItem> listTipos = new List<SelectListItem>();
-                            listTipos.Add(new SelectListItem
-                            {
-                                Text = "Articulo",
-                                Value = "Cientifico"
-                            });
-                            listTipos.Add(new SelectListItem
-                            {
-                                Text = "Otros",
-                                Value = "Otros",
-                                Selected = true
-                            });
-                        }
-
-                        @Html.DropDownListFor(model => model.tipoProduccion, listTipos, "-- Select Status --")
                     </div>
 
                     <div class="form-group">
@@ -83,13 +70,13 @@
 
             <div class="text-right">
                 <button type="submit" class="btn btn-primary">Guardar</button>
-                <a href="~/Admin/HojaVida/AgregarEditarCRP" class="btn btn-danger">Cancelar</a>
+                <a href="~/Admin/HojaVida/AgregarEditarP" class="btn btn-danger">Cancelar</a>
             </div>
 
         }
         <br />
         <div class="panel panel-default">
-            <div class="panel-heading">Mis Certificaciones O Registros Profesionales</div>
+            <div class="panel-heading">Mis publicaciones</div>
             <div class="panel-body">
                 <table class="table table-hover table-responsive">
                     <tr>
@@ -143,8 +130,7 @@
                         </td>
                         <td>
                             <i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/Admin/HojaVida/AgregarEditarP/@item.idHojaVidaDocentePublicaciones" class="glyphicon glyphicon-pencil btn btn-sm btn-info"></a></i>
-                        </td>
-                        <td>
+                        
                             <i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/Admin/HojaVidaDocentePublicaciones/Eliminar/@item.idHojaVidaDocentePublicaciones" class="glyphicon glyphicon-remove btn btn-sm btn-danger"></a></i>
                         </td>
                     </tr>

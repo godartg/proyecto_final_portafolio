@@ -340,10 +340,15 @@
     <Compile Include="Areas\Admin\Controllers\Grafico04Controller.cs" />
     <Compile Include="Areas\Admin\Controllers\Grafico05Controller.cs" />
     <Compile Include="Areas\Admin\Controllers\HojaVidaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HojaVidaDocenteActividadesDesarrolloProfesionalController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HojaVidaDocenteActividadServiciosController.cs" />
     <Compile Include="Areas\Admin\Controllers\HojaVidaDocenteCRPController.cs" />
     <Compile Include="Areas\Admin\Controllers\HojaVidaDocenteEXController.cs" />
     <Compile Include="Areas\Admin\Controllers\HojaVidaDocenteFAController.cs" />
     <Compile Include="Areas\Admin\Controllers\HojaVidaDocenteFCController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HojaVidaDocenteHonoresPremiosController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HojaVidaDocenteMembresiaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HojaVidaDocentePublicacionesController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\NotificacionController.cs" />
     <Compile Include="Areas\Admin\Controllers\PerfilController.cs" />
