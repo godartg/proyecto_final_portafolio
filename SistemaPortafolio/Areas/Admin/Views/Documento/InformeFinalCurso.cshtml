@@ -57,24 +57,24 @@
 
                     <div class="form-group">
                         <label>Curso:</label>
-                        <select name="curso_cod" class="form-control">
+                        <select name="curso_id" class="form-control">
                             @foreach (var p in curso)
                             {
-                                if (Model.curso_cod != null)
+                                if (Model.curso_id != null)
                                 {
 
-                                    if (Model.curso_cod.Equals(p.curso_cod))
+                                    if (Model.curso_id.Equals(p.curso_id))
                                     {
-                                        <option selected value="@p.curso_cod" class="form-control">@p.Curso.nombre</option>
+                                        <option selected value="@p.curso_id" class="form-control">@p.Curso.nombre</option>
                                     }
                                     else
                                     {
-                                        <option value="@p.curso_cod" class="form-control">@p.Curso.nombre</option>
+                                        <option value="@p.curso_id" class="form-control">@p.Curso.nombre</option>
                                     }
                                 }
                                 else
                                 {
-                                    <option value="@p.curso_cod" class="form-control">@p.Curso.nombre</option>
+                                    <option value="@p.curso_id" class="form-control">@p.Curso.nombre</option>
                                 }
                             }
                         </select>
