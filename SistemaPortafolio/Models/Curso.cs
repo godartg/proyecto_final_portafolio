@@ -85,7 +85,7 @@ namespace SistemaPortafolio.Models
 
                     if (id > 0)
                     {
-                        query.Where(x => x.plan_id == id);
+                        query = query.Where(x => x.plan_id == id);
                     }
 
                     if (grilla.columna == "curso_id")
@@ -193,7 +193,7 @@ namespace SistemaPortafolio.Models
 
                     var registro = new CursoDocente();
 
-                    if (this.curso_id != null)
+                    if (this.curso_id != 0)
                     {
                         db.Database.ExecuteSqlCommand(
                         "DELETE FROM CursoDocente WHERE curso_id = @curso_id",
@@ -224,7 +224,7 @@ namespace SistemaPortafolio.Models
                             flag = true;
                             this.CursoDocente = null;
                             db.Database.ExecuteSqlCommand(
-                            "insert into Curso values(@curso_cod,@plan_id,@ciclo_id,@nombre,@credito,@horasteoria,@horaspractica,@totalhoras,@prerequisito,@estado)",
+                            "insert into Curso values(@curso_cod,@plan_id,@ciclo_id,@nombre,@credito,@horasteoria,@horaspractica,@totalhoras,@prerequisito,@estado,@tipo_curso,@seccion)",
                             new SqlParameter("curso_cod", this.curso_cod),
                             new SqlParameter("plan_id", this.plan_id),
                             new SqlParameter("ciclo_id", this.ciclo_id),
@@ -234,7 +234,9 @@ namespace SistemaPortafolio.Models
                             new SqlParameter("horaspractica", this.horaspractica),
                             new SqlParameter("totalhoras", this.totalhoras),
                             new SqlParameter("prerequisito", this.prerequisito),
-                            new SqlParameter("estado", this.estado)
+                            new SqlParameter("estado", this.estado),
+                            new SqlParameter("tipo_curso", this.tipo_curso),
+                            new SqlParameter("seccion", this.seccion)
                             );
                             this.CursoDocente = cursodocente;
 

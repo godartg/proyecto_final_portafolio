@@ -29,8 +29,9 @@
                 <div class="panel-body">
                     <div class="form-group">
                         <label>Código:</label>
-                        @if (Model.curso_cod == "" || Model.curso_cod == null)
-                {
+                        @Html.HiddenFor(x => x.curso_id)
+                        @if (Model.curso_id == 0)
+                        {
                             <input type="text" name="codigo_curso" class="form-control" />
                             <input type="hidden" name="nuevo" value="si" class="form-control" />
                         }
@@ -62,7 +63,7 @@
                     <div class="form-group">
                         <label>Docente a Cargo:</label>
                         @try
-                {
+                        {
                             <select name="docente" class="form-control">
                                 @foreach (var p in cursodocente)
                                 {
@@ -114,6 +115,18 @@
                         @Html.TextBoxFor(x => x.totalhoras, new { @class = "form-control", @type = "text" })
                         @Html.ValidationMessageFor(x => x.totalhoras, null, new { @class = "label label-danger" })
 
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipo:</label>
+                        @Html.TextBoxFor(x => x.tipo_curso, new { @class = "form-control", @type = "text" })
+                        @Html.ValidationMessageFor(x => x.tipo_curso, null, new { @class = "label label-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sección:</label>
+                        @Html.TextBoxFor(x => x.seccion, new { @class = "form-control", @type = "text" })
+                        @Html.ValidationMessageFor(x => x.seccion, null, new { @class = "label label-danger" })
                     </div>
 
                     <div class="form-group">

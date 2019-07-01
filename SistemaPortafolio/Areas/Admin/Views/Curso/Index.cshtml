@@ -69,7 +69,7 @@
                         formato: function (tr, obj, valor) {
                             return anexGrid_link({
                                 href: '@Url.Content("~/Admin/Curso/Ver/")'
-                            + obj.curso_cod, contenido: "Detalle",
+                            + obj.curso_id, contenido: "Detalle",
                             contenido: '<i data-toggle="tooltip" data-placement="top" title="Visualizar" class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>',
                             class: 'btn btn-success btn-sm'
                             });
@@ -80,7 +80,7 @@
                         formato: function (tr, obj, valor) {
                             return anexGrid_link({
                                 href: '@Url.Content("~/Admin/Curso/AgregarEditar/")'
-                            + obj.curso_cod, contenido: "Modificar",
+                            + obj.curso_id, contenido: "Modificar",
                             contenido: '<i data-toggle="tooltip" data-placement="top" title="Modificar" class="glyphicon glyphicon-pencil" aria-hidden="true"></i>',
                             class: 'btn btn-info btn-sm'
                             });
@@ -91,7 +91,7 @@
                         formato: function (tr, obj, valor) {
                             return anexGrid_link({
                                 href: '@Url.Content("~/Admin/Curso/Eliminar/")'
-                            + obj.curso_cod, contenido: "Eliminar",
+                                    + obj.curso_id, contenido: "Eliminar",
                             contenido: '<i data-toggle="tooltip" data-placement="top" title="Eliminar" class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
                             class: 'btn btn-danger btn-sm',
                                 attr: [

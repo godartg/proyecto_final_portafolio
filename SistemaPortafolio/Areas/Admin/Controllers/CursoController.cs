@@ -21,7 +21,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult AgregarEditar(int id)
+        public ActionResult AgregarEditar(int id = 0)
         {
             ViewBag.ciclo = curso.listarciclo();
             ViewBag.plan = curso.obtenerplan(Convert.ToInt32(Session["plan_id"].ToString()));
@@ -29,7 +29,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             ViewBag.cursodocen = curso.ObtenerCursoDocente(id);
             ViewBag.curso = curso.listarcurso(Convert.ToInt32(Session["plan_id"].ToString()));
             return View(
-                id == null ? new Curso()
+                id == 0 ? new Curso()
                 : curso.Obtener(id)
                 );
         }
@@ -67,7 +67,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 }
                 else
                 {
-                    return View("~/Admin/Curso/Index/AgregarEditar.cshtml", model);
+                    return View("AgregarEditar", model);
                 }
             }
             else
