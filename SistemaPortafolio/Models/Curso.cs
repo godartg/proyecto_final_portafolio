@@ -99,6 +99,11 @@ namespace SistemaPortafolio.Models
                         query = grilla.columna_orden == "DESC" ? query.OrderByDescending(x => x.ciclo_id)
                                                                : query.OrderBy(x => x.ciclo_id);
                     }
+                    if (grilla.columna == "curso_cod")
+                    {
+                        query = grilla.columna_orden == "DESC" ? query.OrderByDescending(x => x.curso_cod)
+                                                               : query.OrderBy(x => x.curso_cod);
+                    }
 
                     if (grilla.columna == "nombre")
                     {
@@ -140,6 +145,7 @@ namespace SistemaPortafolio.Models
                     grilla.SetData(from s in curso
                                    select new
                                    {
+                                       s.curso_id,
                                        s.curso_cod,
                                        plan_estudio = s.PlanEstudio.nombre,
                                        s.Ciclo.nombre,
