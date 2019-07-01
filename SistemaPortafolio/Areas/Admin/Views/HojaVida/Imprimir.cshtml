@@ -103,16 +103,16 @@
         {
             <tr>
                 <td>
-                    @Html.Display("institucion")
+                    @Html.DisplayFor(modelItem => item.institucion)
                 </td>
                 <td>
-                    @Html.Display("tiempo_duracion")
+                    @Html.DisplayFor(modelItem => item.tiempo_duracion)
                 </td>
                 <td>
-                    @Html.Display("duracion")
+                    @Html.DisplayFor(modelItem => item.duracion)
                 </td>
                 <td>
-                    @Html.Display("curso")
+                    @Html.DisplayFor(modelItem => item.curso)
                 </td>
             </tr>
         }
