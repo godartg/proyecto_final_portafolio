@@ -70,6 +70,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             var generator = new MvcGenerator(ControllerContext);
             var pdf = generator.GeneratePdf(hoja, "Imprimir");
             return new FileContentResult(pdf, "application/pdf");
+            //return View();
 
         }
 

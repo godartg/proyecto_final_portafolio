@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SistemaPortafolio.Models;
+using Wired.RazorPdf;
 
 namespace SistemaPortafolio.Areas.User.Controllers
 {
@@ -33,6 +34,10 @@ namespace SistemaPortafolio.Areas.User.Controllers
             {
                 return HttpNotFound();
             }
+
+            var generator = new MvcGenerator(ControllerContext);
+            var pdf = generator.GeneratePdf(silabo, "Details");
+            return new FileContentResult(pdf, "application/pdf");
             return View(silabo);
         }
 
@@ -164,6 +169,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
 
         protected override void Dispose(bool disposing)
         {

@@ -1,66 +1,227 @@
 ﻿@model SistemaPortafolio.Models.Silabo
 
 @{
-    ViewBag.Title = "Details";
+    Layout = null;
+    var horasTotal = Model.CursoDocente.Curso.horaspractica + Model.CursoDocente.Curso.horasteoria;
+    var bibliografiaList = Model.bibliografia.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+    var competenciasList = Model.competencias_curso.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+    var temasList = Model.temas.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+    var resultadosList = Model.resultados.Split(new[] { "@@@" }, StringSplitOptions.None);
 }
 
-<h2>Details</h2>
+<style>
+    .body {
+        font-family: "Times New Roman", Times, serif;
+    }
 
-<div>
-    <h4>Silabo</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CursoDocente.cursodocente_id)
-        </dt>
+    .header {
+         text-align: center;
+     }
 
-        <dd>
-            @Html.DisplayFor(model => model.CursoDocente.cursodocente_id)
-        </dd>
+    .header > h3 {
+        margin: 0;
+        padding: 0;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </dt>
+    .info {
+        padding-top: 40px;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.descripcion)
-        </dd>
+    .halfWidth {
+        width: 50%;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.bibliografia)
-        </dt>
+    .thirdWidth {
+        width: 30%;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.bibliografia)
-        </dd>
+    .descripcion {
+        padding-top: 25px;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.competencias_curso)
-        </dt>
+    .descripcion > p{
+        margin-top: 5px;
+    }
+    
+    .justify {
+        text-align: justify;
+        text-justify: inter-word;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.competencias_curso)
-        </dd>
+    .border-black {
+        border-collapse: collapse;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.temas)
-        </dt>
+    .border-black > tr > th{
+        border: 1px solid black;
+        padding: 5px;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.temas)
-        </dd>
+    .border-black > tr > td{
+        border: 1px solid black;
+        padding: 5px;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.resultados)
-        </dt>
+</style>
+<div class="body">
+    <div class="header">
+        <h3>UNIVERSIDAD PRIVADA DE TACNA</h3>
+        <h3>FACULTAD DE INGENIERÍA</h3>
+        <h3>ESCUELA PROFESIONAL DE INGENIERIA DE SISTEMAS</h3>
+        <hr />
+        <h3>SÍLABO</h3>
+        <h3>@Model.CursoDocente.Curso.nombre</h3>
+    </div>
+    <div class="info">
+        <h4>INFORMACIÓN ESPECÍFICA DEL CURSO</h4>
+        <table>
+            <tr>
+                <td class="halfWidth"><b>CODIGO DEL CURSO</b></td>
+                <td><b>: </b>@Model.CursoDocente.Curso.curso_cod</td>
+            </tr>
+            <tr>
+                <td><b>NOMBRE DEL CURSO</b></td>
+                <td><b>: </b>@Model.CursoDocente.Curso.nombre</td>
+            </tr>
+            <tr>
+                <td><b>VIGENCIA</b></td>
+                <td><b>: </b>@Model.CursoDocente.Curso.PlanEstudio.Semestre.nombre</td>
+            </tr>
+            <tr>
+                <td><b>CREDITOS</b></td>
+                <td><b>: </b>@Model.CursoDocente.Curso.credito</td>
+            </tr>
+            <tr>
+                <td><b>HORA / SEMANA</b></td>
+                <td><b>: </b>@horasTotal Horas (@Model.CursoDocente.Curso.horasteoria horas teoría / @Model.CursoDocente.Curso.horaspractica horas práctica)</td>
+            </tr>
+            <tr>
+                <td><b>PRE-REQUISITOS</b></td>
+                <td><b>: </b>@Model.CursoDocente.Curso.prerequisito</td>
+            </tr>
+            <tr>
+                <td><b>NATURALEZA DEL CURSO</b></td>
+                <td><b>: </b>@Model.CursoDocente.Curso.tipo_curso</td>
+            </tr>
+            <tr>
+                <td><b>DOCENTE</b></td>
+                <td><b>: </b>@Model.CursoDocente.Persona.nombre @Model.CursoDocente.Persona.apellido</td>
+            </tr>
+        </table>
+    </div>
+    <div class="descripcion">
+        <h4>A) Descripción del curso</h4>
+        <p class="justify">@Html.Raw(Model.descripcion)</p>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.resultados)
-        </dd>
+    <div class="descripcion">
+        <h4>BIBLIOGRAFÍA:</h4>
+        @foreach (var bibliografia in bibliografiaList)
+        {
+            <text>— </text> @bibliografia <br />
+        }
+    </div>
 
-    </dl>
+    <div class="descripcion">
+        <h4>COMPETENCIAS DEL CURSO:</h4>
+        @foreach (var competencia in competenciasList)
+        {
+            <text>— </text> @competencia <br />
+        }
+    </div>
+
+    <div class="descripcion">
+        <h4>TEMAS A SER ABORDADOS EN EL CURSO:</h4>
+        @foreach (var tema in temasList)
+        {
+            <text>— </text> @tema <br />
+        }
+    </div>
+
+    <div class="descripcion">
+        <h4>RESULTADOS DE APRENDIZAJE DEL ESTUDIANTE:</h4>
+        <p class="justify">Los Resultados de Aprendizaje del estudiante, son declaraciones breves que describen lo que el estudiante debe saber y ser capaz de hacer momento de la graduación. Estos se relacionan con las habilidades, conocimiento y comportamiento que los estudiantes adquieren a lo largo de su progreso en la carrera. Cada curso aporta a lograr estos resultados según su naturaleza. (*) </p>
+        <p class="justify">El aporte del curso al logro de los Resultados del Programa se indica en la tabla siguiente: </p>
+        <table>
+            <tr>
+                <td class="thirdWidth"><b>K</b> = clave </td>
+                <td class="thirdWidth"><b>R</b> = relacionado</td>
+                <td class="thirdWidth"><b>Recuadro vacío</b> = no aplica</td>
+            </tr>
+        </table>
+        <table class="border-black" style="margin-top: 10px">
+            <tr>
+                <th style="width:20%"><b>Resultado del Programa</b></th>
+                <th style="width:57%"><b>Descripción</b></th>
+                <th style="width:7%"><b>Aporte</b></th>
+            </tr>
+            <tr>
+                <td>1a. Aplicación de Ciencias </td>
+                <td>Aplica los conocimientos y habilidades en matemáticas, ciencias e ingeniería para resolver problemas de ingeniería sistemas.</td>
+                <td>@resultadosList[0]</td>
+            </tr>
+            <tr>
+                <td>2b.Experimentación y Pruebas</td>
+                <td>Diseña y conduce experimentos, analiza e interpreta datos.</td>
+                <td>@resultadosList[1]</td>
+            </tr>
+            <tr>
+                <td>3c. Diseño en Ingeniería</td>
+                <td>Diseña sistemas informáticos, componentes y/o procesos para satisfacer requerimientos considerando restricciones realistas de seguridad y sostenibilidad.</td>
+                <td>@resultadosList[2]</td>
+            </tr>
+            <tr>
+                <td>4d. Trabajo en Equipo</td>
+                <td>Participa activa y efectivamente en grupos multidisciplinarios siendo capaces de liderarlos.</td>
+                <td>@resultadosList[3]</td>
+            </tr>
+            <tr>
+                <td>5e. Solución de Problemas de Ingeniería</td>
+                <td>Identifica, fórmula y resuelve problemas de ingeniería usando las técnicas, métodos y herramientas apropiados.</td>
+                <td>@resultadosList[4]</td>
+            </tr>
+            <tr>
+                <td>6f.Responsabilidad Ética y Profesional</td>
+                <td>Entiende sus responsabilidades profesionales, éticas, sociales y legales, y cumple los compromisos asumidos.</td>
+                <td>@resultadosList[5]</td>
+            </tr>
+            <tr>
+                <td>7g.Comunicación</td>
+                <td>Se comunica clara y efectivamente en forma oral, escrita y gráfica, interactuando con diferentes tipos de audiencias.</td>
+                <td>@resultadosList[6]</td>
+            </tr>
+            <tr>
+                <td>8h. Perspectiva Local y Global</td>
+                <td>Comprende el impacto que tienen las soluciones de ingeniería en la sociedad en un contexto local y global.</td>
+                <td>@resultadosList[7]</td>
+            </tr>
+            <tr>
+                <td>9i. Educación Continúa</td>
+                <td>Reconoce la necesidad de mantener sus conocimientos y habilidades actualizadas de acuerdo a los avances de la ingeniería de software y sistemas de información y se compromete con un aprendizaje para toda la vida.</td>
+                <td>@resultadosList[8]</td>
+            </tr>
+            <tr>
+                <td>10j. Asuntos Contemporáneos</td>
+                <td>Conoce y analiza asuntos contemporáneos relevantes en contextos locales, nacionales y globales.</td>
+                <td>@resultadosList[9]</td>
+            </tr>
+            <tr>
+                <td>11k. Práctica de la Ingeniería Moderna</td>
+                <td>Usa las técnicas, métodos y herramientas de la ingeniería moderna necesarias para la práctica de la ingeniería de software y sistemas de información.</td>
+                <td>@resultadosList[10]</td>
+            </tr>
+            <tr>
+                <td>12l. Gestión de Proyectos </td>
+                <td>Planifica y gestiona proyectos de ingeniería tomando en cuenta criterios de eficiencia y productividad.</td>
+                <td>@resultadosList[11]</td>
+            </tr>
+            <tr>
+                <td>13m. Desarrollo de Software e Implementación de SI</td>
+                <td>Desarrolla e implementa software y sistemas de información satisfaciendo requerimientos y aplicando metodologías, técnicas y herramientas apropiados.</td>
+                <td>@resultadosList[0]</td>
+            </tr>
+        </table>
+        <p>(*) Colocar en la tabla de arriba de acuerdo a las siglas indicadas (K – R – Vacío), el aporte de su curso para lograr los resultados del estudiante según su naturaleza.</p>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.silabo_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
