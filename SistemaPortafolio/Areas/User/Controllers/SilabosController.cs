@@ -45,8 +45,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
                 .Select( x => x.persona_id).FirstOrDefault();
 
             ViewBag.cursodocente_id = new SelectList(db.CursoDocente
-                .Where(x => x.persona_id == personaId)
-                , "cursodocente_id", "Curso.nombre");
+                .Where(x => x.persona_id == personaId), "cursodocente_id", "Curso.nombre");
             return View();
         }
 
@@ -55,32 +54,58 @@ namespace SistemaPortafolio.Areas.User.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "silabo_id,cursodocente_id,descripcion,bibliografia,competencias_curso,temas,resultados")] Silabo silabo)
+        public ActionResult Create(Silabo silabo, string[] aportes)
         {
+            var idUsuario = SessionHelper.GetUser();
+            var personaId = db.Usuario
+                .Where(x => x.usuario_id == idUsuario)
+                .Select(x => x.persona_id).FirstOrDefault();
+
             if (ModelState.IsValid)
             {
+                foreach (var aporte in aportes)
+                {
+                    silabo.resultados += aporte + "@@@";
+                }
                 db.Silabo.Add(silabo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.cursodocente_id = new SelectList(db.CursoDocente, "cursodocente_id", "cursodocente_id", silabo.cursodocente_id);
+            ViewBag.cursodocente_id = new SelectList(db.CursoDocente
+                    .Where(x => x.persona_id == personaId), "cursodocente_id", "Curso.nombre", silabo.cursodocente_id);
+
             return View(silabo);
         }
 
         // GET: User/Silabos/Edit/5
         public ActionResult Edit(int? id)
         {
+            var idUsuario = SessionHelper.GetUser();
+            var personaId = db.Usuario
+                .Where(x => x.usuario_id == idUsuario)
+                .Select(x => x.persona_id).FirstOrDefault();
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Silabo silabo = db.Silabo.Find(id);
+
+            if (silabo != null){
+                var resultadosList = silabo.resultados.Split(new[] { "@@@" }, StringSplitOptions.None);
+                ViewBag.ResultadosList = resultadosList;
+            }
+
             if (silabo == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.cursodocente_id = new SelectList(db.CursoDocente, "cursodocente_id", "cursodocente_id", silabo.cursodocente_id);
+
+            ViewBag.cursodocente_id = new SelectList(db.CursoDocente
+                .Where(x => x.persona_id == personaId), "cursodocente_id", "Curso.nombre", silabo.cursodocente_id);
+
             return View(silabo);
         }
 
@@ -89,15 +114,28 @@ namespace SistemaPortafolio.Areas.User.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "silabo_id,cursodocente_id,descripcion,bibliografia,competencias_curso,temas,resultados")] Silabo silabo)
+        public ActionResult Edit(Silabo silabo, string[] aportes)
         {
+            var idUsuario = SessionHelper.GetUser();
+            var personaId = db.Usuario
+                .Where(x => x.usuario_id == idUsuario)
+                .Select(x => x.persona_id).FirstOrDefault();
+
             if (ModelState.IsValid)
             {
+                silabo.resultados = "";
+                foreach (var aporte in aportes)
+                {
+                    silabo.resultados += aporte + "@@@";
+                }
                 db.Entry(silabo).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.cursodocente_id = new SelectList(db.CursoDocente, "cursodocente_id", "cursodocente_id", silabo.cursodocente_id);
+
+            ViewBag.cursodocente_id = new SelectList(db.CursoDocente
+                .Where(x => x.persona_id == personaId), "cursodocente_id", "Curso.nombre", silabo.cursodocente_id);
+
             return View(silabo);
         }
 
