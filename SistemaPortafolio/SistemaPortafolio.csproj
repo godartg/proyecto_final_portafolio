@@ -302,6 +302,11 @@
     <Content Include="Areas\User\Views\Silabos\Details.cshtml" />
     <Content Include="Areas\User\Views\Silabos\Edit.cshtml" />
     <Content Include="Areas\User\Views\Silabos\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Silabos\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Silabos\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Silabos\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Silabos\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Silabos\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -362,6 +367,7 @@
     <Compile Include="Areas\Admin\Controllers\PersonaController.cs" />
     <Compile Include="Areas\Admin\Controllers\PlanEstudioController.cs" />
     <Compile Include="Areas\Admin\Controllers\SemestreController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SilabosController.cs" />
     <Compile Include="Areas\Admin\Controllers\TipoDocumentoController.cs" />
     <Compile Include="Areas\Admin\Controllers\TipoPersonaController.cs" />
     <Compile Include="Areas\Admin\Controllers\TipoUsuarioController.cs" />
