@@ -405,6 +405,10 @@
     <Compile Include="Migrations\201906302229064_TablaCursoDocenteAgregada.Designer.cs">
       <DependentUpon>201906302229064_TablaCursoDocenteAgregada.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907010745074_alterColumnCursoID_inDocumento.cs" />
+    <Compile Include="Migrations\201907010745074_alterColumnCursoID_inDocumento.Designer.cs">
+      <DependentUpon>201907010745074_alterColumnCursoID_inDocumento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Anexgrid.cs" />
     <Compile Include="Models\Ciclo.cs" />
@@ -650,6 +654,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906302229064_TablaCursoDocenteAgregada.resx">
       <DependentUpon>201906302229064_TablaCursoDocenteAgregada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907010745074_alterColumnCursoID_inDocumento.resx">
+      <DependentUpon>201907010745074_alterColumnCursoID_inDocumento.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

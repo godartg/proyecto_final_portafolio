@@ -24,7 +24,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         HojaVidaDocenteMembresia hojavidadocentem = new HojaVidaDocenteMembresia();
         HojaVidaDocentePublicaciones hojavidadocentep = new HojaVidaDocentePublicaciones();
         Usuario usuario = new Usuario().Obtener(SessionHelper.GetUser());
-
+        Documento documento = new Documento();
         Parser parser = new Parser();
 
         // GET: Admin/HojaVida
@@ -52,6 +52,8 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 usuario = new Usuario().Obtener(usuario_id);
             }
             */
+            Documento doc = new Documento();
+            TipoDocumento tipoDocumento = new TipoDocumento();
             int hojavida_id = ObtenerHojaVidaId(0);
 
             HojaVida hoja = new HojaVida();
@@ -69,6 +71,11 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             ViewData["hojavidadocentep"] = hojavidadocentep.Listar(usuario.Persona.persona_id);
             var generator = new MvcGenerator(ControllerContext);
             var pdf = generator.GeneratePdf(hoja, "Imprimir");
+            documento.persona_id = usuario.Persona.persona_id;
+            documento.tipodocumento_id = 1;
+            documento.descripcion = "Curriculum Vitae ICACIT";
+            documento.estado = "activo";
+            documento.GuardarArchivoDirecto(pdf, usuario.Persona.persona_id, "HojaDeVida.pdf", "Curriculum Vitae ICACIT");
             return new FileContentResult(pdf, "application/pdf");
 
         }
