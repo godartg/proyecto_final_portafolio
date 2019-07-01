@@ -9,20 +9,20 @@ using System.Web.Mvc;
 using SistemaPortafolio.Models;
 using Wired.RazorPdf;
 
-namespace SistemaPortafolio.Areas.User.Controllers
+namespace SistemaPortafolio.Areas.Admin.Controllers
 {
     public class SilabosController : Controller
     {
         private ModeloDatos db = new ModeloDatos();
 
-        // GET: User/Silabos
+        // GET: Admin/Silabos
         public ActionResult Index()
         {
             var silabo = db.Silabo.Include(s => s.CursoDocente);
             return View(silabo.ToList());
         }
 
-        // GET: User/Silabos/Details/5
+        // GET: Admin/Silabos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -34,117 +34,71 @@ namespace SistemaPortafolio.Areas.User.Controllers
             {
                 return HttpNotFound();
             }
-
             var generator = new MvcGenerator(ControllerContext);
             var pdf = generator.GeneratePdf(silabo, "Details");
             return new FileContentResult(pdf, "application/pdf");
             return View(silabo);
         }
 
-        // GET: User/Silabos/Create
+        // GET: Admin/Silabos/Create
         public ActionResult Create()
         {
-            var idUsuario = SessionHelper.GetUser();
-            var personaId = db.Usuario
-                .Where(x => x.usuario_id == idUsuario)
-                .Select( x => x.persona_id).FirstOrDefault();
-
-            ViewBag.cursodocente_id = new SelectList(db.CursoDocente
-                .Where(x => x.persona_id == personaId), "cursodocente_id", "Curso.nombre");
+            ViewBag.cursodocente_id = new SelectList(db.CursoDocente, "cursodocente_id", "cursodocente_id");
             return View();
         }
 
-        // POST: User/Silabos/Create
+        // POST: Admin/Silabos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Silabo silabo, string[] aportes)
+        public ActionResult Create([Bind(Include = "silabo_id,cursodocente_id,descripcion,bibliografia,competencias_curso,temas,resultados")] Silabo silabo)
         {
-            var idUsuario = SessionHelper.GetUser();
-            var personaId = db.Usuario
-                .Where(x => x.usuario_id == idUsuario)
-                .Select(x => x.persona_id).FirstOrDefault();
-
             if (ModelState.IsValid)
             {
-                foreach (var aporte in aportes)
-                {
-                    silabo.resultados += aporte + "@@@";
-                }
                 db.Silabo.Add(silabo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.cursodocente_id = new SelectList(db.CursoDocente
-                    .Where(x => x.persona_id == personaId), "cursodocente_id", "Curso.nombre", silabo.cursodocente_id);
-
+            ViewBag.cursodocente_id = new SelectList(db.CursoDocente, "cursodocente_id", "cursodocente_id", silabo.cursodocente_id);
             return View(silabo);
         }
 
-        // GET: User/Silabos/Edit/5
+        // GET: Admin/Silabos/Edit/5
         public ActionResult Edit(int? id)
         {
-            var idUsuario = SessionHelper.GetUser();
-            var personaId = db.Usuario
-                .Where(x => x.usuario_id == idUsuario)
-                .Select(x => x.persona_id).FirstOrDefault();
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             Silabo silabo = db.Silabo.Find(id);
-
-            if (silabo != null){
-                var resultadosList = silabo.resultados.Split(new[] { "@@@" }, StringSplitOptions.None);
-                ViewBag.ResultadosList = resultadosList;
-            }
-
             if (silabo == null)
             {
                 return HttpNotFound();
             }
-
-            ViewBag.cursodocente_id = new SelectList(db.CursoDocente
-                .Where(x => x.persona_id == personaId), "cursodocente_id", "Curso.nombre", silabo.cursodocente_id);
-
+            ViewBag.cursodocente_id = new SelectList(db.CursoDocente, "cursodocente_id", "cursodocente_id", silabo.cursodocente_id);
             return View(silabo);
         }
 
-        // POST: User/Silabos/Edit/5
+        // POST: Admin/Silabos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Silabo silabo, string[] aportes)
+        public ActionResult Edit([Bind(Include = "silabo_id,cursodocente_id,descripcion,bibliografia,competencias_curso,temas,resultados")] Silabo silabo)
         {
-            var idUsuario = SessionHelper.GetUser();
-            var personaId = db.Usuario
-                .Where(x => x.usuario_id == idUsuario)
-                .Select(x => x.persona_id).FirstOrDefault();
-
             if (ModelState.IsValid)
             {
-                silabo.resultados = "";
-                foreach (var aporte in aportes)
-                {
-                    silabo.resultados += aporte + "@@@";
-                }
                 db.Entry(silabo).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.cursodocente_id = new SelectList(db.CursoDocente
-                .Where(x => x.persona_id == personaId), "cursodocente_id", "Curso.nombre", silabo.cursodocente_id);
-
+            ViewBag.cursodocente_id = new SelectList(db.CursoDocente, "cursodocente_id", "cursodocente_id", silabo.cursodocente_id);
             return View(silabo);
         }
 
-        // GET: User/Silabos/Delete/5
+        // GET: Admin/Silabos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -159,7 +113,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
             return View(silabo);
         }
 
-        // POST: User/Silabos/Delete/5
+        // POST: Admin/Silabos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -169,7 +123,6 @@ namespace SistemaPortafolio.Areas.User.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
 
         protected override void Dispose(bool disposing)
         {

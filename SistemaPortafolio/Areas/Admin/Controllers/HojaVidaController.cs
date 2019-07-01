@@ -77,6 +77,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             documento.estado = "activo";
             documento.GuardarArchivoDirecto(pdf, usuario.Persona.persona_id, "HojaDeVida.pdf", "Curriculum Vitae ICACIT");
             return new FileContentResult(pdf, "application/pdf");
+            //return View();
 
         }
 
