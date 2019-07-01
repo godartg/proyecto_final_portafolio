@@ -41,13 +41,8 @@ namespace SistemaPortafolio.Areas.User.Controllers
 
         public ActionResult Imprimir()
         {
-            /*
-            if (usuario_id > 0)
-            {
-                usuario = new Usuario().Obtener(usuario_id);
-            }
-            */
-            int hojavida_id = ObtenerHojaVidaId(0);
+            //int hojavida_id = ObtenerHojaVidaId(0);
+            int hojavida_id = ObtenerHojaVidaId(usuario.Persona.persona_id);
 
             HojaVida hoja = new HojaVida();
             
