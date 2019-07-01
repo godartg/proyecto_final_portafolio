@@ -919,17 +919,19 @@ namespace SistemaPortafolio.Models
 
                 if (flag && !flag2)
                 {
-                    archivo.SaveAs(HttpContext.Current.Server.MapPath("~/Server/Docs/" + TipoDocumento.nombre + "/" + archivogeneral));
+                    archivo.SaveAs(Path.Combine(HttpContext.Current.Server.MapPath("~/Server/Docs/" + TipoDocumento.nombre), archivogeneral));
+                    //archivo.SaveAs(HttpContext.Current.Server.MapPath("~/Server/Docs/" + TipoDocumento.nombre + "/" + archivogeneral));
                     //metadata
                     Meta meta = new Meta();
-                    meta.registrarmetada(HttpContext.Current.Server.MapPath("~/Server/Docs/" + archivogeneral), this.extension, this.curso_id.ToString(), this.persona_id, this.Unidad.id_semestre, this.tipodocumento_id, this.id_unidad, this.fecha_entrega, this.tamanio);
+                    meta.registrarmetada(Path.Combine(HttpContext.Current.Server.MapPath("~/Server/Docs/" + TipoDocumento.nombre), archivogeneral), this.extension, this.curso_id.ToString(), this.persona_id, this.Unidad.id_semestre, this.tipodocumento_id, this.id_unidad, this.fecha_entrega, this.tamanio);
 
                     rm.SetResponse(true);
                 }
                 else
                 {
                     HttpContext.Current.Session["antiguo"] = ultimometadata(this);
-                    archivo.SaveAs(HttpContext.Current.Server.MapPath("~/Server/Docs/" + archivogeneral));
+                    archivo.SaveAs(Path.Combine(HttpContext.Current.Server.MapPath("~/Server/Docs"), archivogeneral));
+                    //archivo.SaveAs(HttpContext.Current.Server.MapPath("~/Server/Docs/" + archivogeneral));
                     //metadata
                     Meta meta = new Meta();
                     meta.registrarmetada(HttpContext.Current.Server.MapPath("~/Server/Docs/" + archivogeneral), this.extension, this.curso_id.ToString(), this.persona_id, this.Unidad.id_semestre, this.tipodocumento_id, this.id_unidad, this.fecha_entrega, this.tamanio);
