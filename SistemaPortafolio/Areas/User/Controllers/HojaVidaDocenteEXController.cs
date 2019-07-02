@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using SistemaPortafolio.Models;
 using SistemaPortafolio.Filters;
 
-namespace SistemaPortafolio.Areas.Admin.Controllers
+namespace SistemaPortafolio.Areas.User.Controllers
 {
     [Autenticado]
     public class HojaVidaDocenteEXController : Controller
