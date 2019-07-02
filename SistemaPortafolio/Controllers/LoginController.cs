@@ -8,9 +8,12 @@ using SistemaPortafolio.Filters;
 
 namespace SistemaPortafolio.Controllers
 {
-
+    
+    
     public class LoginController : Controller
     {
+        
+
         // GET: Admin/Login
         private Usuario usuario = new Usuario();
 
@@ -30,11 +33,13 @@ namespace SistemaPortafolio.Controllers
                 if(rm.message.Equals("admin"))
                 {
                     rm.href = Url.Content("~/Admin/Home/Index");
+
                 }
                 else if(rm.message.Equals("user"))
                 {
                     rm.href = Url.Content("~/User/Home/Index");
                 }
+
             }
 
             return Json(rm);
@@ -46,5 +51,6 @@ namespace SistemaPortafolio.Controllers
 
             return Redirect("~/Login");
         }
+        
     }
 }

@@ -36,7 +36,7 @@
 
 
                 { style: 'Width: 40px;', class: "info" },//visualizar
-                { style: 'Width: 40px;', class: "info" },//Modificar
+                
                 { style: 'Width: 40px;', class: "info" },//Elimianr
                 ],
 
@@ -79,18 +79,6 @@
                         }
                     },
 
-
-
-                    {
-                        formato: function (tr, obj, valor) {
-                            return anexGrid_link({
-                                href: '@Url.Content("~/Admin/Semestre/AgregarEditar/")'
-                            + obj.semestre_id, contenido: "Modificar",
-                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Modificar" class="glyphicon glyphicon-pencil" aria-hidden="true"></i>',
-                            class: 'btn btn-info btn-sm'
-                            });
-                        }
-                    },
 
                     {
                         formato: function (tr, obj, valor) {
