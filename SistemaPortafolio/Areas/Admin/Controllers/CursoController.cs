@@ -97,9 +97,9 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult Eliminar(string id)
+        public ActionResult Eliminar(int id)
         {
-            curso.curso_cod = id;
+            curso.curso_id = id;
             curso.Eliminar();
             return Redirect("~/Admin/Curso/Index/" + Session["plan_id"].ToString());
         }

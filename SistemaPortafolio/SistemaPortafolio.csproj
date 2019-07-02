@@ -46,10 +46,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.3.0-preview6-19304-03\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.3.0-preview6-19304-03\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp, Version=5.5.9.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.9\lib\itextsharp.dll</HintPath>
@@ -326,6 +326,11 @@
     <Content Include="Areas\Admin\Views\PruebaEntradas\Details.cshtml" />
     <Content Include="Areas\Admin\Views\PruebaEntradas\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\PruebaEntradas\Index.cshtml" />
+    <Content Include="Areas\User\Views\HojaVida\AgregarEditarADP.cshtml" />
+    <Content Include="Areas\User\Views\HojaVida\AgregarEditarAS.cshtml" />
+    <Content Include="Areas\User\Views\HojaVida\AgregarEditarHP.cshtml" />
+    <Content Include="Areas\User\Views\HojaVida\AgregarEditarM.cshtml" />
+    <Content Include="Areas\User\Views\HojaVida\AgregarEditarP.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -396,10 +401,15 @@
     <Compile Include="Areas\User\Controllers\DocumentoController.cs" />
     <Compile Include="Areas\User\Controllers\EvaluacionDocumentoController.cs" />
     <Compile Include="Areas\User\Controllers\HojaVidaController.cs" />
+    <Compile Include="Areas\User\Controllers\HojaVidaDocenteActividadesDesarrolloProfesionalController.cs" />
+    <Compile Include="Areas\User\Controllers\HojaVidaDocenteActividadServiciosController.cs" />
     <Compile Include="Areas\User\Controllers\HojaVidaDocenteCRPController.cs" />
     <Compile Include="Areas\User\Controllers\HojaVidaDocenteEXController.cs" />
     <Compile Include="Areas\User\Controllers\HojaVidaDocenteFAController.cs" />
     <Compile Include="Areas\User\Controllers\HojaVidaDocenteFCController.cs" />
+    <Compile Include="Areas\User\Controllers\HojaVidaDocenteHonoresPremiosController.cs" />
+    <Compile Include="Areas\User\Controllers\HojaVidaDocenteMembresiaController.cs" />
+    <Compile Include="Areas\User\Controllers\HojaVidaDocentePublicacionesController.cs" />
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\Controllers\NotificacionController.cs" />
     <Compile Include="Areas\User\Controllers\PerfilController.cs" />
@@ -435,6 +445,10 @@
     <Compile Include="Migrations\201907011143032_TablasPruebaEntradaAgregadas.cs" />
     <Compile Include="Migrations\201907011143032_TablasPruebaEntradaAgregadas.Designer.cs">
       <DependentUpon>201907011143032_TablasPruebaEntradaAgregadas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907010745074_alterColumnCursoID_inDocumento.cs" />
+    <Compile Include="Migrations\201907010745074_alterColumnCursoID_inDocumento.Designer.cs">
+      <DependentUpon>201907010745074_alterColumnCursoID_inDocumento.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Anexgrid.cs" />
@@ -473,9 +487,7 @@
     <Compile Include="Models\TipoUsuario.cs" />
     <Compile Include="Models\Unidad.cs" />
     <Compile Include="Models\Usuario.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tags\AutenticadoAttribute.cs" />
   </ItemGroup>
@@ -583,7 +595,6 @@
     <Content Include="Areas\User\Views\HojaVida\AgregarEditarFA.cshtml" />
     <Content Include="Areas\User\Views\HojaVida\AgregarEditarFC.cshtml" />
     <Content Include="Areas\User\Views\HojaVida\Imprimir.cshtml" />
-    <Content Include="Areas\User\Views\HojaVida\Index.cshtml" />
     <Content Include="Areas\User\Views\HojaVida\MiHojaVida.cshtml" />
     <Content Include="Areas\User\Views\Home\Index.cshtml" />
     <Content Include="Areas\User\Views\Notificacion\Index.cshtml" />
@@ -686,6 +697,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907011143032_TablasPruebaEntradaAgregadas.resx">
       <DependentUpon>201907011143032_TablasPruebaEntradaAgregadas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907010745074_alterColumnCursoID_inDocumento.resx">
+      <DependentUpon>201907010745074_alterColumnCursoID_inDocumento.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

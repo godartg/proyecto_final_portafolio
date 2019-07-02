@@ -100,9 +100,7 @@
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Curso>()
-                .HasMany(e => e.Documento)
-                .WithRequired(e => e.Curso)
-                .WillCascadeOnDelete(false);
+                .HasMany(e => e.Documento);
 
             modelBuilder.Entity<Curso>()
                 .HasMany(e => e.MetadataDocumento)
@@ -128,9 +126,7 @@
                 .WillCascadeOnDelete(false);
 
 
-            modelBuilder.Entity<Documento>()
-                .Property(e => e.curso_id);
-                
+       
 
             modelBuilder.Entity<Documento>()
                 .Property(e => e.archivo)

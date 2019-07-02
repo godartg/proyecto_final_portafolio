@@ -31,9 +31,8 @@ namespace SistemaPortafolio.Models
         public int persona_id { get; set; }
 
         public int? id_unidad { get; set; }
-
-        [Required]
-        public int curso_id { get; set; }
+  
+        public int? curso_id { get; set; }
 
         [Required]
         [StringLength(150)]
@@ -157,6 +156,197 @@ namespace SistemaPortafolio.Models
             }
 
             return grilla.responde();
+        }
+
+        public void GuardarArchivoDirecto(byte[] arrayOfBytes, int User_id, string nombre, string tiposDoc)
+        {
+            var tipoDocumento = tiposDoc;
+            string nombrearchivo = "";
+            bool flag = false;
+            bool flag2 = true;
+            int codigo = 0;
+            string archivogeneral = "";
+            System.IO.FileStream file = System.IO.File.Create(HttpContext.Current.Server.MapPath("~/Server/Docs/" + tipoDocumento + "/"+"hojaVida.pdf "));
+
+            file.Write(arrayOfBytes, 0, arrayOfBytes.Length);
+            file.Close();
+            
+            //archivo.SaveAs(Path.Combine(HttpContext.Current.Server.MapPath("~/Server/Docs/" + TipoDocumento.nombre), archivogeneral));
+            //archivo.SaveAs(HttpContext.Current.Server.MapPath("~/Server/Docs/" + TipoDocumento.nombre + "/" + archivogeneral));
+            //metadata
+            Meta meta = new Meta();
+            
+            try
+            {
+                if (HttpContext.Current.Session["modificar"] == null || HttpContext.Current.Session["modificar"].ToString().Equals("no"))
+                {
+                    using (var db = new ModeloDatos())
+                    {
+                        db.Configuration.ValidateOnSaveEnabled = false;
+                        var Doc = db.Entry(this);
+                        Doc.State = System.Data.Entity.EntityState.Modified;
+                        string extension = Path.GetExtension(nombre).ToLower();
+                        var filtroextension = new[] { ".docx", ".doc", ".xlsx", ".xls", ".pptx", ".ppt" };
+                        var extensiones = Path.GetExtension(nombre);
+
+                        TipoDocumento tipodoc = new TipoDocumento();
+
+                        tipodoc = db.TipoDocumento.Where(x => x.tipodocumento_id == this.tipodocumento_id).SingleOrDefault();
+
+                        DateTime dt;
+                        dt = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+
+                        string fecha;
+                        fecha = dt.ToString("yyyy-MM-dd");
+
+                        DateTime dtt;
+                        dtt = Convert.ToDateTime(DateTime.Now.ToShortTimeString());
+
+                        string hora;
+                        hora = dtt.ToString("HH:mm:ss");
+
+                        this.fecha_entrega = dt;
+                        this.hora_entrega = dtt;
+
+                        string arc = Path.GetFileName(nombre);
+                        nombrearchivo = Path.GetFileName(nombre);
+                        this.descripcion = arc;
+                        
+
+                        this.archivo = arc + "_" + "_" + tipodoc.tipodocumento_id + "_" + 0 + "_" + 0 + "_" + this.persona_id;
+
+                        this.tamanio = ((arrayOfBytes.Length) / (Math.Pow(10, 3))).ToString() + " KB";
+
+                        string value = extension;
+                        char delimiter = '.';
+                        string[] substrings = value.Split(delimiter);
+                        foreach (var substring in substrings)
+                        {
+                            this.extension = substring;
+                        }
+
+                        this.estado = "Enviado";
+                        //db.Entry(this).State = EntityState.Added;
+                        //db.SaveChanges();
+
+                        db.Set<Documento>().Add(this);
+                        db.SaveChanges();
+
+                        codigo = this.documento_id;
+
+                        string nuevoarchivo = "";
+                        nuevoarchivo = this.archivo + "_" + codigo.ToString() + extension;
+
+                        archivogeneral = nuevoarchivo;
+
+                        db.Database.ExecuteSqlCommand(
+                    "update Documento set archivo = @archivo where documento_id = @documento_id",
+                    new SqlParameter("archivo", nuevoarchivo),
+                    new SqlParameter("documento_id", codigo)
+                    );
+
+                        HttpContext.Current.Session["id_documento"] = codigo;
+
+                        flag = true;
+                        flag2 = false;
+
+                    }
+                }
+                else
+                {
+                    TipoDocumento tipodoc = new TipoDocumento();
+                    using (var db = new ModeloDatos())
+                    {
+                        db.Configuration.ValidateOnSaveEnabled = false;
+                        var Doc = db.Entry(this);
+                        Doc.State = System.Data.Entity.EntityState.Modified;
+                        if (archivo != null)
+                        {
+                            tipodoc = db.TipoDocumento.Where(x => x.tipodocumento_id == this.tipodocumento_id).SingleOrDefault();
+                            string extension = Path.GetExtension(nombre).ToLower();
+                            var filtroextension = new[] { ".docx", ".doc", ".xlsx", ".xls", ".pptx", ".ppt" };
+                            var extensiones = Path.GetExtension(nombre);
+                            
+                            DateTime dt;
+                            dt = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+
+                            string fecha;
+                            fecha = dt.ToString("yyyy-MM-dd");
+
+                            DateTime dtt;
+                            dtt = Convert.ToDateTime(DateTime.Now.ToShortTimeString());
+
+                            string hora;
+                            hora = dtt.ToString("HH:mm:ss");
+
+                            this.fecha_entrega = dt;
+                            this.hora_entrega = dtt;
+
+                            string arc = Path.GetFileName(nombre);
+                            nombrearchivo = Path.GetFileName(nombre);
+                            this.descripcion = arc;
+
+                            this.archivo = arc + "_" + "_" + 1 + "_" + 0 + "_" + 0 + "_" + this.persona_id;
+
+                            archivogeneral = this.archivo;
+
+                            this.tamanio = ((archivo.Length) / (Math.Pow(10, 3))).ToString() + " KB";
+
+                            string value = extension;
+                            char delimiter = '.';
+                            string[] substrings = value.Split(delimiter);
+                            foreach (var substring in substrings)
+                            {
+                                this.extension = substring;
+                            }
+
+                            this.estado = "Enviado";
+                            db.Entry(this).State = EntityState.Modified;
+                            db.SaveChanges();
+
+                            obtener(this);
+
+                            flag = false;
+                            flag2 = true;
+
+
+                        }
+                    }
+
+                    if (flag && !flag2)
+                    {
+                        File.WriteAllBytes(@"~/Server/Docs/" + tipodoc.nombre +"/"+ nombre, arrayOfBytes);
+                        //archivo.SaveAs(Path.Combine(HttpContext.Current.Server.MapPath("~/Server/Docs/" + TipoDocumento.nombre), archivogeneral));
+                        //archivo.SaveAs(HttpContext.Current.Server.MapPath("~/Server/Docs/" + TipoDocumento.nombre + "/" + archivogeneral));
+                        //metadata
+
+                        meta.registrarmetada(Path.Combine(HttpContext.Current.Server.MapPath("~/Server/Docs/" + tipodoc.nombre), archivogeneral), this.extension, this.curso_id.ToString(), this.persona_id, this.Unidad.id_semestre, this.tipodocumento_id, this.id_unidad, this.fecha_entrega, this.tamanio);
+
+                    }
+                    else
+                    {
+                        HttpContext.Current.Session["antiguo"] = ultimometadata(this);
+
+                        File.WriteAllBytes(@"~/Server/Docs/" + TipoDocumento.nombre + nombre, arrayOfBytes);
+                        //archivo.SaveAs(HttpContext.Current.Server.MapPath("~/Server/Docs/" + archivogeneral));
+                        //metadata
+
+                        meta.registrarmetada(HttpContext.Current.Server.MapPath("~/Server/Docs/" + tipodoc.nombre + nombre), this.extension, this.curso_id.ToString(), this.persona_id, this.Unidad.id_semestre, this.tipodocumento_id, this.id_unidad, this.fecha_entrega, this.tamanio);
+
+                        HttpContext.Current.Session["nuevo"] = metadatanuevo(this);
+                    }
+                }
+
+            }
+            catch (DbEntityValidationException e)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
         }
 
         public AnexGRIDResponde ListarGrillaA(AnexGRID grilla, int personaid)

@@ -1,25 +1,25 @@
-﻿using System;
+﻿using SistemaPortafolio.Filters;
+using SistemaPortafolio.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SistemaPortafolio.Models;
-using SistemaPortafolio.Filters;
 
 namespace SistemaPortafolio.Areas.User.Controllers
 {
     [Autenticado]
-    public class HojaVidaDocenteCRPController : Controller
-    {//
+    public class HojaVidaDocenteActividadServiciosController : Controller
+    {
         private HojaVida hojavida = new HojaVida();
-        private HojaVidaDocenteCRP crp = new HojaVidaDocenteCRP();
+        private HojaVidaDocenteActividadServicios crp = new HojaVidaDocenteActividadServicios();
         Usuario usuario = new Usuario();
         // GET: Usuario
         public ActionResult Index()
         {
             usuario.Obtener(SessionHelper.GetUser());
             return View(crp.Listar(usuario.Persona.persona_id));
-          
+
         }
         //grilla
         public JsonResult CargarGrilla(AnexGRID grid)
@@ -30,14 +30,14 @@ namespace SistemaPortafolio.Areas.User.Controllers
         {
             return View(crp.Obtener(id));
         }
-      
+
         public ActionResult AgregarEditar(int id = 0)
         {
             usuario.Obtener(SessionHelper.GetUser());
             ViewBag.Persona = crp.Listar(usuario.Persona.persona_id);    //para el combo
             ViewBag.Rango = hojavida.Listar();    //para el combo
             return View(
-                id == 0 ? new HojaVidaDocenteCRP()//generar un nuevo semestre
+                id == 0 ? new HojaVidaDocenteActividadServicios()//generar un nuevo semestre
                 : crp.Obtener(id)//devuelve un registro por el id
                 );
         }
@@ -46,22 +46,18 @@ namespace SistemaPortafolio.Areas.User.Controllers
             if (ModelState.IsValid)
             {
                 model.Guardar();
-                return Redirect("~/HojaVida");//se referencia al index automaticamente
+                return Redirect("~/HojaVidaDocenteActividadServicios");//se referencia al index automaticamente
             }
             else
             {
-                return View("~/views/HojaVida/AgregarEditar.cshtml", model);
+                return View("~/views/HojaVidaDocenteActividadServicios/AgregarEditar.cshtml", model);
             }
         }
         public ActionResult Eliminar(int id)
         {
-            crp.hojavidadocentecrp_id = id;
+            crp.idHojaVidaDocenteActividadServicios = id;
             crp.Eliminar();
-            return Redirect("~/Admin/HojaVida/AgregarEditarCRP");
+            return Redirect("~/Admin/HojaVida/AgregarEditarAS");
         }
-        //consulta
-    
-
-
     }
 }

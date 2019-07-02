@@ -24,7 +24,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         HojaVidaDocenteMembresia hojavidadocentem = new HojaVidaDocenteMembresia();
         HojaVidaDocentePublicaciones hojavidadocentep = new HojaVidaDocentePublicaciones();
         Usuario usuario = new Usuario().Obtener(SessionHelper.GetUser());
-
+        Documento documento = new Documento();
         Parser parser = new Parser();
 
         // GET: Admin/HojaVida
@@ -44,7 +44,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             return View(hojas);
         }
 
-        public ActionResult Imprimir()
+        public ActionResult Imprimir(int persona_id=0)
         {
             /*
             if (usuario_id > 0)
@@ -52,7 +52,9 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 usuario = new Usuario().Obtener(usuario_id);
             }
             */
-            int hojavida_id = ObtenerHojaVidaId(0);
+            Documento doc = new Documento();
+            TipoDocumento tipoDocumento = new TipoDocumento();
+            int hojavida_id = ObtenerHojaVidaId(persona_id);
 
             HojaVida hoja = new HojaVida();
             
@@ -69,9 +71,13 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             ViewData["hojavidadocentep"] = hojavidadocentep.Listar(usuario.Persona.persona_id);
             var generator = new MvcGenerator(ControllerContext);
             var pdf = generator.GeneratePdf(hoja, "Imprimir");
+            documento.persona_id = usuario.Persona.persona_id;
+            documento.tipodocumento_id = 1;
+            documento.descripcion = "Curriculum Vitae ICACIT";
+            documento.estado = "activo";
+            documento.GuardarArchivoDirecto(pdf, usuario.Persona.persona_id, "HojaDeVida.pdf", "Curriculum Vitae ICACIT");
             return new FileContentResult(pdf, "application/pdf");
             //return View();
-
         }
 
         public int ObtenerHojaVidaId(int id = 0)
@@ -86,7 +92,6 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                     hojavida = new HojaVida();
                     hojavida.persona_id = usuario.persona_id;
                     hojavida.Guardar();
-
                     id = hojavida.hojavida_id;
                 }
                 else
@@ -94,7 +99,11 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                     id = hojavida.hojavida_id;
                 }
             }
-
+            else
+            {
+                hojavida = hojavida.ObtenerByPersona(id);
+                id = hojavida.hojavida_id;
+            }
             return id;
         }
 
