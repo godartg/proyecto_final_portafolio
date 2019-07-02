@@ -74,6 +74,9 @@
     <Reference Include="RazorEngine, Version=3.8.2.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
       <HintPath>..\packages\RazorEngine.3.8.2\lib\net45\RazorEngine.dll</HintPath>
     </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -92,8 +95,8 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="Wired.Razor, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Wired.Razor.0.9.0.0\lib\net452\Wired.Razor.dll</HintPath>
+    <Reference Include="Wired.Razor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Wired.Razor.1.0.0.0\lib\net452\Wired.Razor.dll</HintPath>
     </Reference>
     <Reference Include="Wired.RazorPdf, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Wired.RazorPdf.1.0.0.0\lib\net452\Wired.RazorPdf.dll</HintPath>
@@ -140,6 +143,7 @@
     <Content Include="Assets\css\bootstrap-theme.min.css" />
     <Content Include="Assets\css\bootstrap.css" />
     <Content Include="Assets\css\bootstrap.min.css" />
+    <Content Include="Assets\css\custom-user.css" />
     <Content Include="Assets\css\estilos.css" />
     <Content Include="Assets\css\fondo.css" />
     <Content Include="Assets\css\font-awesome.min.css" />
@@ -282,6 +286,10 @@
     <Content Include="obj\Debug\SistemaPortafolio.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\SistemaPortafolio.dll" />
     <Content Include="obj\Debug\SistemaPortafolio.pdb" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="ScriptBD\SPinsertV2.5.sql" />
     <Content Include="ScriptBD\SPtableV2.5.sql" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -307,6 +315,17 @@
     <Content Include="Areas\Admin\Views\Silabos\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Silabos\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Silabos\Index.cshtml" />
+    <Content Include="Areas\User\Views\PruebaEntradas\Create.cshtml" />
+    <Content Include="Areas\User\Views\PruebaEntradas\Delete.cshtml" />
+    <Content Include="Areas\User\Views\PruebaEntradas\Details.cshtml" />
+    <Content Include="Areas\User\Views\PruebaEntradas\Edit.cshtml" />
+    <Content Include="Areas\User\Views\PruebaEntradas\Index.cshtml" />
+    <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Areas\Admin\Views\PruebaEntradas\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\PruebaEntradas\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\PruebaEntradas\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\PruebaEntradas\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\PruebaEntradas\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -366,6 +385,7 @@
     <Compile Include="Areas\Admin\Controllers\PerfilController.cs" />
     <Compile Include="Areas\Admin\Controllers\PersonaController.cs" />
     <Compile Include="Areas\Admin\Controllers\PlanEstudioController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PruebaEntradasController.cs" />
     <Compile Include="Areas\Admin\Controllers\SemestreController.cs" />
     <Compile Include="Areas\Admin\Controllers\SilabosController.cs" />
     <Compile Include="Areas\Admin\Controllers\TipoDocumentoController.cs" />
@@ -383,6 +403,7 @@
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\Controllers\NotificacionController.cs" />
     <Compile Include="Areas\User\Controllers\PerfilController.cs" />
+    <Compile Include="Areas\User\Controllers\PruebaEntradasController.cs" />
     <Compile Include="Areas\User\Controllers\SilabosController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -411,6 +432,10 @@
     <Compile Include="Migrations\201906302229064_TablaCursoDocenteAgregada.Designer.cs">
       <DependentUpon>201906302229064_TablaCursoDocenteAgregada.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907011143032_TablasPruebaEntradaAgregadas.cs" />
+    <Compile Include="Migrations\201907011143032_TablasPruebaEntradaAgregadas.Designer.cs">
+      <DependentUpon>201907011143032_TablasPruebaEntradaAgregadas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Anexgrid.cs" />
     <Compile Include="Models\Ciclo.cs" />
@@ -436,6 +461,8 @@
     <Compile Include="Models\Notificacion.cs" />
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\PlanEstudio.cs" />
+    <Compile Include="Models\PruebaEntrada.cs" />
+    <Compile Include="Models\PruebaEntradaDetalle.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\Semestre.cs" />
     <Compile Include="Models\SessionHelper.cs" />
@@ -656,6 +683,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906302229064_TablaCursoDocenteAgregada.resx">
       <DependentUpon>201906302229064_TablaCursoDocenteAgregada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907011143032_TablasPruebaEntradaAgregadas.resx">
+      <DependentUpon>201907011143032_TablasPruebaEntradaAgregadas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
