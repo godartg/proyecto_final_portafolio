@@ -27,6 +27,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         /// </summary>
         private const string CallbackUri = "http://localhost:1438/Home/OnAuthComplate";
         // GET: Admin/Home
+        /*
         public ActionResult Index()
         {
             if (string.IsNullOrEmpty(OfficeAccessSession.AccessCode))
@@ -36,16 +37,17 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 return new RedirectResult(url);
             }
             return RedirectToAction("UploadFileAndGetShareUri");
-        }
-        public ActionResult Index2()
+        }*/
+        public ActionResult Index()
         {
             
-            return View("Index");
+            return View();
         }
         
         /// <summary>
         /// OfficeAccessSession object in session
         /// </summary>
+        /*
         public O365RestSession OfficeAccessSession
         {
             get
@@ -73,7 +75,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         public async Task<ActionResult> UploadFileAndGetShareUri()
         {
 
-            
+            var file;
             //save upload file to temp dir in local disk
             var path = Path.GetTempFileName();
             file.SaveAs(path);
@@ -133,6 +135,6 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
 
             }
-        }
+        }*/
     }
 }
