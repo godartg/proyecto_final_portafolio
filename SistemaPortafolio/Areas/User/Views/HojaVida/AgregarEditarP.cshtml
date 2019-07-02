@@ -1,0 +1,144 @@
+﻿@model SistemaPortafolio.Models.HojaVidaDocentePublicaciones
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>PUBLICACIONES</h2>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <a href="~/User/HojaVida/AgregarEditarM/" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a membresias
+                </a>
+            </div>
+            <div class="col-lg-6">
+            </div>
+        </div>
+        <br />
+        @using (Html.BeginForm("AgregarEditarP", "HojaVida", FormMethod.Post, new { id = "frm-HojaVida" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.idHojaVidaDocentePublicaciones)
+            @Html.HiddenFor(x => x.hojavida_id)
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Información de Publicaciones</div>
+                <div class="panel-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <label>Tipo de Produccion:</label>
+                        <select name="tiempo_duracion" class="form-control">
+                            <option @(Model.tipoProduccion == "Articulo" ? "selected" : "") value="Articulo">Articulo</option>
+                            <option @(Model.tipoProduccion == "Otros" ? "selected" : "") value="Otros">Otros</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.tipoProduccion, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Titulo:</label>
+                        @Html.EditorFor(model => model.titulo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.titulo, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Primer Autor:</label>
+                        @Html.EditorFor(model => model.primerAutor, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.primerAutor, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label>coAutores:</label>
+                        @Html.EditorFor(model => model.coAutores, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.coAutores, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label>Año:</label>
+                        @Html.EditorFor(model => model.ano, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ano, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label>DOI:</label>
+                        @Html.EditorFor(model => model.doi, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.doi, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label>Fuente:</label>
+                        @Html.EditorFor(model => model.fuente, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.fuente, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="~/User/HojaVida/AgregarEditarP" class="btn btn-danger">Cancelar</a>
+            </div>
+
+        }
+        <br />
+        <div class="panel panel-default">
+            <div class="panel-heading">Mis publicaciones</div>
+            <div class="panel-body">
+                <table class="table table-hover table-responsive">
+                    <tr>
+                        <th>
+                            Tipo de Producción
+                        </th>
+                        <th>
+                            Titulo
+                        </th>
+                        <th>
+                            Primer Autor
+                        </th>
+                        <th>
+                            Co-Autores
+                        </th>
+                        <th>
+                            Año
+                        </th>
+                        <th>
+                            DOI
+                        </th>
+                        <th>
+                            Fuente
+                        </th>
+                        <th>Opción</th>
+                    </tr>
+
+                    @foreach (var item in ViewData["listado"] as List<SistemaPortafolio.Models.HojaVidaDocentePublicaciones>)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tipoProduccion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.titulo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.primerAutor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.coAutores)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ano)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.doi)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fuente)
+                        </td>
+                        <td>
+                            <i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/User/HojaVida/AgregarEditarP/@item.idHojaVidaDocentePublicaciones" class="glyphicon glyphicon-pencil btn btn-sm btn-info"></a></i>
+                        
+                            <i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/User/HojaVidaDocentePublicaciones/Eliminar/@item.idHojaVidaDocentePublicaciones" class="glyphicon glyphicon-remove btn btn-sm btn-danger"></a></i>
+                        </td>
+                    </tr>
+                    }
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

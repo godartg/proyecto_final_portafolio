@@ -8,7 +8,7 @@ using SistemaPortafolio.Filters;
 using Wired.Razor;
 using Wired.RazorPdf;
 
-namespace SistemaPortafolio.Areas.Admin.Controllers
+namespace SistemaPortafolio.Areas.User.Controllers
 {
     [Autenticado]
     public class HojaVidaController : Controller

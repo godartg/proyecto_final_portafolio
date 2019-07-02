@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SistemaPortafolio.Areas.Admin.Controllers
+namespace SistemaPortafolio.Areas.User.Controllers
 {
     [Autenticado]
     public class HojaVidaDocenteMembresiaController : Controller

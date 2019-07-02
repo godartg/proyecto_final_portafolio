@@ -307,6 +307,11 @@
     <Content Include="Areas\Admin\Views\Silabos\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Silabos\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Silabos\Index.cshtml" />
+    <Content Include="Areas\User\Views\HojaVida\AgregarEditarADP.cshtml" />
+    <Content Include="Areas\User\Views\HojaVida\AgregarEditarAS.cshtml" />
+    <Content Include="Areas\User\Views\HojaVida\AgregarEditarHP.cshtml" />
+    <Content Include="Areas\User\Views\HojaVida\AgregarEditarM.cshtml" />
+    <Content Include="Areas\User\Views\HojaVida\AgregarEditarP.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -376,10 +381,15 @@
     <Compile Include="Areas\User\Controllers\DocumentoController.cs" />
     <Compile Include="Areas\User\Controllers\EvaluacionDocumentoController.cs" />
     <Compile Include="Areas\User\Controllers\HojaVidaController.cs" />
+    <Compile Include="Areas\User\Controllers\HojaVidaDocenteActividadesDesarrolloProfesionalController.cs" />
+    <Compile Include="Areas\User\Controllers\HojaVidaDocenteActividadServiciosController.cs" />
     <Compile Include="Areas\User\Controllers\HojaVidaDocenteCRPController.cs" />
     <Compile Include="Areas\User\Controllers\HojaVidaDocenteEXController.cs" />
     <Compile Include="Areas\User\Controllers\HojaVidaDocenteFAController.cs" />
     <Compile Include="Areas\User\Controllers\HojaVidaDocenteFCController.cs" />
+    <Compile Include="Areas\User\Controllers\HojaVidaDocenteHonoresPremiosController.cs" />
+    <Compile Include="Areas\User\Controllers\HojaVidaDocenteMembresiaController.cs" />
+    <Compile Include="Areas\User\Controllers\HojaVidaDocentePublicacionesController.cs" />
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\Controllers\NotificacionController.cs" />
     <Compile Include="Areas\User\Controllers\PerfilController.cs" />
@@ -558,7 +568,6 @@
     <Content Include="Areas\User\Views\HojaVida\AgregarEditarFA.cshtml" />
     <Content Include="Areas\User\Views\HojaVida\AgregarEditarFC.cshtml" />
     <Content Include="Areas\User\Views\HojaVida\Imprimir.cshtml" />
-    <Content Include="Areas\User\Views\HojaVida\Index.cshtml" />
     <Content Include="Areas\User\Views\HojaVida\MiHojaVida.cshtml" />
     <Content Include="Areas\User\Views\Home\Index.cshtml" />
     <Content Include="Areas\User\Views\Notificacion\Index.cshtml" />

@@ -66,7 +66,7 @@
         </tr>
 
         @foreach (var item in ViewData["hojavidadocentefa"] as List<SistemaPortafolio.Models.HojaVidaDocenteFA>)
-            {
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.institucion)
@@ -100,7 +100,7 @@
         </tr>
 
         @foreach (var item in ViewData["hojavidadocentefc"] as List<SistemaPortafolio.Models.HojaVidaDocenteFC>)
-            {
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.institucion)
@@ -138,7 +138,7 @@
         </tr>
 
         @foreach (var item in ViewData["hojavidadocenteex"] as List<SistemaPortafolio.Models.HojaVidaDocenteEX>)
-            {
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.institucion)
@@ -198,7 +198,7 @@
         </tr>
 
         @foreach (var item in ViewData["hojavidadocentecrp"] as List<SistemaPortafolio.Models.HojaVidaDocenteCRP>)
-            {
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.certificacion)
@@ -213,5 +213,256 @@
         }
 
     </table>
+    <br />
 
+    <h4>MEMBRESÍA ACTUAL DE LAS ORGANIZACIONES PROFESIONALES</h4>
+    <table width="100%" cellpadding="5" cellspacing="0" border="1">
+        <tr>
+            <th>
+                Certificacion
+            </th>
+            <th>
+                Institucion
+            </th>
+            <th>
+                Año
+            </th>
+        </tr>
+
+        @foreach (var item in ViewData["hojavidadocentem"] as List<SistemaPortafolio.Models.HojaVidaDocenteMembresia>)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.institucion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.funcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ano)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+    <h4>HONORES Y PREMIOS</h4>
+    <table width="100%" cellpadding="5" cellspacing="0" border="1">
+        <tr>
+            <th>
+                Institucion
+            </th>
+            <th>
+                Titulo
+            </th>
+            <th>
+                fecha
+            </th>
+        </tr>
+
+        @foreach (var item in ViewData["hojavidadocentehp"] as List<SistemaPortafolio.Models.HojaVidaDocenteHonoresPremios>)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.institucion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.titulo)
+                </td>
+                <td>
+                    @try
+                    {
+                        System.DateTime dt;
+                        dt = Convert.ToDateTime(item.fecha);
+
+                        string fecha;
+                        fecha = dt.ToString("dd/MM/yyyy");
+                        @fecha
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+    <h4>ACTIVIDADES DE SERVICIO</h4>
+    <table width="100%" cellpadding="5" cellspacing="0" border="1">
+        <tr>
+            <th>
+                Institucion
+            </th>
+            <th>
+                Servicio
+            </th>
+            <th>
+                Fecha inicio
+            </th>
+            <th>
+                Fecha fin
+            </th>
+            <th>Opción</th>
+        </tr>
+
+        @foreach (var item in ViewData["hojavidadocenteas"] as List<SistemaPortafolio.Models.HojaVidaDocenteActividadServicios>)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.institucion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.servicio)
+                </td>
+                <td>
+                    @try
+                    {
+                        System.DateTime dt;
+                        dt = Convert.ToDateTime(item.fechainicio);
+
+                        string fecha_inicio;
+                        fecha_inicio = dt.ToString("dd/MM/yyyy");
+                        @fecha_inicio
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                </td>
+                <td>
+                    @try
+                    {
+                        System.DateTime dt;
+                        dt = Convert.ToDateTime(item.fechafin);
+
+                        string fechafin;
+                        fechafin = dt.ToString("dd/MM/yyyy");
+                        @fechafin
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+            </td>
+        </tr>
+        }
+
+    </table>
+    <h4>PUBLICACIONES</h4>
+    <table width="100%" cellpadding="5" cellspacing="0" border="1">
+        <tr>
+            <th>
+                Tipo de Producción
+            </th>
+            <th>
+                Titulo
+            </th>
+            <th>
+                Primer Autor
+            </th>
+            <th>
+                Co-Autores
+            </th>
+            <th>
+                Año
+            </th>
+            <th>
+                DOI
+            </th>
+            <th>
+                Fuente
+            </th>
+        </tr>
+
+        @foreach (var item in ViewData["hojavidadocentep"] as List<SistemaPortafolio.Models.HojaVidaDocentePublicaciones>)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tipoProduccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.primerAutor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.coAutores)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ano)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.doi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fuente)
+                </td>
+            </tr>
+        }
+
+    </table>
+    <h4>ACTIVIDADES DE DESARROLLO PROFESIONAL</h4>
+    <table width="100%" cellpadding="5" cellspacing="0" border="1">
+        <tr>
+            <th>
+                Institución
+            </th>
+            <th>
+                Actividad
+            </th>
+            <th>
+                Fecha inicio
+            </th>
+            <th>
+                Fecha fin
+            </th>
+            
+        </tr>
+
+        @foreach (var item in ViewData["hojavidadocenteadp"] as List<SistemaPortafolio.Models.HojaVidaDocenteActividadesDesarrolloProfesional>)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.institucion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.actividad)
+                </td>
+                <td>
+                    @try
+                    {
+                        System.DateTime dt;
+                        dt = Convert.ToDateTime(item.fechainicio);
+
+                        string fecha_inicio;
+                        fecha_inicio = dt.ToString("dd/MM/yyyy");
+                        @fecha_inicio
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                </td>
+                <td>
+                    @try
+                    {
+                        System.DateTime dt;
+                        dt = Convert.ToDateTime(item.fechafin);
+
+                        string fechafin;
+                        fechafin = dt.ToString("dd/MM/yyyy");
+                        @fechafin
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                </td>
+                
+            </tr>
+        }
+
+    </table>
 </div>
