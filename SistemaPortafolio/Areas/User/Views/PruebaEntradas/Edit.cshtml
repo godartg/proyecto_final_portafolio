@@ -1,0 +1,305 @@
+﻿@model SistemaPortafolio.Models.PruebaEntrada
+
+@{
+    ViewBag.Title = "EDITAR";
+    var medidasList = Model.medidas_correctivas.Split(new[] { "@@@" }, StringSplitOptions.None);
+    var conocimientosCounter = 0;
+}
+
+<h2>EDITAR</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>PruebaEntrada</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.pruebaentrada_id)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.cursodocente_id, "CURSO :", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("cursodocente_id", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.cursodocente_id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.matriculados, "MATRICULADOS :", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.matriculados, new { htmlAttributes = new { @class = "form-control", @min = "0", @id = "matriculados" } })
+            @Html.ValidationMessageFor(model => model.matriculados, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.evaluados, "EVALUADOS :", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.evaluados, new { htmlAttributes = new { @class = "form-control", @min = "0", @id = "evaluados" } })
+            @Html.ValidationMessageFor(model => model.evaluados, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("CONOCIMIENTOS :    ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <table class="table table-responsive bg-gray-light" id="tblConocimientos">
+                <tbody>
+                    <tr>
+                        <td class="width-5">Nro</td>
+                        <td>Conocimiento o habilidad</td>
+                        <td class="width-10">Deficiente</td>
+                        <td class="width-5">%</td>
+                        <td class="width-10">Suficiente</td>
+                        <td class="width-5">%</td>
+                        <td class="width-10">Bueno</td>
+                        <td class="width-5">%</td>
+                        <td class="width-10">Total</td>
+                        <td class="width-5"></td>
+                    </tr>
+
+                    @foreach (var pruebaEntradaDetalle in Model.PruebaEntradaDetalle)
+                    {
+                        <tr>
+                            <td>
+                                <input type="hidden" value="@pruebaEntradaDetalle.pruebaentradadetalle_id" name="pruebaEntradaDetalles[@conocimientosCounter].pruebaentradadetalle_id" />
+                                <input type="hidden" value="@pruebaEntradaDetalle.pruebaentrada_id" name="pruebaEntradaDetalles[@conocimientosCounter].pruebaentrada_id" />
+                                @conocimientosCounter
+                            </td>
+                            <td><input value="@pruebaEntradaDetalle.conocimiento" name="pruebaEntradaDetalles[@conocimientosCounter].conocimiento" /></td>
+                            <td><input value="@pruebaEntradaDetalle.deficiente" id="deficiente[0]" type="number" name="pruebaEntradaDetalles[@conocimientosCounter].deficiente" /></td>
+                            <td id="deficientePorcentaje[0]"></td>
+                            <td><input value="@pruebaEntradaDetalle.suficiente" id="suficiente[0]" type="number" name="pruebaEntradaDetalles[@conocimientosCounter].suficiente" /></td>
+                            <td id="suficientePorcentaje[0]"></td>
+                            <td><input value="@pruebaEntradaDetalle.bueno" id="bueno[0]" type="number" name="pruebaEntradaDetalles[@conocimientosCounter].bueno" /></td>
+                            <td id="buenoPorcentaje[0]"></td>
+                            <td id="total[0]">0 %</td>
+                            <td id="colorIndicador[0]"></td>
+                        </tr>
+                        conocimientosCounter++;
+                    }
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" value="Agregar" id="btnAgregar" class="btn btn-default" />
+            <input type="button" value="Eliminar" id="btnEliminar" class="btn btn-default" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.medidas_correctivas, "MEDIDAS CORRECTIVAS :", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <p>Medidas correctivas que ha tomado en los casos de grado "deficiente". Marque con (X) las acciones realizadas:</p>
+            <table class="table table-bordered bg-gray-light">
+                <tr>
+                    <th>Medida correctiva</th>
+                    <th>Acción realizada</th>
+                </tr>
+                <tr>
+                    <td>1. Repaso en horas de clase</td>
+                    <td><input class="text-center" type="text" maxlength="1" name="medidas[0]" value="@medidasList[0]" /></td>
+                </tr>
+                <tr>
+                    <td>2. Repaso con horas adicionales de clase</td>
+                    <td><input class="text-center" type="text" maxlength="1" name="medidas[1]" value="@medidasList[1]" /></td>
+                </tr>
+                <tr>
+                    <td>3. Ejercicios propuestos para resolver en casa</td>
+                    <td><input class="text-center" type="text" maxlength="1" name="medidas[2]" value="@medidasList[2]" /></td>
+                </tr>
+                <tr>
+                    <td>4. Entrega de material de repaso</td>
+                    <td><input class="text-center" type="text" maxlength="1" name="medidas[3]" value="@medidasList[3]" /></td>
+                </tr>
+                <tr>
+                    <td>5. Recomendación de bibliografía</td>
+                    <td><input class="text-center" type="text" maxlength="1" name="medidas[4]" value="@medidasList[4]" /></td>
+                </tr>
+                <tr>
+                    <td>Otros (Detalle en la descipción)</td>
+                    <td><input class="text-center" type="text" maxlength="1" name="medidas[5]" value="@medidasList[5]" /></td>
+                </tr>
+            </table>
+            @Html.HiddenFor(model => model.medidas_correctivas, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.recomendaciones, "RECOMENDACIONES :", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.recomendaciones, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.recomendaciones, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="EDITAR" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    var conocimientosCounter = @Html.Raw(conocimientosCounter-1);
+    $("#btnAgregar").click(function () {
+        conocimientosCounter++;
+        $("#tblConocimientos").find('tbody')
+            .append($('<tr>')
+                .append($('<td>')
+                    .append($('<input type="hidden" value="0" name="pruebaEntradaDetalles[' + conocimientosCounter + '].pruebaentrada_id">')
+                    )
+                    .append(conocimientosCounter
+                    )
+                )
+                .append($('<td>')
+                    .append($('<input name="pruebaEntradaDetalles[' + conocimientosCounter + '].conocimiento">')
+                    )
+                )
+                .append($('<td>')
+                    .append($('<input name="pruebaEntradaDetalles[' + conocimientosCounter + '].deficiente">').attr("id", "deficiente[" + conocimientosCounter + "]").attr("type", "number")
+                    )
+                )
+                .append($('<td>')
+                    .attr("id", "deficientePorcentaje[" + conocimientosCounter + "]")
+                )
+                .append($('<td>')
+                    .append($('<input name="pruebaEntradaDetalles[' + conocimientosCounter + '].suficiente">').attr("id", "suficiente[" + conocimientosCounter + "]").attr("type", "number")
+                    )
+                )
+                .append($('<td>')
+                    .attr("id", "suficientePorcentaje[" + conocimientosCounter + "]")
+                )
+                .append($('<td>')
+                    .append($('<input name="pruebaEntradaDetalles[' + conocimientosCounter + '].bueno">').attr("id", "bueno[" + conocimientosCounter + "]").attr("type", "number")
+                    )
+                )
+                .append($('<td>')
+                    .attr("id", "buenoPorcentaje[" + conocimientosCounter + "]")
+                )
+                .append($('<td>')
+                    .attr("id", "total[" + conocimientosCounter + "]")
+                )
+                .append($('<td>')
+                    .attr("id", "colorIndicador[" + conocimientosCounter + "]")
+                )
+            );
+    });
+
+    $("#btnEliminar").click(function () {
+        $("#tblConocimientos tr:last").remove();
+        conocimientosCounter--;
+    });
+
+    $("#evaluados").on("input", function () {
+        if (parseInt($("#matriculados").val()) >= parseInt($("#evaluados").val())) {
+            $("#evaluados").css("background-color", "white");
+        } else {
+            $("#evaluados").css("background-color", "crimson");
+        }
+    });
+
+    $("#matriculados").on("input", function () {
+        if (parseInt($("#matriculados").val()) >= parseInt($("#evaluados").val())) {
+            $("#evaluados").css("background-color", "white");
+        } else {
+            $("#evaluados").css("background-color", "crimson");
+        }
+    });
+
+    //$("tbody tr td").each(function() {
+
+    //});
+    $(document).on("input", "input[id^='deficiente[']", function () {
+        var conocimientosTotal = parseInt($(this).val()) +
+            parseInt($(this).parent().parent().find("input[id^='suficiente[").val()) +
+            parseInt($(this).parent().parent().find("input[id^='bueno[").val());
+
+        var porcentaje = parseInt(conocimientosTotal) * 100 / $("#evaluados").val();
+        var thisPorcentaje = parseInt($(this).val()) * 100 / $("#evaluados").val();
+        var indicadoresPositivos = parseInt($(this).parent().parent().find("input[id^='suficiente[").val()) +
+            parseInt($(this).parent().parent().find("input[id^='bueno[").val());
+        var capacidadAlcanzada = "crimson";
+        if (indicadoresPositivos > parseFloat($("#evaluados").val()) / 2) {
+            capacidadAlcanzada = "chartreuse";
+        }
+
+        $(this).parent().parent().find("td[id^='total[").text(porcentaje.toFixed(1));
+        $(this).parent().parent().find("td[id^='deficientePorcentaje[").text(thisPorcentaje.toFixed(1));
+        $(this).parent().parent().find("td[id^='colorIndicador[").css("background-color", capacidadAlcanzada);
+
+        if (conocimientosTotal > $("#evaluados").val()) {
+            $(this).parent().parent().find("td[id^='total[").css("background-color", "crimson");
+            $(this).parent().parent().find("td[id^='deficientePorcentaje[").css("background-color", "crimson");
+        } else {
+            $(this).parent().parent().find("td[id^='total[").css("background-color", "inherit");
+            $(this).parent().parent().find("td[id^='deficientePorcentaje[").css("background-color", "inherit");
+        }
+    });
+
+    $(document).on("input", "input[id^='suficiente[']", function () {
+        var conocimientosTotal = parseInt($(this).val()) +
+            parseInt($(this).parent().parent().find("input[id^='deficiente[").val()) +
+            parseInt($(this).parent().parent().find("input[id^='bueno[").val());
+
+        var porcentaje = parseInt(conocimientosTotal) * 100 / $("#evaluados").val();
+        var thisPorcentaje = parseInt($(this).val()) * 100 / $("#evaluados").val();
+        var indicadoresPositivos = parseInt($(this).parent().parent().find("input[id^='suficiente[").val()) +
+            parseInt($(this).parent().parent().find("input[id^='bueno[").val());
+        var capacidadAlcanzada = "crimson";
+        if (indicadoresPositivos > parseFloat($("#evaluados").val()) / 2) {
+            capacidadAlcanzada = "chartreuse";
+        }
+
+        $(this).parent().parent().find("td[id^='total[").text(porcentaje.toFixed(1));
+        $(this).parent().parent().find("td[id^='suficientePorcentaje[").text(thisPorcentaje.toFixed(1));
+        $(this).parent().parent().find("td[id^='colorIndicador[").css("background-color", capacidadAlcanzada);
+
+        if (conocimientosTotal > $("#evaluados").val()) {
+            $(this).parent().parent().find("td[id^='total[").css("background-color", "crimson");
+            $(this).parent().parent().find("td[id^='suficientePorcentaje[").css("background-color", "crimson");
+        } else {
+            $(this).parent().parent().find("td[id^='total[").css("background-color", "inherit");
+            $(this).parent().parent().find("td[id^='suficientePorcentaje[").css("background-color", "inherit");
+        }
+    });
+
+    $(document).on("input", "input[id^='bueno[']", function () {
+        var conocimientosTotal = parseInt($(this).val()) +
+            parseInt($(this).parent().parent().find("input[id^='deficiente[").val()) +
+            parseInt($(this).parent().parent().find("input[id^='suficiente[").val());
+
+        var porcentaje = parseInt(conocimientosTotal) * 100 / $("#evaluados").val();
+        var thisPorcentaje = parseInt($(this).val()) * 100 / $("#evaluados").val();
+        var indicadoresPositivos = parseInt($(this).parent().parent().find("input[id^='suficiente[").val()) +
+            parseInt($(this).parent().parent().find("input[id^='bueno[").val());
+        var capacidadAlcanzada = "crimson";
+        if (indicadoresPositivos > parseFloat($("#evaluados").val()) / 2) {
+            capacidadAlcanzada = "chartreuse";
+        }
+
+        $(this).parent().parent().find("td[id^='total[").text(porcentaje.toFixed(1));
+        $(this).parent().parent().find("td[id^='buenoPorcentaje[").text(thisPorcentaje.toFixed(1));
+        $(this).parent().parent().find("td[id^='colorIndicador[").css("background-color", capacidadAlcanzada);
+
+        if (conocimientosTotal > $("#evaluados").val()) {
+            $(this).parent().parent().find("td[id^='total[").css("background-color", "crimson");
+            $(this).parent().parent().find("td[id^='buenoPorcentaje[").css("background-color", "crimson");
+        } else {
+            $(this).parent().parent().find("td[id^='total[").css("background-color", "inherit");
+            $(this).parent().parent().find("td[id^='buenoPorcentaje[").css("background-color", "inherit");
+        }
+    });
+    //window.alert($(this).val());
+    //window.alert($(this).parent().parent().find("input[id^='suficiente[").val());
+</script>

@@ -1,0 +1,38 @@
+﻿body {
+}
+
+.width-5 {
+    width: 5%;
+}
+
+.width-10 {
+    width: 10%;
+}
+
+.width-50 {
+    width: 50%;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+.margin-top-5 {
+    margin-top: 5px;
+}
+
+#tblConocimientos > tbody > tr > td > input {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#tblConocimientos {
+    table-layout: fixed;
+    word-wrap: break-word;
+    border: black;
+}
+
+#tblConocimientos > tbody > tr > td{
+    border: 1px solid #a3a3a3;
+}

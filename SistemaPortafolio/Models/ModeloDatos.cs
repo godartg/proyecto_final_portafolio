@@ -39,6 +39,8 @@
         public virtual DbSet<Unidad> Unidad { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Silabo> Silabo { get; set; }
+        public virtual DbSet<PruebaEntrada> PruebaEntrada { get; set; }
+        public virtual DbSet<PruebaEntradaDetalle> PruebaEntradaDetalle { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -320,6 +322,11 @@
             modelBuilder.Entity<PlanEstudio>()
                 .HasMany(e => e.Curso)
                 .WithRequired(e => e.PlanEstudio)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<PruebaEntrada>()
+                .HasMany(e => e.PruebaEntradaDetalle)
+                .WithRequired(e => e.PruebaEntrada)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Semestre>()

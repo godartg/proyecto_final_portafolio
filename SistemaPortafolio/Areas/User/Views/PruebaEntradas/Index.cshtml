@@ -1,0 +1,38 @@
+﻿@model IEnumerable<SistemaPortafolio.Models.PruebaEntrada>
+
+@{
+    ViewBag.Title = "PRUEBA DE ENTRADA";
+}
+
+<h2>PRUEBA DE ENTRADA</h2>
+<p>
+    <button class="btn btn-default">@Html.ActionLink("CREAR", "Create")</button>
+</p>
+<table class="table table-condensed bg-gray-light">
+    <tr>
+        <th>
+            Curso
+        </th>
+        <th>
+            Código
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CursoDocente.Curso.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CursoDocente.Curso.curso_cod)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.pruebaentrada_id }) |
+            @Html.ActionLink("Ver", "Pdf", new { id=item.pruebaentrada_id }) |
+            @Html.ActionLink("Borrar", "Delete", new { id=item.pruebaentrada_id })
+        </td>
+    </tr>
+}
+
+</table>

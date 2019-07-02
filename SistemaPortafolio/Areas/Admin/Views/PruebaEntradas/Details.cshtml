@@ -1,0 +1,58 @@
+﻿@model SistemaPortafolio.Models.PruebaEntrada
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PruebaEntrada</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CursoDocente.cursodocente_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CursoDocente.cursodocente_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.matriculados)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.matriculados)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.evaluados)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.evaluados)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.medidas_correctivas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.medidas_correctivas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.recomendaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.recomendaciones)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.pruebaentrada_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
