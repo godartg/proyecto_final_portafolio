@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using SistemaPortafolio.Models;
 using SistemaPortafolio.Filters;
 
-namespace SistemaPortafolio.Areas.User.Controllers
+namespace SistemaPortafolio.Areas.Admin.Controllers
 {
     [Autenticado]
     public class HojaVidaDocenteFAController : Controller
@@ -17,7 +17,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
 
         // GET: Admin/HojaVidaDocenteFA
         // GET: Persona
-        public ActionResult Index(string criterio)
+        public ActionResult Index(String criterio)
         {
             usuario.Obtener(SessionHelper.GetUser());
             //return View(semestre.Listar());
@@ -55,7 +55,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
                 );
         }
 
-        public ActionResult Guardar(Persona model, string nada= "")
+        public ActionResult Guardar(Persona model, string nada = "")
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +71,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
         {
             hojavidadocentefa.hojavidadocentefa_id = id;
             hojavidadocentefa.Eliminar();
-            return Redirect("~/User/HojaVida/AgregarEditarFA");
+            return Redirect("~/Admin/HojaVida/AgregarEditarFA");
         }
     }
 }

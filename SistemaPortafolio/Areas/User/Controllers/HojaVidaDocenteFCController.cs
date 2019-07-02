@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using SistemaPortafolio.Models;
 using SistemaPortafolio.Filters;
 
-namespace SistemaPortafolio.Areas.User.Controllers
+namespace SistemaPortafolio.Areas.Admin.Controllers
 {
     [Autenticado]
     public class HojaVidaDocenteFCController : Controller
@@ -16,7 +16,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
         Usuario usuario = new Usuario();
         // GET: Persona
         // GET: Admin/HojaVidaDocenteFC
-        public ActionResult Index(string criterio)
+        public ActionResult Index(String criterio)
         {
             usuario.Obtener(SessionHelper.GetUser());
             //return View(semestre.Listar());
@@ -69,7 +69,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
         {
             hojavidadocentefc.hojavidadocentefc_id = id;
             hojavidadocentefc.Eliminar();
-            return Redirect("~/User/HojaVida/AgregarEditarFC");
+            return Redirect("~/Admin/HojaVida/AgregarEditarFC");
         }
     }
 }

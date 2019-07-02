@@ -1,27 +1,30 @@
 ﻿@model IEnumerable<SistemaPortafolio.Models.HojaVida>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Persona.dni)
-        </th>
-        <th></th>
-    </tr>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table table-responsive">
+            <tr>
+                <th>
+                    Docente nombre y apellido
+                </th>
+                <th></th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Persona.dni)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.hojavida_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.hojavida_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.hojavida_id })
-        </td>
-    </tr>
-}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Persona.nombre @item.Persona.apellido
 
-</table>
+                    </td>
+                    <td></td>
+                    <td>
+                        <a href="/Admin/HojaVida/Imprimir/@item.persona_id" target class="btn btn-success btn-sm"><i data-toggle="tooltip" data-placement="top" title="" class="glyphicon glyphicon-eye-open" aria-hidden="true" data-original-title="Visualizar"></i></a>
+                         
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

@@ -44,7 +44,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             return View(hojas);
         }
 
-        public ActionResult Imprimir()
+        public ActionResult Imprimir(int persona_id=0)
         {
             /*
             if (usuario_id > 0)
@@ -54,7 +54,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             */
             Documento doc = new Documento();
             TipoDocumento tipoDocumento = new TipoDocumento();
-            int hojavida_id = ObtenerHojaVidaId(0);
+            int hojavida_id = ObtenerHojaVidaId(persona_id);
 
             HojaVida hoja = new HojaVida();
             
@@ -78,7 +78,6 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             documento.GuardarArchivoDirecto(pdf, usuario.Persona.persona_id, "HojaDeVida.pdf", "Curriculum Vitae ICACIT");
             return new FileContentResult(pdf, "application/pdf");
             //return View();
-
         }
 
         public int ObtenerHojaVidaId(int id = 0)
@@ -93,7 +92,6 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                     hojavida = new HojaVida();
                     hojavida.persona_id = usuario.persona_id;
                     hojavida.Guardar();
-
                     id = hojavida.hojavida_id;
                 }
                 else
@@ -101,7 +99,11 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                     id = hojavida.hojavida_id;
                 }
             }
-
+            else
+            {
+                hojavida = hojavida.ObtenerByPersona(id);
+                id = hojavida.hojavida_id;
+            }
             return id;
         }
 

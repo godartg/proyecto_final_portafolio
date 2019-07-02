@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using SistemaPortafolio.Models;
 using SistemaPortafolio.Filters;
 
-namespace SistemaPortafolio.Areas.User.Controllers
+namespace SistemaPortafolio.Areas.Admin.Controllers
 {
     [Autenticado]
     public class HojaVidaDocenteEXController : Controller
@@ -14,7 +14,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
         private HojaVidaDocenteEX hojavidadocenteex = new HojaVidaDocenteEX();
         Usuario usuario = new Usuario();
         // GET: Persona
-        public ActionResult Index(string criterio)
+        public ActionResult Index(String criterio)
         {
             usuario.Obtener(SessionHelper.GetUser());
             //return View(semestre.Listar());
@@ -51,11 +51,13 @@ namespace SistemaPortafolio.Areas.User.Controllers
                 : hojavidadocenteex.Obtener(id)//devuelve un registro por el id
                 );
         }
-        public ActionResult Guardar(Persona model)
+        public ActionResult Guardar(Persona model, string nada = "")
         {
+            bool docente = false;
+
             if (ModelState.IsValid)
             {
-                model.Guardar(null,null,false);
+                model.Guardar(nada,nada,docente);
                 return Redirect("~/HojaVidaDocenteEX");//se referencia al index automaticamente
             }
             else
@@ -67,7 +69,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
         {
             hojavidadocenteex.hojavidadocenteex_id = id;
             hojavidadocenteex.Eliminar();
-            return Redirect("~/User/HojaVida/AgregarEditarEX");
+            return Redirect("~/Admin/HojaVida/AgregarEditarEX");
         }
 
     }
