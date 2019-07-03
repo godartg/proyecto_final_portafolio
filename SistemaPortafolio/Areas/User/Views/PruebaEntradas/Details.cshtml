@@ -1,226 +1,160 @@
-﻿@model SistemaPortafolio.Models.Silabo
-
+﻿@model SistemaPortafolio.Models.PruebaEntrada
 @{
     Layout = null;
-    var horasTotal = Model.CursoDocente.Curso.horaspractica + Model.CursoDocente.Curso.horasteoria;
-    var bibliografiaList = Model.bibliografia.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-    var competenciasList = Model.competencias_curso.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-    var temasList = Model.temas.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-    var resultadosList = Model.resultados.Split(new[] { "@@@" }, StringSplitOptions.None);
+    var conocimientoContador = 0;
+    var resultadosList = Model.medidas_correctivas.Split(new[] { "@@@" }, StringSplitOptions.None);
 }
-
-<style>
-    .body {
-        font-family: "Times New Roman", Times, serif;
-    }
-
-    .header {
-        text-align: center;
-    }
-
-        .header > h3 {
-            margin: 0;
-            padding: 0;
-        }
-
-    .info { 
-        padding-top: 40px;
-    }
-
-    .halfWidth {
-        width: 50%;
-    }
-
-    .thirdWidth {
-        width: 30%;
-    }
-
-    .descripcion {
-        padding-top: 25px;
-    }
-
-        .descripcion > p {
-            margin-top: 5px;
-        }
-
-    .justify {
-        text-align: justify;
-        text-justify: inter-word;
-    }
-
-    .border-black {
-        border-collapse: collapse;
-    }
-
-        .border-black > tr > th {
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Prueba entrada</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .table-black td {
             border: 1px solid black;
-            padding: 5px;
         }
 
-        .border-black > tr > td {
+        .table-black {
             border: 1px solid black;
-            padding: 5px;
         }
-</style>
-<div class="body">
-    <div class="header">
-        <h3>UNIVERSIDAD PRIVADA DE TACNA</h3>
-        <h3>FACULTAD DE INGENIERÍA</h3>
-        <h3>ESCUELA PROFESIONAL DE INGENIERIA DE SISTEMAS</h3>
-        <hr />
-        <h3>SÍLABO</h3>
-        <h3>@Model.CursoDocente.Curso.nombre</h3>
-    </div>
-    <div class="info">
-        <h4>INFORMACIÓN ESPECÍFICA DEL CURSO</h4>
-        <table>
-            <tr>
-                <td class="halfWidth"><b>CODIGO DEL CURSO</b></td>
-                <td><b>: </b>@Model.CursoDocente.Curso.curso_cod</td>
-            </tr>
-            <tr>
-                <td><b>NOMBRE DEL CURSO</b></td>
-                <td><b>: </b>@Model.CursoDocente.Curso.nombre</td>
-            </tr>
-            <tr>
-                <td><b>VIGENCIA</b></td>
-                <td><b>: </b>@Model.CursoDocente.Curso.PlanEstudio.Semestre.nombre</td>
-            </tr>
-            <tr>
-                <td><b>CREDITOS</b></td>
-                <td><b>: </b>@Model.CursoDocente.Curso.credito</td>
-            </tr>
-            <tr>
-                <td><b>HORA / SEMANA</b></td>
-                <td><b>: </b>@horasTotal Horas (@Model.CursoDocente.Curso.horasteoria horas teoría / @Model.CursoDocente.Curso.horaspractica horas práctica)</td>
-            </tr>
-            <tr>
-                <td><b>PRE-REQUISITOS</b></td>
-                <td><b>: </b>@Model.CursoDocente.Curso.prerequisito</td>
-            </tr>
-            <tr>
-                <td><b>NATURALEZA DEL CURSO</b></td>
-                <td><b>: </b>@Model.CursoDocente.Curso.tipo_curso</td>
-            </tr>
-            <tr>
-                <td><b>DOCENTE</b></td>
-                <td><b>: </b>@Model.CursoDocente.Persona.nombre @Model.CursoDocente.Persona.apellido</td>
-            </tr>
-        </table>
-    </div>
-    <div class="descripcion">
-        <h4>A) Descripción del curso</h4>
-        <p class="justify">@Html.Raw(Model.descripcion)</p>
-    </div>
 
-    <div class="descripcion">
-        <h4>BIBLIOGRAFÍA:</h4>
-        @foreach (var bibliografia in bibliografiaList)
-        {
-            <text>— </text> @bibliografia <br />
+        body {
+            line-height: 10px;
         }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h4>Informe de la Prueba de Entrada</h4>
+        <h4>2019-I</h4>
     </div>
 
-    <div class="descripcion">
-        <h4>COMPETENCIAS DEL CURSO:</h4>
-        @foreach (var competencia in competenciasList)
-        {
-            <text>— </text> @competencia <br />
-        }
+    <table class="table table-bordered table-black">
+        <tbody>
+            <tr class="text-center">
+                <td colspan="10">CURSO</td>
+            </tr>
+            <tr class="text-center">
+                <td colspan="2">Código</td>
+                <td colspan="8">Nombre</td>
+            </tr>
+            <tr>
+                <td colspan="2">@Model.CursoDocente.Curso.curso_cod</td>
+                <td colspan="8">@Model.CursoDocente.Curso.nombre</td>
+            </tr>
+            <tr>
+                <td>Sección</td>
+                <td>@Model.CursoDocente.Curso.seccion</td>
+                <td>Ciclo</td>
+                <td>@Model.CursoDocente.Curso.Ciclo.nombre</td>
+                <td>Horas</td>
+                <td>@(Model.CursoDocente.Curso.horaspractica + Model.CursoDocente.Curso.horasteoria)</td>
+                <td>Créditos</td>
+                <td>@Model.CursoDocente.Curso.credito</td>
+                <td>Tipo</td>
+                <td>@Model.CursoDocente.Curso.tipo_curso</td>
+            </tr>
+            <tr class="text-center">
+                <td colspan="10">DOCENTE</td>
+            </tr>
+            <tr>
+                <td colspan="2">Docente</td>
+                <td colspan="8">@Model.CursoDocente.Curso.nombre</td>
+            </tr>
+            <tr>
+                <td colspan="2">E-mail</td>
+                <td colspan="5">@Model.CursoDocente.Persona.email</td>
+                <td colspan="2">Celular</td>
+                <td colspan="1">@Model.CursoDocente.Persona.celular</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-bordered table-black">
+        <tbody>
+            <tr class="text-center">
+                <td colspan="2">N° Estudiantes</td>
+                <td colspan="2">Matriculados:</td>
+                <td colspan="2">@Model.matriculados</td>
+                <td colspan="2">Evaluados</td>
+                <td colspan="2">@Model.evaluados</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <table class="table table-bordered table-black" style="margin-top: 75px;">
+        <tbody>
+            <tr class="text-center">
+                <td colspan="1">N°.</td>
+                <td colspan="1">Conocimiento o habilidad</td>
+                <td colspan="1">Deficiente</td>
+                <td colspan="1">%</td>
+                <td colspan="1">Suficiente</td>
+                <td colspan="1">%</td>
+                <td colspan="1">Bueno</td>
+                <td colspan="1">%</td>
+                <td colspan="1">Total</td>
+                <td colspan="1">|</td>
+            </tr>
+            @foreach (var ped in Model.PruebaEntradaDetalle)
+            {
+                conocimientoContador++;
+                var color = "bg-danger";
+                if (ped.suficiente + ped.bueno > Model.evaluados / 2)
+                {
+                    color = "bg-success";
+                }
+                <tr class="text-center">
+                    <td colspan="1">@conocimientoContador</td>
+                    <td colspan="1">@ped.conocimiento</td>
+                    <td colspan="1">@ped.deficiente</td>
+                    <td colspan="1">@(ped.deficiente * 100 / Model.evaluados)%</td>
+                    <td colspan="1">@ped.suficiente</td>
+                    <td colspan="1">@(ped.suficiente * 100 / Model.evaluados)%</td>
+                    <td colspan="1">@ped.bueno</td>
+                    <td colspan="1">@(ped.bueno * 100 / Model.evaluados)%</td>
+                    <td colspan="1">@(ped.deficiente + ped.bueno + ped.suficiente)</td>
+                    <td colspan="1" class="@color"></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <table class="table table-bordered table-black">
+        <tbody>
+            <tr>
+                <td colspan="1">1. Repaso en horas de classe</td>
+                <td colspan="1">@resultadosList[0]</td>
+                <td colspan="1">4. Entrega de material de repaso</td>
+                <td colspan="1">@resultadosList[1]</td>
+            </tr>
+            <tr>
+                <td colspan="1">2. Repaso con horas adicionales de clase</td>
+                <td colspan="1">@resultadosList[2]</td>
+                <td colspan="1">5. Recomendación de bibliografía</td>
+                <td colspan="1">@resultadosList[3]</td>
+            </tr>
+            <tr>
+                <td colspan="1">3. Ejercicios propuestos para resolver en casa</td>
+                <td colspan="1">@resultadosList[4]</td>
+                <td colspan="1">6. Otros (Detalle en la descripción)</td>
+                <td colspan="1">@resultadosList[5]</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>Describa otras medidas correctivas y/o recomendaciones</p>
+    <div class="card" style="width: 100%">
+        <div class="card-body table-black">
+            <p class="card-text">@Model.recomendaciones</p>
+        </div>
     </div>
 
-    <div class="descripcion">
-        <h4>TEMAS A SER ABORDADOS EN EL CURSO:</h4>
-        @foreach (var tema in temasList)
-        {
-            <text>— </text> @tema <br />
-        }
-    </div>
 
-    <div class="descripcion">
-        <h4>RESULTADOS DE APRENDIZAJE DEL ESTUDIANTE:</h4>
-        <p class="justify">Los Resultados de Aprendizaje del estudiante, son declaraciones breves que describen lo que el estudiante debe saber y ser capaz de hacer momento de la graduación. Estos se relacionan con las habilidades, conocimiento y comportamiento que los estudiantes adquieren a lo largo de su progreso en la carrera. Cada curso aporta a lograr estos resultados según su naturaleza. (*) </p>
-        <p class="justify">El aporte del curso al logro de los Resultados del Programa se indica en la tabla siguiente: </p>
-        <table>
-            <tr>
-                <td class="thirdWidth"><b>K</b> = clave </td>
-                <td class="thirdWidth"><b>R</b> = relacionado</td>
-                <td class="thirdWidth"><b>Recuadro vacío</b> = no aplica</td>
-            </tr>
-        </table>
-        <table class="border-black" style="margin-top: 10px">
-            <tr>
-                <th style="width:20%"><b>Resultado del Programa</b></th>
-                <th style="width:57%"><b>Descripción</b></th>
-                <th style="width:7%"><b>Aporte</b></th>
-            </tr>
-            <tr>
-                <td>1a. Aplicación de Ciencias </td>
-                <td>Aplica los conocimientos y habilidades en matemáticas, ciencias e ingeniería para resolver problemas de ingeniería sistemas.</td>
-                <td>@resultadosList[0]</td>
-            </tr>
-            <tr>
-                <td>2b.Experimentación y Pruebas</td>
-                <td>Diseña y conduce experimentos, analiza e interpreta datos.</td>
-                <td>@resultadosList[1]</td>
-            </tr>
-            <tr>
-                <td>3c. Diseño en Ingeniería</td>
-                <td>Diseña sistemas informáticos, componentes y/o procesos para satisfacer requerimientos considerando restricciones realistas de seguridad y sostenibilidad.</td>
-                <td>@resultadosList[2]</td>
-            </tr>
-            <tr>
-                <td>4d. Trabajo en Equipo</td>
-                <td>Participa activa y efectivamente en grupos multidisciplinarios siendo capaces de liderarlos.</td>
-                <td>@resultadosList[3]</td>
-            </tr>
-            <tr>
-                <td>5e. Solución de Problemas de Ingeniería</td>
-                <td>Identifica, fórmula y resuelve problemas de ingeniería usando las técnicas, métodos y herramientas apropiados.</td>
-                <td>@resultadosList[4]</td>
-            </tr>
-            <tr>
-                <td>6f.Responsabilidad Ética y Profesional</td>
-                <td>Entiende sus responsabilidades profesionales, éticas, sociales y legales, y cumple los compromisos asumidos.</td>
-                <td>@resultadosList[5]</td>
-            </tr>
-            <tr>
-                <td>7g.Comunicación</td>
-                <td>Se comunica clara y efectivamente en forma oral, escrita y gráfica, interactuando con diferentes tipos de audiencias.</td>
-                <td>@resultadosList[6]</td>
-            </tr>
-            <tr>
-                <td>8h. Perspectiva Local y Global</td>
-                <td>Comprende el impacto que tienen las soluciones de ingeniería en la sociedad en un contexto local y global.</td>
-                <td>@resultadosList[7]</td>
-            </tr>
-            <tr>
-                <td>9i. Educación Continúa</td>
-                <td>Reconoce la necesidad de mantener sus conocimientos y habilidades actualizadas de acuerdo a los avances de la ingeniería de software y sistemas de información y se compromete con un aprendizaje para toda la vida.</td>
-                <td>@resultadosList[8]</td>
-            </tr>
-            <tr>
-                <td>10j. Asuntos Contemporáneos</td>
-                <td>Conoce y analiza asuntos contemporáneos relevantes en contextos locales, nacionales y globales.</td>
-                <td>@resultadosList[9]</td>
-            </tr>
-            <tr>
-                <td>11k. Práctica de la Ingeniería Moderna</td>
-                <td>Usa las técnicas, métodos y herramientas de la ingeniería moderna necesarias para la práctica de la ingeniería de software y sistemas de información.</td>
-                <td>@resultadosList[10]</td>
-            </tr>
-            <tr>
-                <td>12l. Gestión de Proyectos </td>
-                <td>Planifica y gestiona proyectos de ingeniería tomando en cuenta criterios de eficiencia y productividad.</td>
-                <td>@resultadosList[11]</td>
-            </tr>
-            <tr>
-                <td>13m. Desarrollo de Software e Implementación de SI</td>
-                <td>Desarrolla e implementa software y sistemas de información satisfaciendo requerimientos y aplicando metodologías, técnicas y herramientas apropiados.</td>
-                <td>@resultadosList[0]</td>
-            </tr>
-        </table>
-        <p>(*) Colocar en la tabla de arriba de acuerdo a las siglas indicadas (K – R – Vacío), el aporte de su curso para lograr los resultados del estudiante según su naturaleza.</p>
-    </div>
-</div>
-
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
