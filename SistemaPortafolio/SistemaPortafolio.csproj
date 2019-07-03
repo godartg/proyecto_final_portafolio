@@ -67,9 +67,6 @@
     <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\MicrosoftOfficeCore.15.0.0\lib\net35\Office.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -335,6 +332,11 @@
     <Content Include="Areas\User\Views\HojaVida\AgregarEditarHP.cshtml" />
     <Content Include="Areas\User\Views\HojaVida\AgregarEditarM.cshtml" />
     <Content Include="Areas\User\Views\HojaVida\AgregarEditarP.cshtml" />
+    <Content Include="Areas\User\Views\Portafolios\Create.cshtml" />
+    <Content Include="Areas\User\Views\Portafolios\Delete.cshtml" />
+    <Content Include="Areas\User\Views\Portafolios\Details.cshtml" />
+    <Content Include="Areas\User\Views\Portafolios\Edit.cshtml" />
+    <Content Include="Areas\User\Views\Portafolios\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index2.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index3.cshtml" />
     <Content Include="Areas\Admin\Views\Home\UploadFileAndGetShareUri.cshtml" />
@@ -420,6 +422,7 @@
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\Controllers\NotificacionController.cs" />
     <Compile Include="Areas\User\Controllers\PerfilController.cs" />
+    <Compile Include="Areas\User\Controllers\PortafoliosController.cs" />
     <Compile Include="Areas\User\Controllers\PruebaEntradasController.cs" />
     <Compile Include="Areas\User\Controllers\SilabosController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
@@ -457,6 +460,10 @@
     <Compile Include="Migrations\201907010745074_alterColumnCursoID_inDocumento.Designer.cs">
       <DependentUpon>201907010745074_alterColumnCursoID_inDocumento.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907031626518_TablePortafolioAdded.cs" />
+    <Compile Include="Migrations\201907031626518_TablePortafolioAdded.Designer.cs">
+      <DependentUpon>201907031626518_TablePortafolioAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Anexgrid.cs" />
     <Compile Include="Models\Archivo.cs" />
@@ -487,6 +494,7 @@
     <Compile Include="Models\Notificacion.cs" />
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\PlanEstudio.cs" />
+    <Compile Include="Models\Portafolio.cs" />
     <Compile Include="Models\PruebaEntrada.cs" />
     <Compile Include="Models\PruebaEntradaDetalle.cs" />
     <Compile Include="Models\ResponseModel.cs" />
@@ -712,12 +720,9 @@
     <EmbeddedResource Include="Migrations\201907010745074_alterColumnCursoID_inDocumento.resx">
       <DependentUpon>201907010745074_alterColumnCursoID_inDocumento.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CSOneDriveAccess\CSOneDriveAccess.csproj">
-      <Project>{a5530f11-c50c-4729-940a-71cc1c0bb64d}</Project>
-      <Name>CSOneDriveAccess</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Migrations\201907031626518_TablePortafolioAdded.resx">
+      <DependentUpon>201907031626518_TablePortafolioAdded.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
