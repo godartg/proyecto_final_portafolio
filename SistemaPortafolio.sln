@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaPortafolio", "SistemaPortafolio\SistemaPortafolio.csproj", "{9092D95B-28AC-4C6C-B1E0-01667452778F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSOneDriveAccess", "CSOneDriveAccess\CSOneDriveAccess.csproj", "{A5530F11-C50C-4729-940A-71CC1C0BB64D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9092D95B-28AC-4C6C-B1E0-01667452778F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9092D95B-28AC-4C6C-B1E0-01667452778F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9092D95B-28AC-4C6C-B1E0-01667452778F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5530F11-C50C-4729-940A-71CC1C0BB64D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5530F11-C50C-4729-940A-71CC1C0BB64D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5530F11-C50C-4729-940A-71CC1C0BB64D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5530F11-C50C-4729-940A-71CC1C0BB64D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
