@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json.Linq;
+using SistemaPortafolio.Models;
 
 namespace SistemaPortafolio.Areas.Admin.Controllers
 {
@@ -40,7 +41,6 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         }*/
         public ActionResult Index()
         {
-            
             return View();
         }
         
@@ -136,5 +136,6 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
             }
         }*/
+
     }
 }
