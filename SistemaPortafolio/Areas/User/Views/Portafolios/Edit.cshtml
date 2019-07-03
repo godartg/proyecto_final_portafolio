@@ -1,0 +1,241 @@
+﻿@model SistemaPortafolio.Models.Portafolio
+
+@{
+    ViewBag.Title = "EDITAR";
+    var digitalList = Model.material_digital.Split(new[] { "@@@" }, StringSplitOptions.None);
+    var cantidadList = Model.material_cantidad.Split(new[] { "@@@" }, StringSplitOptions.None);
+    var impresoList = Model.material_impreso.Split(new[] { "@@@" }, StringSplitOptions.None);
+    var unidadList = (SelectList)ViewBag.unidad;
+}
+
+<h2>EDITAR</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Portafolio</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.portafolio_id)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.cursodocente_id, "CURSO: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("cursodocente_id", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.cursodocente_id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.unidad, "UNIDAD: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DropDownListFor(model => model.unidad, unidadList, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.unidad, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.matriculados, "MATRICULADOS: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.matriculados, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.matriculados, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.retirados, "RETIRADOS: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.retirados, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.retirados, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.abandono, "ABANDONO: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.abandono, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.abandono, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.asisten, "ASISTEN: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.asisten, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.asisten, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.aprobados, "APROBADOS: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.aprobados, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.aprobados, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.desaprobados, "DESAPROBADOS: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.desaprobados, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.desaprobados, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.material_digital, "MATERIAL: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.HiddenFor(model => model.material_digital, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.material_impreso, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.material_cantidad, new { htmlAttributes = new { @class = "form-control" } })
+            <p>I. Material que el docente prepara y entrega a los estudiantes durante la ejecución de los cursos: (Marcar con una X en las columnas Digital y/o Impreso siempre y cuando tenga evidencia</p>
+            <table class="table table-responsive bg-gray-light" id="tblConocimientos">
+                <tbody>
+                    <tr>
+                        <td colspan="2">Material Docente Entregado</td>
+                        <td>Digital</td>
+                        <td>Impreso</td>
+                        <td>Cantidad</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Sílabo formato UPT (Impreso y Digital)</td>
+                        <td><input value="@digitalList[0]" class="text-center" type="text" maxlength="1" name="materialDigital[0]" /></td>
+                        <td><input value="@impresoList[0]" class="text-center" type="text" maxlength="1" name="materialImpreso[0]" /></td>
+                        <td><input value="@cantidadList[0]" class="text-center" type="number" min="0" name="materialCantidad[0]" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Sílabo formato ICACIT (Impreso y Digital)</td>
+                        <td><input value="@digitalList[1]"  class="text-center" type="text" maxlength="1" name="materialDigital[1]" /></td>
+                        <td><input value="@impresoList[1]"  class="text-center" type="text" maxlength="1" name="materialImpreso[1]" /></td>
+                        <td><input value="@cantidadList[1]" class="text-center" type="number" min="0" name="materialCantidad[1]" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Curriculum Vitae formato ICACIT</td>
+                        <td><input value="@digitalList[2]"  class="text-center" type="text" maxlength="1" name="materialDigital[2]" /></td>
+                        <td><input value="@impresoList[2]"  class="text-center" type="text" maxlength="1" name="materialImpreso[2]" /></td>
+                        <td><input value="@cantidadList[2]" class="text-center" type="number" min="0" name="materialCantidad[2]" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Material del Curso (Texto, Diapositivas)</td>
+                        <td><input value="@digitalList[3]"  class="text-center" type="text" maxlength="1" name="materialDigital[3]" /></td>
+                        <td><input value="@impresoList[3]"  class="text-center" type="text" maxlength="1" name="materialImpreso[3]" /></td>
+                        <td><input value="@cantidadList[3]" class="text-center" type="number" min="0" name="materialCantidad[3]" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Guías de laboratorio y talleres</td>
+                        <td><input value="@digitalList[4]"  class="text-center" type="text" maxlength="1" name="materialDigital[4]" /></td>
+                        <td><input value="@impresoList[4]"  class="text-center" type="text" maxlength="1" name="materialImpreso[4]" /></td>
+                        <td><input value="@cantidadList[4]" class="text-center" type="number" min="0" name="materialCantidad[4]" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Enunciado y resolución de exámenes</td>
+                        <td><input value="@digitalList[5]"  class="text-center" type="text" maxlength="1" name="materialDigital[5]" /></td>
+                        <td><input value="@impresoList[5]"  class="text-center" type="text" maxlength="1" name="materialImpreso[5]" /></td>
+                        <td><input value="@cantidadList[5]" class="text-center" type="number" min="0" name="materialCantidad[5]" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Enunciado de las prácticas o casoss prácticos</td>
+                        <td><input value="@digitalList[6]"  class="text-center" type="text" maxlength="1" name="materialDigital[6]" /></td>
+                        <td><input value="@impresoList[6]"  class="text-center" type="text" maxlength="1" name="materialImpreso[6]" /></td>
+                        <td><input value="@cantidadList[6]" class="text-center" type="number" min="0" name="materialCantidad[6]" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Registro de Asistencia</td>
+                        <td><input value="@digitalList[7]"  class="text-center" type="text" maxlength="1" name="materialDigital[7]" /></td>
+                        <td><input value="@impresoList[7]"  class="text-center" type="text" maxlength="1" name="materialImpreso[7]" /></td>
+                        <td><input value="@cantidadList[7]" class="text-center" type="number" min="0" name="materialCantidad[7]" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Registro de Notas</td>
+                        <td><input value="@digitalList[8]"  class="text-center" type="text" maxlength="1" name="materialDigital[8]" /></td>
+                        <td><input value="@impresoList[8]"  class="text-center" type="text" maxlength="1" name="materialImpreso[8]" /></td>
+                        <td><input value="@cantidadList[8]" class="text-center" type="number" min="0" name="materialCantidad[8]" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Fichas de evaluaciones (Rúbricas)</td>
+                        <td><input value="@digitalList[9]"  class="text-center" type="text" maxlength="1" name="materialDigital[9]" /></td>
+                        <td><input value="@impresoList[9]"  class="text-center" type="text" maxlength="1" name="materialImpreso[9]" /></td>
+                        <td><input value="@cantidadList[9]" class="text-center" type="number" min="0" name="materialCantidad[9]" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.material_digital, "MATERIAL: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.HiddenFor(model => model.material_digital, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.material_impreso, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.material_cantidad, new { htmlAttributes = new { @class = "form-control" } })
+            <p>El material deberá estar asociado a los resultados del aprendizaje definidos en la planificacion del curso.(Marcar con un X en las columnas Digital y/o Impreso siempre y cuando tenga evidencia)</p>
+            <table class="table table-responsive bg-gray-light" id="tblConocimientos">
+                <tbody>
+                    <tr>
+                        <td colspan="2">Material Docente Entregado</td>
+                        <td>Digital</td>
+                        <td>Impreso</td>
+                        <td>Cantidad</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Copias de cuadernos o apuntes de clases (Cursos que lo requieran) opcional</td>
+                        <td><input value="@digitalList[10]"  class="text-center" type="text" maxlength="1" name="materialDigital[10]" /></td>
+                        <td><input value="@impresoList[10]"  class="text-center" type="text" maxlength="1" name="materialImpreso[10]" /></td>
+                        <td><input value="@cantidadList[10]" class="text-center" type="number" min="0" name="materialCantidad[10]" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Original de exámenes de unidad, ordenado por notas de mayor a menor	</td>
+                        <td><input value="@digitalList[11]"  class="text-center" type="text" maxlength="1" name="materialDigital[11]" /></td>
+                        <td><input value="@impresoList[11]"  class="text-center" type="text" maxlength="1" name="materialImpreso[11]" /></td>
+                        <td><input value="@cantidadList[11]" class="text-center" type="number" min="0" name="materialCantidad[11]" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Original de evaluaciones practicas (pruebas)</td>
+                        <td><input value="@digitalList[12]"  class="text-center" type="text" maxlength="1" name="materialDigital[12]" /></td>
+                        <td><input value="@impresoList[12]"  class="text-center" type="text" maxlength="1" name="materialImpreso[12]" /></td>
+                        <td><input value="@cantidadList[12]" class="text-center" type="number" min="0" name="materialCantidad[12]" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            Original de informes de laboratorios
+                        </td>
+                        <td><input value="@digitalList[13]"  class="text-center" type="text" maxlength="1" name="materialDigital[13]" /></td>
+                        <td><input value="@impresoList[13]"  class="text-center" type="text" maxlength="1" name="materialImpreso[13]" /></td>
+                        <td><input value="@cantidadList[13]" class="text-center" type="number" min="0" name="materialCantidad[13]" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Trabajos encargado (investigación, tareas, asignaciones)</td>
+                        <td><input value="@digitalList[14]"  class="text-center" type="text" maxlength="1" name="materialDigital[14]" /></td>
+                        <td><input value="@impresoList[14]"  class="text-center" type="text" maxlength="1" name="materialImpreso[14]" /></td>
+                        <td><input value="@cantidadList[14]" class="text-center" type="number" min="0" name="materialCantidad[14]" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Trabajos y/o proyectos finales del curso</td>
+                        <td><input value="@digitalList[15]"  class="text-center" type="text" maxlength="1" name="materialDigital[15]" /></td>
+                        <td><input value="@impresoList[15]"  class="text-center" type="text" maxlength="1" name="materialImpreso[15]" /></td>
+                        <td><input value="@cantidadList[15]" class="text-center" type="number" min="0" name="materialCantidad[15]" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.recepcionado_por, "RECEPCIONADO: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.recepcionado_por, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.recepcionado_por, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="EDITAR" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

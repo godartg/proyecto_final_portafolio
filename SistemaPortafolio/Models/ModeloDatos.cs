@@ -41,6 +41,7 @@
         public virtual DbSet<Silabo> Silabo { get; set; }
         public virtual DbSet<PruebaEntrada> PruebaEntrada { get; set; }
         public virtual DbSet<PruebaEntradaDetalle> PruebaEntradaDetalle { get; set; }
+        public virtual DbSet<Portafolio> Portafolio { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

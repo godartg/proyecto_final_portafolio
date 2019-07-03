@@ -18,5 +18,28 @@ namespace SistemaPortafolio.Models
 
         [StringLength(10)]
         public string unidad { get; set; }
+        
+        public int matriculados { get; set; }
+
+        public int retirados { get; set; }
+
+        public int abandono { get; set; }
+
+        public int asisten { get; set; }
+
+        public int aprobados { get; set; }
+
+        public int desaprobados { get; set; }
+
+        public string material_digital { get; set; }
+
+        public string material_impreso { get; set; }
+
+        public string material_cantidad { get; set; }
+
+        public string recepcionado_por { get; set; }
+
+        [ForeignKey("cursodocente_id")]
+        public virtual CursoDocente CursoDocente { get; set; }
     }
 }

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using SistemaPortafolio.Filters;
-using SistemaPortafolio.CSOneDriveAccess;
+//using SistemaPortafolio.CSOneDriveAccess;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Newtonsoft.Json.Linq;
+//using Newtonsoft.Json.Linq;
 
 namespace SistemaPortafolio.Areas.Admin.Controllers
 {

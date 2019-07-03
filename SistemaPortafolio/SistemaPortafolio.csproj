@@ -331,6 +331,11 @@
     <Content Include="Areas\User\Views\HojaVida\AgregarEditarHP.cshtml" />
     <Content Include="Areas\User\Views\HojaVida\AgregarEditarM.cshtml" />
     <Content Include="Areas\User\Views\HojaVida\AgregarEditarP.cshtml" />
+    <Content Include="Areas\User\Views\Portafolios\Create.cshtml" />
+    <Content Include="Areas\User\Views\Portafolios\Delete.cshtml" />
+    <Content Include="Areas\User\Views\Portafolios\Details.cshtml" />
+    <Content Include="Areas\User\Views\Portafolios\Edit.cshtml" />
+    <Content Include="Areas\User\Views\Portafolios\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -413,6 +418,7 @@
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\Controllers\NotificacionController.cs" />
     <Compile Include="Areas\User\Controllers\PerfilController.cs" />
+    <Compile Include="Areas\User\Controllers\PortafoliosController.cs" />
     <Compile Include="Areas\User\Controllers\PruebaEntradasController.cs" />
     <Compile Include="Areas\User\Controllers\SilabosController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
@@ -449,6 +455,10 @@
     <Compile Include="Migrations\201907010745074_alterColumnCursoID_inDocumento.cs" />
     <Compile Include="Migrations\201907010745074_alterColumnCursoID_inDocumento.Designer.cs">
       <DependentUpon>201907010745074_alterColumnCursoID_inDocumento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907031626518_TablePortafolioAdded.cs" />
+    <Compile Include="Migrations\201907031626518_TablePortafolioAdded.Designer.cs">
+      <DependentUpon>201907031626518_TablePortafolioAdded.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Anexgrid.cs" />
@@ -700,6 +710,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907010745074_alterColumnCursoID_inDocumento.resx">
       <DependentUpon>201907010745074_alterColumnCursoID_inDocumento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907031626518_TablePortafolioAdded.resx">
+      <DependentUpon>201907031626518_TablePortafolioAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
