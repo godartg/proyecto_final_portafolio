@@ -336,6 +336,11 @@
     <Content Include="Areas\User\Views\Portafolios\Details.cshtml" />
     <Content Include="Areas\User\Views\Portafolios\Edit.cshtml" />
     <Content Include="Areas\User\Views\Portafolios\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Portafolios\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Portafolios\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Portafolios\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Portafolios\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Portafolios\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -395,6 +400,7 @@
     <Compile Include="Areas\Admin\Controllers\PerfilController.cs" />
     <Compile Include="Areas\Admin\Controllers\PersonaController.cs" />
     <Compile Include="Areas\Admin\Controllers\PlanEstudioController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PortafoliosController.cs" />
     <Compile Include="Areas\Admin\Controllers\PruebaEntradasController.cs" />
     <Compile Include="Areas\Admin\Controllers\SemestreController.cs" />
     <Compile Include="Areas\Admin\Controllers\SilabosController.cs" />
