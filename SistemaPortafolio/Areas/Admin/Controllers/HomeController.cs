@@ -4,10 +4,14 @@ using System.Linq;
 using SistemaPortafolio.Filters;
 using SistemaPortafolio.CSOneDriveAccess;
 using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using SistemaPortafolio.Models;
 
 namespace SistemaPortafolio.Areas.Admin.Controllers
@@ -18,17 +22,17 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         /// <summary>
         /// clientId of you office 365 application, you can find it in https://apps.dev.microsoft.com/
         /// </summary>
-        private const string ClientId = "043f2159-507a-4e5f-ae85-60feff49a541";
+        private const string ClientId = "6ac7393c-901a-49f0-9e89-316fe751a0a8";
         /// <summary>
         /// Password/Public Key of you office 365 application, you can find it in https://apps.dev.microsoft.com/
         /// </summary>
-        private const string Secret = "hdwHIKYN289);beikUI84^#";
+        private const string Secret = "nNLT0-@csodnsDCAE1785#}";
         /// <summary>
         /// Authentication callback url, you can set it in https://apps.dev.microsoft.com/
         /// </summary>
-        private const string CallbackUri = "http://localhost:1438/Home/OnAuthComplate";
+        private const string CallbackUri = "http://localhost:49204/Admin/Home/OnAuthComplate";
         // GET: Admin/Home
-        /*
+        
         public ActionResult Index()
         {
             if (string.IsNullOrEmpty(OfficeAccessSession.AccessCode))
@@ -38,8 +42,8 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 return new RedirectResult(url);
             }
             return RedirectToAction("UploadFileAndGetShareUri");
-        }*/
-        public ActionResult Index()
+        }
+        public ActionResult Index2()
         {
             return View();
         }
@@ -47,7 +51,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         /// <summary>
         /// OfficeAccessSession object in session
         /// </summary>
-        /*
+        
         public O365RestSession OfficeAccessSession
         {
             get
@@ -72,10 +76,10 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UploadFileAndGetShareUri()
+        public async Task<ActionResult> UploadFileAndGetShareUri(HttpPostedFileBase file)
         {
 
-            var file;
+            
             //save upload file to temp dir in local disk
             var path = Path.GetTempFileName();
             file.SaveAs(path);
@@ -97,6 +101,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         }
         public void LeerArchivos()
         {
+            var path = Server.MapPath(@"~/Server/");
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
 
             List<ClsCarpeta> listCarpetas = new List<ClsCarpeta>();
@@ -135,7 +140,122 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
 
             }
-        }*/
+        }
+        private string token = "EwCAA8l6BAAURSN/FHlDW5xN74t6GzbtsBBeBUYAAXSl/29y9GoxxJbc/yuR9/o9Umk6wJYW55xJTgCHfVIaDiqT/0iY0AiTTzYgtwv9mDbsmKH/nthi/0PxVOY4ImvhBDP1qW7+tpUZdNv9CcD5pY5OMaMqnCSjXQyO/nicVbqd6L/sQyhSwV0Q57macMxuaZ4I00+FicUZswqPIw2uXbE7w0Rt8nISm4vAQ5AiTl8xF0UuJdwxRwkII/VD/nFydyFErzFJClZp9MgfH4FCg4VScx8g4qYBNbKs2AyTFsoxfdgyWlofe1ZHEsC+jmawV+oXynYYiYM84Yy79C3iR3XARqrNWtlXr3QVOJFeCvYDcFKcVNPdvpvZGpLNcGMDZgAACHZGJgV0xQAlUAJp9JO6ebYwHEcNeSshNSVxKT1eUAQCofofEhnBoG5XgBFANxtQZUwyfm521i1wXoZex2uR+WGHSD8MZS4Vf+rVK136yA5o4Jtf7WrRMl+0HuWjHssCWsqhrCTrZu1OgqHxMVzCsq70SejV/w66QMzfuPthxzbywkFP7kRq5LB4iSEfPuCRamqZHUFvEEpGH7qlXTisClDHv/63kr0KR/EJlk3AjLc4j2DjDWLUKfM/fCpWImf4IdI0z0R80UYPs60ZawQecFFFNq1B09Dmu0qZ1clW5q956q2rqPQutkzZM7unRDPEMw+u7picxKZJAagNgQoN9yPAPrzSrofw/N5TlsdIHRn4y5OyTklmXcFtxmzGJ1rgfD/kdIs6JfGx9waNSBw6MH6g6i8J4HBZMBcOY3DPVe5IHmPuLOJE3x4cp84QAcABtTdnmw1Qce+ToqtKla1yQeTAZszvcJx4QVHWFOiz2DAWdDFsBKGGjUSBOfIuvJMR7Hu9AlMEicwcWtH21zscLY3WOYzKXF7S0K9XPmot33VBPLNZvi+MW2RkzQ01Impr1ENGVbaiwoxCDS/PT8J12lF/XrqRDYgrTrtInPkR6rtQz712/e9oea1Q0Ip+TqxbuLRxm08payj4s9iVg87Grz0HCFEzanlGj7E0fSflvS6WbJdHxX2CxKCj6Uk9L12n1TvTMAs826bixueVNEikR9oeLRDPfpopWK64iLQ2cyr1oNGACAKpxER6ft69pcGbO3HgPLnDDe4jm+CM+zNuUAYB0GmAgYd3SkrVgwI=";
+
+        // GET: Archivos
+        public async Task<ActionResult> Index3()
+        {
+            var archivos = await listarAsync();
+
+            return View("Index3", archivos);
+        }
+
+        public async Task<ActionResult> Ver(string id)
+        {
+            var archivos = await listarAsync(id);
+
+            return View("Index3", archivos);
+        }
+
+        private async Task<Archivos> listarAsync()
+        {
+            Archivos archivos = new Archivos();
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, new Uri("https://graph.microsoft.com/v1.0/me/drive/root/children"));
+
+                var respuesta = await httpClient.SendAsync(request);
+                var contenido = respuesta.Content.ReadAsStringAsync().Result;
+
+                archivos = JsonConvert.DeserializeObject<Archivos>(contenido);
+            }
+
+            return archivos;
+        }
+
+        private async Task<Archivos> listarAsync(string id)
+        {
+            Archivos archivos = new Archivos();
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, new Uri("https://graph.microsoft.com/v1.0/me/drive/items/" + id + "/children"));
+
+                var respuesta = await httpClient.SendAsync(request);
+                var contenido = respuesta.Content.ReadAsStringAsync().Result;
+
+                archivos = JsonConvert.DeserializeObject<Archivos>(contenido);
+            }
+
+            return archivos;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CrearCarpeta(string nombre)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, new Uri("https://graph.microsoft.com/v1.0/me/drive/root/children"));
+
+                request.Content = new StringContent("{\"name\":\"" + nombre + "\",\"folder\":{}}",
+                                    Encoding.UTF8,
+                                    "application/json");
+
+                var respuesta = await httpClient.SendAsync(request);
+                var contenido = respuesta.Content.ReadAsStringAsync().Result;
+
+            }
+
+            return await Index3();
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SubirArchivo(string nombre)
+        {
+            var archivo_ruta = "";
+            var archivo_nombre = "";
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "octet-stream");
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, new Uri("https://graph.microsoft.com/v1.0/me/drive/root:/" + archivo_nombre + ":/content"));
+
+                request.Content = new ByteArrayContent(ReadFileContent(archivo_ruta));
+
+                var respuesta = await httpClient.SendAsync(request);
+                //respuesta.StatusCode.ToString()
+            }
+
+            return await Index3();
+
+        }
+
+        private byte[] ReadFileContent(string filePath)
+        {
+            using (FileStream inStrm = new FileStream(filePath, FileMode.Open))
+            {
+                byte[] buf = new byte[2048];
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    int readBytes = inStrm.Read(buf, 0, buf.Length);
+                    while (readBytes > 0)
+                    {
+                        memoryStream.Write(buf, 0, readBytes);
+                        readBytes = inStrm.Read(buf, 0, buf.Length);
+                    }
+                    return memoryStream.ToArray();
+                }
+            }
+        }
 
     }
 }

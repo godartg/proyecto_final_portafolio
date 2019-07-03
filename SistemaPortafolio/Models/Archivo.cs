@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SistemaPortafolio.Models
 {
-    public class Archivo2
+    public class Archivo
     {
         public string id { get; set; }
         public string name { get; set; }

@@ -80,6 +80,7 @@
     <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -334,6 +335,9 @@
     <Content Include="Areas\User\Views\HojaVida\AgregarEditarHP.cshtml" />
     <Content Include="Areas\User\Views\HojaVida\AgregarEditarM.cshtml" />
     <Content Include="Areas\User\Views\HojaVida\AgregarEditarP.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index2.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index3.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\UploadFileAndGetShareUri.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -455,7 +459,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Anexgrid.cs" />
-    <Compile Include="Models\Archivo2.cs" />
+    <Compile Include="Models\Archivo.cs" />
+    <Compile Include="Models\Archivos.cs" />
     <Compile Include="Models\Ciclo.cs" />
     <Compile Include="Models\ClsArchivo.cs" />
     <Compile Include="Models\ClsCarga.cs" />
