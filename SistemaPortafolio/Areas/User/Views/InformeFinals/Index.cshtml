@@ -1,0 +1,41 @@
+﻿@model IEnumerable<SistemaPortafolio.Models.InformeFinal>
+
+@{
+    ViewBag.Title = "Informe Final";
+}
+
+<h2>INFORME FINAL</h2>
+
+<p>
+    <p>
+        <button class="btn btn-default">@Html.ActionLink("CREAR", "Create")</button>
+    </p>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Curso
+        </th>
+        <th>
+            Código
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CursoDocente.Curso.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CursoDocente.Curso.curso_cod)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.informefinal_id }) |
+            @Html.ActionLink("Ver", "Pdf", new { id = item.informefinal_id }) |
+            @Html.ActionLink("Borrar", "Delete", new { id = item.informefinal_id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -29,243 +29,352 @@
 </head>
 <body>
 
-<div class="text-center">
-    <h4>MATERIALES CONSIGNAR PARA EL PORTAFOLIO</h4>
-    <h4>@Model.unidad UNIDAD</h4>
-</div>
+    <div class="text-center">
+        <h4>MATERIALES CONSIGNAR PARA EL PORTAFOLIO</h4>
+        <h4>@Model.unidad UNIDAD</h4>
+    </div>
 
-<div style="margin-top:50px;">
-    <table class="table ">
-        <tbody>
-        <tr>
-            <td colspan="2">Código de Curso :</td>
-            <td class="" colspan="2">@Model.CursoDocente.Curso.curso_cod</td>
-            <td colspan="2">Sección :</td>
-            <td class="" colspan="2">@Model.CursoDocente.Curso.seccion</td>
-            <td colspan="2">Ciclo :</td>
-            <td class="" colspan="2">@Model.CursoDocente.Curso.Ciclo.nombre</td>
-        </tr>
-        <tr>
-            <td colspan="4">Nombre del Curso :</td>
-            <td colspan="4">@Model.CursoDocente.Curso.nombre</td>
-            <td colspan="4"></td>
-        </tr>
-        <tr>
-            <td colspan="2">Horas :</td>
-            <td class="" colspan="2">@(Model.CursoDocente.Curso.horaspractica + Model.CursoDocente.Curso.horasteoria)</td>
-            <td colspan="2">Créditos :</td>
-            <td class="" colspan="2">@Model.CursoDocente.Curso.credito</td>
-            <td colspan="2">Tipo :</td>
-            <td class="" colspan="2">@Model.CursoDocente.Curso.tipo_curso</td>
-        </tr>
-        <tr>
-            <td colspan="4">Docente :</td>
-            <td colspan="4">@Model.CursoDocente.Persona.nombre @Model.CursoDocente.Persona.apellido</td>
-            <td colspan="4"></td>
-        </tr>
-        @*<tr>
-                <td colspan="4">Semestre :</td>
-                <td colspan="8">@Model.</td>
-            </tr>*@
-        </tbody>
-    </table>
-</div>
+    <div style="margin-top:50px;">
+        <table class="table ">
+            <tbody>
+                <tr>
+                    <td colspan="2">Código de Curso :</td>
+                    <td class="" colspan="2">@Model.CursoDocente.Curso.curso_cod</td>
+                    <td colspan="2">Sección :</td>
+                    <td class="" colspan="2">@Model.CursoDocente.Curso.seccion</td>
+                    <td colspan="2">Ciclo :</td>
+                    <td class="" colspan="2">@Model.CursoDocente.Curso.Ciclo.nombre</td>
+                </tr>
+                <tr>
+                    <td colspan="4">Nombre del Curso :</td>
+                    <td colspan="4">@Model.CursoDocente.Curso.nombre</td>
+                    <td colspan="4"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">Horas :</td>
+                    <td class="" colspan="2">@(Model.CursoDocente.Curso.horaspractica + Model.CursoDocente.Curso.horasteoria)</td>
+                    <td colspan="2">Créditos :</td>
+                    <td class="" colspan="2">@Model.CursoDocente.Curso.credito</td>
+                    <td colspan="2">Tipo :</td>
+                    <td class="" colspan="2">@Model.CursoDocente.Curso.tipo_curso</td>
+                </tr>
+                <tr>
+                    <td colspan="4">Docente :</td>
+                    <td colspan="4">@Model.CursoDocente.Persona.nombre @Model.CursoDocente.Persona.apellido</td>
+                    <td colspan="4"></td>
+                </tr>
+                @*<tr>
+                        <td colspan="4">Semestre :</td>
+                        <td colspan="8">@Model.</td>
+                    </tr>*@
+            </tbody>
+        </table>
+    </div>
 
-<div style="margin-top:50px;">
-    <p>Resumen del Curso de la Unidad</p>
-    <table class="table" style="line-height: 5px">
-        <tbody class="text-center">
-        <tr>
-            <td colspan="4">Estudiantes</td>
-            <td colspan="4">Cantidad</td>
-            <td colspan="4">Porcentaje</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="4">Matriculados</td>
-            <td colspan="4">@Model.matriculados</td>
-            <td colspan="4">100</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="4">Retirados</td>
-            <td colspan="4">@Model.retirados</td>
-            <td colspan="4">@(Model.retirados * 100 / Model.matriculados)</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="4">Abandono</td>
-            <td colspan="4">@Model.abandono</td>
-            <td colspan="4">@(Model.abandono * 100 / Model.matriculados)</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="4">Asisten</td>
-            <td colspan="4">@Model.asisten</td>
-            <td colspan="4">@(Model.asisten * 100 / Model.matriculados)</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="4">Aprobados</td>
-            <td colspan="4">@Model.aprobados</td>
-            <td colspan="4">@(Model.aprobados * 100 / Model.matriculados)</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="4">Desaprobados</td>
-            <td colspan="4">@Model.desaprobados</td>
-            <td colspan="4">@(Model.desaprobados * 100 / Model.matriculados)</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <div style="margin-top:50px;">
+        <p>Resumen del Curso de la Unidad</p>
+        <table class="table" style="line-height: 5px">
+            <tbody class="text-center">
+                <tr>
+                    <td colspan="4">Estudiantes</td>
+                    <td colspan="4">Cantidad</td>
+                    <td colspan="4">Porcentaje</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Matriculados</td>
+                    <td colspan="4">@Model.matriculados</td>
+                    <td colspan="4">100</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Retirados</td>
+                    <td colspan="4">@Model.retirados</td>
+                    <td colspan="4">@(Model.retirados * 100 / Model.matriculados)</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Abandono</td>
+                    <td colspan="4">@Model.abandono</td>
+                    <td colspan="4">@(Model.abandono * 100 / Model.matriculados)</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Asisten</td>
+                    <td colspan="4">@Model.asisten</td>
+                    <td colspan="4">@(Model.asisten * 100 / Model.matriculados)</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Aprobados</td>
+                    <td colspan="4">@Model.aprobados</td>
+                    <td colspan="4">@(Model.aprobados * 100 / Model.matriculados)</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Desaprobados</td>
+                    <td colspan="4">@Model.desaprobados</td>
+                    <td colspan="4">@(Model.desaprobados * 100 / Model.matriculados)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="container" style="width: 500px; height: auto; margin: 0 auto"></div>
+    <div id="container" style="width: 500px; height: auto; margin: 0 auto"></div>
 
-<div style="margin-top:50px; line-height: 20px">
-    <p><b>I. Material que el docente prepara y entrega a los estudiantes durante la ejecución de los cursos: </b>El material deberá estar asociado a los resultados del aprendizaje definidos en la planificación del curso. (Marcar con un X en las columnas Digital y/o Impreso siempre y cuando tenga evidencia)</p>
-    <table class="table" style="line-height: 5px">
-        <tbody class="text-center">
-        <tr>
-            <td colspan="6">Material del docente Entregado</td>
-            <td colspan="2">Digital</td>
-            <td colspan="2">Impreso</td>
-            <td colspan="2">Cantidad</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="6">Sílabo formato UPT (Impreso y Digital)</td>
-            <td colspan="2">@digitalList[0]</td>
-            <td colspan="2">@impresoList[0]</td>
-            <td colspan="2">@cantidadList[0]</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="6">Sílabo formato ICACIT (Impreso y Digital</td>
-            <td colspan="2">@digitalList[1]</td>
-            <td colspan="2">@impresoList[1]</td>
-            <td colspan="2">@cantidadList[1]</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="6">Curriculum Vitae formato ICACIT</td>
-            <td colspan="2">@digitalList[2]</td>
-            <td colspan="2">@impresoList[2]</td>
-            <td colspan="2">@cantidadList[2]</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="6">Material del Curso (Texto, Diapositivas)</td>
-            <td colspan="2">@digitalList[3]</td>
-            <td colspan="2">@impresoList[3]</td>
-            <td colspan="2">@cantidadList[3]</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="6">Guías de laboratorio y talleres</td>
-            <td colspan="2">@digitalList[4]</td>
-            <td colspan="2">@impresoList[4]</td>
-            <td colspan="2">@cantidadList[4]</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="6">Enunciado y resolución de exámenes</td>
-            <td colspan="2">@digitalList[5]</td>
-            <td colspan="2">@impresoList[5]</td>
-            <td colspan="2">@cantidadList[5]</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="6">Enunciado de las practicas o casos practicos</td>
-            <td colspan="2">@digitalList[6]</td>
-            <td colspan="2">@impresoList[6]</td>
-            <td colspan="2">@cantidadList[6]</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="6">Registro de Asistencia</td>
-            <td colspan="2">@digitalList[7]</td>
-            <td colspan="2">@impresoList[7]</td>
-            <td colspan="2">@cantidadList[7]</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="6">Registro de Notas</td>
-            <td colspan="2">@digitalList[8]</td>
-            <td colspan="2">@impresoList[8]</td>
-            <td colspan="2">@cantidadList[8]</td>
-        </tr>
-        <tr>
-            <td class="text-left" colspan="6">Fichas de evaluaciones (Rúbricas)</td>
-            <td colspan="2">@digitalList[9]</td>
-            <td colspan="2">@impresoList[9]</td>
-            <td colspan="2">@cantidadList[9]</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <div style="margin-top:50px; line-height: 20px">
+        <p><b>I. Material que el docente prepara y entrega a los estudiantes durante la ejecución de los cursos: </b>El material deberá estar asociado a los resultados del aprendizaje definidos en la planificación del curso. (Marcar con un X en las columnas Digital y/o Impreso siempre y cuando tenga evidencia)</p>
+        <table class="table" style="line-height: 5px">
+            <tbody class="text-center">
+                <tr>
+                    <td colspan="6">Material del docente Entregado</td>
+                    <td colspan="2">Digital</td>
+                    <td colspan="2">Impreso</td>
+                    <td colspan="2">Cantidad</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Sílabo formato UPT (Impreso y Digital)</td>
+                    <td colspan="2">@digitalList[0]</td>
+                    <td colspan="2">@impresoList[0]</td>
+                    <td colspan="2">@cantidadList[0]</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Sílabo formato ICACIT (Impreso y Digital</td>
+                    <td colspan="2">@digitalList[1]</td>
+                    <td colspan="2">@impresoList[1]</td>
+                    <td colspan="2">@cantidadList[1]</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Curriculum Vitae formato ICACIT</td>
+                    <td colspan="2">@digitalList[2]</td>
+                    <td colspan="2">@impresoList[2]</td>
+                    <td colspan="2">@cantidadList[2]</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Material del Curso (Texto, Diapositivas)</td>
+                    <td colspan="2">@digitalList[3]</td>
+                    <td colspan="2">@impresoList[3]</td>
+                    <td colspan="2">@cantidadList[3]</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Guías de laboratorio y talleres</td>
+                    <td colspan="2">@digitalList[4]</td>
+                    <td colspan="2">@impresoList[4]</td>
+                    <td colspan="2">@cantidadList[4]</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Enunciado y resolución de exámenes</td>
+                    <td colspan="2">@digitalList[5]</td>
+                    <td colspan="2">@impresoList[5]</td>
+                    <td colspan="2">@cantidadList[5]</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Enunciado de las practicas o casos practicos</td>
+                    <td colspan="2">@digitalList[6]</td>
+                    <td colspan="2">@impresoList[6]</td>
+                    <td colspan="2">@cantidadList[6]</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Registro de Asistencia</td>
+                    <td colspan="2">@digitalList[7]</td>
+                    <td colspan="2">@impresoList[7]</td>
+                    <td colspan="2">@cantidadList[7]</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Registro de Notas</td>
+                    <td colspan="2">@digitalList[8]</td>
+                    <td colspan="2">@impresoList[8]</td>
+                    <td colspan="2">@cantidadList[8]</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Fichas de evaluaciones (Rúbricas)</td>
+                    <td colspan="2">@digitalList[9]</td>
+                    <td colspan="2">@impresoList[9]</td>
+                    <td colspan="2">@cantidadList[9]</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-<div style="margin-top:50px; line-height: 20px">
-    <p><b>II. Material generado por el estudiante en el transcurso del semestre: </b>El material deberá estar asociado a los resultados del aprendizaje definidos en la planificacion del curso.(Marcar con un X en las columnas Digital y/o Impreso siempre y cuando tenga evidencia)</p>
-    <table class="table" style="line-height: 5px">
-        <tbody class="text-center">
-            <tr>
-                <td colspan="6">Material del docente Entregado</td>
-                <td colspan="2">Digital</td>
-                <td colspan="2">Impreso</td>
-                <td colspan="2">Cantidad</td>
-            </tr>
-            <tr>
-                <td class="text-left" colspan="6">Copias de cuadernos o apuntes de clases (Cursos que lo requieran) opcional</td>
-                <td colspan="2">@digitalList[10]</td>
-                <td colspan="2">@impresoList[10]</td>
-                <td colspan="2">@cantidadList[10]</td>
-            </tr>
-            <tr>
-                <td class="text-left" colspan="6">Original de exámenes de unidad, ordenado por notas de mayor a menor</td>
-                <td colspan="2">@digitalList[11]</td>
-                <td colspan="2">@impresoList[11]</td>
-                <td colspan="2">@cantidadList[11]</td>
-            </tr>
-            <tr>
-                <td class="text-left" colspan="6">Original de evaluaciones practicas (pruebas)</td>
-                <td colspan="2">@digitalList[12]</td>
-                <td colspan="2">@impresoList[12]</td>
-                <td colspan="2">@cantidadList[12]</td>
-            </tr>
-            <tr>
-                <td class="text-left" colspan="6">Original de informes de laboratorios)</td>
-                <td colspan="2">@digitalList[13]</td>
-                <td colspan="2">@impresoList[13]</td>
-                <td colspan="2">@cantidadList[13]</td>
-            </tr>
-            <tr>
-                <td class="text-left" colspan="6">Trabajos encargado (investigación, tareas, asignaciones)</td>
-                <td colspan="2">@digitalList[14]</td>
-                <td colspan="2">@impresoList[14]</td>
-                <td colspan="2">@cantidadList[14]</td>
-            </tr>
-            <tr>
-                <td class="text-left" colspan="6">Trabajos y/o proyectos finales del curss</td>
-                <td colspan="2">@digitalList[15]</td>
-                <td colspan="2">@impresoList[15]</td>
-                <td colspan="2">@cantidadList[15]</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+    <div style="margin-top:50px; line-height: 20px">
+        <p><b>II. Material generado por el estudiante en el transcurso del semestre: </b>El material deberá estar asociado a los resultados del aprendizaje definidos en la planificacion del curso.(Marcar con un X en las columnas Digital y/o Impreso siempre y cuando tenga evidencia)</p>
+        <table class="table" style="line-height: 5px">
+            <tbody class="text-center">
+                <tr>
+                    <td colspan="6">Material del docente Entregado</td>
+                    <td colspan="2">Digital</td>
+                    <td colspan="2">Impreso</td>
+                    <td colspan="2">Cantidad</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Copias de cuadernos o apuntes de clases (Cursos que lo requieran) opcional</td>
+                    <td colspan="2">@digitalList[10]</td>
+                    <td colspan="2">@impresoList[10]</td>
+                    <td colspan="2">@cantidadList[10]</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Original de exámenes de unidad, ordenado por notas de mayor a menor</td>
+                    <td colspan="2">@digitalList[11]</td>
+                    <td colspan="2">@impresoList[11]</td>
+                    <td colspan="2">@cantidadList[11]</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Original de evaluaciones practicas (pruebas)</td>
+                    <td colspan="2">@digitalList[12]</td>
+                    <td colspan="2">@impresoList[12]</td>
+                    <td colspan="2">@cantidadList[12]</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Original de informes de laboratorios)</td>
+                    <td colspan="2">@digitalList[13]</td>
+                    <td colspan="2">@impresoList[13]</td>
+                    <td colspan="2">@cantidadList[13]</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Trabajos encargado (investigación, tareas, asignaciones)</td>
+                    <td colspan="2">@digitalList[14]</td>
+                    <td colspan="2">@impresoList[14]</td>
+                    <td colspan="2">@cantidadList[14]</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="6">Trabajos y/o proyectos finales del curss</td>
+                    <td colspan="2">@digitalList[15]</td>
+                    <td colspan="2">@impresoList[15]</td>
+                    <td colspan="2">@cantidadList[15]</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-<div style="margin-top:50px; line-height: 20px">
-    <p><b>Constancia de Entrega y Recepción</b></p>
-    <table class="table" style="line-height: 5px">
-        <tbody class="text-center">
-        <tr>
-            <td colspan="4"></td>
-            <td colspan="4">Nombres y Apellidos</td>
-            <td colspan="4">Fecha de Entrega</td>
-            <td colspan="4">Firma</td>
-        </tr>
-        <tr>
-            <td colspan="4">Entregado por:</td>
-            <td colspan="4">Ing. @Model.CursoDocente.Persona.nombre @Model.CursoDocente.Persona.apellido</td>
-            <td colspan="4">@(DateTime.Now)</td>
-            <td colspan="4"></td>
-        </tr>
-        <tr>
-            <td colspan="4">Recepcionado por:</td>
-            <td colspan="4"></td>
-            <td colspan="4"></td>
-            <td colspan="4"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <div style="margin-top:50px; line-height: 20px">
+        <p><b>Constancia de Entrega y Recepción</b></p>
+        <table class="table" style="line-height: 5px">
+            <tbody class="text-center">
+                <tr>
+                    <td colspan="4"></td>
+                    <td colspan="4">Nombres y Apellidos</td>
+                    <td colspan="4">Fecha de Entrega</td>
+                    <td colspan="4">Firma</td>
+                </tr>
+                <tr>
+                    <td colspan="4">Entregado por:</td>
+                    <td colspan="4">Ing. @Model.CursoDocente.Persona.nombre @Model.CursoDocente.Persona.apellido</td>
+                    <td colspan="4">@(DateTime.Now)</td>
+                    <td colspan="4"></td>
+                </tr>
+                <tr>
+                    <td colspan="4">Recepcionado por:</td>
+                    <td colspan="4"></td>
+                    <td colspan="4"></td>
+                    <td colspan="4"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
+<script>
+    Highcharts.theme = {
+        colors: ['#7cb5ec', '#f7a35c', '#90ee7e', '#7798BF', '#aaeeee', '#ff0066',
+            '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+        chart: {
+            backgroundColor: null,
+            style: {
+                fontFamily: 'Dosis, sans-serif'
+            }
+        },
+        title: {
+            style: {
+                fontSize: '16px',
+                fontWeight: 'bold',
+                textTransform: 'uppercase'
+            }
+        },
+        tooltip: {
+            borderWidth: 0,
+            backgroundColor: 'rgba(219,219,216,0.8)',
+            shadow: false
+        },
+        legend: {
+            itemStyle: {
+                fontWeight: 'bold',
+                fontSize: '13px'
+            }
+        },
+        xAxis: {
+            gridLineWidth: 1,
+            labels: {
+                style: {
+                    fontSize: '12px'
+                }
+            }
+        },
+        yAxis: {
+            minorTickInterval: 'auto',
+            title: {
+                style: {
+                    textTransform: 'uppercase'
+                }
+            },
+            labels: {
+                style: {
+                    fontSize: '12px'
+                }
+            }
+        },
+        plotOptions: {
+            candlestick: {
+                lineColor: '#404048'
+            }
+        },
+
+
+        // General
+        background2: '#F0F0EA'
+
+    };
+
+    // Apply the theme
+    Highcharts.setOptions(Highcharts.theme);
+
+    Highcharts.chart('container', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Rendimiento de estudiantes'
+        },
+        xAxis: {
+            categories: ["Porcentaje"]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Rendimiento'
+            }
+        },
+        legend: {
+            reversed: true
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'Aprobados',
+            data: [@Html.Raw(Model.aprobados)]
+        },{
+            name: 'Desaprobado',
+            data: [@Html.Raw(Model.desaprobados)]
+        }]
+    });
+    $("#container").highcharts().reflow();
+</script>
+
+
 </body>
 </html>
