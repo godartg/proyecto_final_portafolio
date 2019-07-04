@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SistemaPortafolio.Filters;
-//using SistemaPortafolio.CSOneDriveAccess;
+using SistemaPortafolio.CSOneDriveAccess;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -19,89 +19,22 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
     [Autenticado]
     public class HomeController : Controller
     {
-        /// <summary>
-        /// clientId of you office 365 application, you can find it in https://apps.dev.microsoft.com/
-        /// </summary>
-        private const string ClientId = "6ac7393c-901a-49f0-9e89-316fe751a0a8";
-        /// <summary>
-        /// Password/Public Key of you office 365 application, you can find it in https://apps.dev.microsoft.com/
-        /// </summary>
-        private const string Secret = "nNLT0-@csodnsDCAE1785#}";
-        /// <summary>
-        /// Authentication callback url, you can set it in https://apps.dev.microsoft.com/
-        /// </summary>
-        private const string CallbackUri = "http://localhost:49204/Admin/Home/OnAuthComplate";
-        // GET: Admin/Home
-        
-        public ActionResult Index()
-        {
-            if (string.IsNullOrEmpty(OfficeAccessSession.AccessCode))
-            {
-                string url = OfficeAccessSession.GetLoginUrl("onedrive.readwrite");
 
-                return new RedirectResult(url);
-            }
-            return RedirectToAction("UploadFileAndGetShareUri");
-        }
-        public ActionResult Index2()
+        // GET: Admin/Home
+        private string token = "EwCAA8l6BAAURSN/FHlDW5xN74t6GzbtsBBeBUYAAQGikB9tfwC1qwiGanoXCjzS86qFNTGjqlPknMuA7kzIbWmTUs9rLzIOiXP4mbv5O4DwtXqZ2GUyEvl1oT1vsFbHmraI6c9zD5UbLjLdzzx35yjL4ALQAv6wALMJDLOkCTczgDVLiQs9FgYbOEBDHOj7CmlGwW077yy7aqd0Zw2fABIorj53xgVPWLv0GYKKp5vrK8S2QTCuhnQ+08634ru24pbwm+dYvxNWAfPLi37MVfpiKopsHnDgZnsrkzCnLIDyTLrLj9ZqV/u2d51tMYEMXQXs9GDddLtBBq0aYEso/5l40SVE1vDsOGgGQMbjgwwgm7CGnh8crQaXX2IiKp0DZgAACPJyO/7oijw0UAK66sJemEleDsrWQZ36RxZx6bGfCHLgZ8sNm7u+lnCaszIWUN1dXIUs/wYrPjt/Q73Zt0lQJ+ubmCGBImZm+ZPHRYP6VOqeGRgf5nfEzKTtBJFzJ7rZuf1vaHh9sVICaQAKC1Akd8QWXMCIw8CzK86+mUnj3sTiMsbKY4qqParUN99OpLcpJCgehlXmUbZSPzQESPDD8Qws4DWjfz2UI/whTnY7ci1RzZxvZKeh58zO5kgpdk1yzilWfPuM84Zeppt67WVMIsukhpx7R+vCzb6qmLKO83MRJcC3n9V5j7XpPHWUnItWVuCIJBU/BfoXtJpKSMWxCnqTyQwGlSbJ/IhFJmWvI65hDSbi9t+nqI939t0/FWLqjdJ4cNRg6Ic+cZ/c+Tg0nYddWo/Xm1keDdXMqy43bSohvwLfxnm58iFW5k8AHZ+/lBg4mHfxgVZpwqV67VdC6vSgoK+12zMDg5xCAt9Yyu8brJaFckI/bun+wgC+pxRURqz8wMIIgz4aF3xYtHo7zjCaIFw91t1fMuB8Azue7hm+Nzg0OQmSs8rj/GR0F9+kLgYEcHkmw9MuWiNOoq2qqNEswkxH7JxQRYytrv1isvm+w4HlqoCPA6Zqo4XT1PRhWE9e8ovq+cPWdn7SLYzLbOdAifT7Ihl+h4CFROHWYiRKrxciwtn9HZv7Gg4UrTXhs9xqG5ULJfoX287yu3zxh0XcvnEOOnXPI1oQEl5/lE4EvCGxb34E2fBsEAo1VnNHPii73NeT54b+CdBRBDSh29zpqV8b/locJ7RTgwI=";
+
+        public async Task<ActionResult> Index()
         {
+            var archivos = await listarAsync();
+            List<ClsCarpeta> listaCarpetas = LeerArchivos();
+            realizarComparacion(archivos, listaCarpetas);
             return View();
         }
         
-        /// <summary>
-        /// OfficeAccessSession object in session
-        /// </summary>
         
-        public O365RestSession OfficeAccessSession
+        public List<ClsCarpeta> LeerArchivos(string ruta="")
         {
-            get
-            {
-                var officeAccess = Session["OfficeAccess"];
-                if (officeAccess == null)
-                {
-                    officeAccess = new O365RestSession(ClientId, Secret, CallbackUri);
-                    Session["OfficeAccess"] = officeAccess;
-                }
-                return officeAccess as O365RestSession;
-            }
-        }
-
-
-        //when user complate authenticate, will be call back this url with a code
-        public async Task<RedirectResult> OnAuthComplate(string code)
-        {
-            await OfficeAccessSession.RedeemTokensAsync(code);
-
-            return new RedirectResult("Index");
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> UploadFileAndGetShareUri(HttpPostedFileBase file)
-        {
-
-            
-            //save upload file to temp dir in local disk
-            var path = Path.GetTempFileName();
-            file.SaveAs(path);
-
-            //upload the file to oneDrive and get a file id
-            string oneDrivePath = file.FileName;
-
-            string result = await OfficeAccessSession.UploadFileAsync(path, oneDrivePath);
-
-            JObject jo = JObject.Parse(result);
-            string fileId = jo.SelectToken("id").Value<string>();
-
-            //request oneDrive REST API with this file id to get a share link
-            string shareLink = await OfficeAccessSession.GetShareLinkAsync(fileId, OneDriveShareLinkType.embed, OneDrevShareScopeType.anonymous);
-
-            ViewBag.ShareLink = shareLink;
-
-            return RedirectToAction("Index2");
-        }
-        public void LeerArchivos()
-        {
-            var path = Server.MapPath(@"~/Server/");
+            var path = Server.MapPath(@"~/Server/"+ruta);
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
 
             List<ClsCarpeta> listCarpetas = new List<ClsCarpeta>();
@@ -118,13 +51,14 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                     subCarpeta = new ClsCarpeta();
                     listArchivos = new List<ClsArchivo>();
 
-                    foreach (var item3 in item.GetFiles())
+                    foreach (var item3 in item2.GetFiles())
                     {
                         archivo = new ClsArchivo();
                         archivo.nombreFile = item3.Name;
                         archivo.link = item3.FullName;
                         listArchivos.Add(archivo);
                     }
+                    subCarpeta.Archivos = listArchivos;
                     subCarpeta.nombreCarpeta = item2.Name;
                     subCarpeta.link = item2.FullName;
                     listSubCarpetas.Add(subCarpeta);
@@ -140,22 +74,97 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
 
             }
+            return listCarpetas;
         }
-        private string token = "EwCAA8l6BAAURSN/FHlDW5xN74t6GzbtsBBeBUYAAXSl/29y9GoxxJbc/yuR9/o9Umk6wJYW55xJTgCHfVIaDiqT/0iY0AiTTzYgtwv9mDbsmKH/nthi/0PxVOY4ImvhBDP1qW7+tpUZdNv9CcD5pY5OMaMqnCSjXQyO/nicVbqd6L/sQyhSwV0Q57macMxuaZ4I00+FicUZswqPIw2uXbE7w0Rt8nISm4vAQ5AiTl8xF0UuJdwxRwkII/VD/nFydyFErzFJClZp9MgfH4FCg4VScx8g4qYBNbKs2AyTFsoxfdgyWlofe1ZHEsC+jmawV+oXynYYiYM84Yy79C3iR3XARqrNWtlXr3QVOJFeCvYDcFKcVNPdvpvZGpLNcGMDZgAACHZGJgV0xQAlUAJp9JO6ebYwHEcNeSshNSVxKT1eUAQCofofEhnBoG5XgBFANxtQZUwyfm521i1wXoZex2uR+WGHSD8MZS4Vf+rVK136yA5o4Jtf7WrRMl+0HuWjHssCWsqhrCTrZu1OgqHxMVzCsq70SejV/w66QMzfuPthxzbywkFP7kRq5LB4iSEfPuCRamqZHUFvEEpGH7qlXTisClDHv/63kr0KR/EJlk3AjLc4j2DjDWLUKfM/fCpWImf4IdI0z0R80UYPs60ZawQecFFFNq1B09Dmu0qZ1clW5q956q2rqPQutkzZM7unRDPEMw+u7picxKZJAagNgQoN9yPAPrzSrofw/N5TlsdIHRn4y5OyTklmXcFtxmzGJ1rgfD/kdIs6JfGx9waNSBw6MH6g6i8J4HBZMBcOY3DPVe5IHmPuLOJE3x4cp84QAcABtTdnmw1Qce+ToqtKla1yQeTAZszvcJx4QVHWFOiz2DAWdDFsBKGGjUSBOfIuvJMR7Hu9AlMEicwcWtH21zscLY3WOYzKXF7S0K9XPmot33VBPLNZvi+MW2RkzQ01Impr1ENGVbaiwoxCDS/PT8J12lF/XrqRDYgrTrtInPkR6rtQz712/e9oea1Q0Ip+TqxbuLRxm08payj4s9iVg87Grz0HCFEzanlGj7E0fSflvS6WbJdHxX2CxKCj6Uk9L12n1TvTMAs826bixueVNEikR9oeLRDPfpopWK64iLQ2cyr1oNGACAKpxER6ft69pcGbO3HgPLnDDe4jm+CM+zNuUAYB0GmAgYd3SkrVgwI=";
+        
 
-        // GET: Archivos
-        public async Task<ActionResult> Index3()
+
+
+        private void realizarComparacion(Archivos archivos, List<ClsCarpeta> listaCarpetas)
         {
-            var archivos = await listarAsync();
+            
+            if(listaCarpetas != null)
+            {
+                List<String> listaFolderNube = new List<String>();
+                List<String> listaArchivoNube = new List<String>();
+                List<String> listaDiferenciaFolder = new List<string>();
+                if (archivos.value != null)
+                {
+                    foreach (var carpetNube in archivos.value)
+                    {
+                        if (carpetNube.folder != null)
+                        {
+                            listaFolderNube.Add(carpetNube.name);
+                        }
+                        else
+                        {
+                            listaArchivoNube.Add(carpetNube.name);
+                        }
 
-            return View("Index3", archivos);
+                    }
+                }
+                //Listar Recursos Locales
+                List<String> listaFolderLocal = new List<String>();
+                List<String> listaArchivoLocal = new List<String>();
+                
+                foreach (var carpetLocal in listaCarpetas)
+                {
+                    listaFolderLocal.Add(carpetLocal.nombreCarpeta);
+                    if(carpetLocal.Archivos != null)
+                    {
+                        foreach (var archivosLocal in carpetLocal.Archivos)
+                        {
+                            listaArchivoLocal.Add(archivosLocal.nombreFile);
+                        }
+                    }
+                }
+                //Hallar Archivos del Folder local sin subir
+                
+                if (listaFolderNube!= null)
+                {
+                    listaDiferenciaFolder = listaFolderLocal.Except(listaFolderNube).ToList();
+                }
+                else
+                {
+                    listaDiferenciaFolder = listaFolderLocal.ToList();
+                }
+                
+                string id_folder = "";
+                if (listaDiferenciaFolder != null)
+                {
+                    foreach (var nombresCarpetas in listaDiferenciaFolder)
+                    {
+                        CrearCarpeta(nombresCarpetas);
+                        id_folder = (from lista in archivos.value where lista.name == nombresCarpetas select lista.id).FirstOrDefault();
+                        Ver(id_folder, nombresCarpetas);
+                    }
+                }
+                else
+                {
+
+                }
+
+                string archivoRuta = "";
+                var listaDiferenciaArchivos = listaArchivoLocal.Except(listaArchivoNube).ToList();
+                if (listaDiferenciaArchivos != null)
+                {
+                    foreach (var nombresArchivos in listaDiferenciaArchivos)
+                    {
+                        archivoRuta += nombresArchivos;
+                        SubirArchivo(archivoRuta);
+                    }
+                }
+            }
+            //Listar Recursos de la nube
+            
         }
 
-        public async Task<ActionResult> Ver(string id)
+        public async Task<ActionResult> Ver(string id, string nombre)
         {
             var archivos = await listarAsync(id);
-
-            return View("Index3", archivos);
+            List<ClsCarpeta> listaCarpetas = LeerArchivos();
+            realizarComparacion(archivos,listaCarpetas);
+            return View("Index", archivos);
         }
 
         private async Task<Archivos> listarAsync()
@@ -213,21 +222,26 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
             }
 
-            return await Index3();
+            return await Index();
 
         }
 
-        [HttpPost]
-        public async Task<ActionResult> SubirArchivo(string nombre)
+      
+        public async Task<ActionResult> SubirArchivo(string ruta_file)
         {
-            var archivo_ruta = "";
-            var archivo_nombre = "";
+            
+            string archivo_ruta = Path.Combine(Server.MapPath("~/Server/"), Path.GetFileName(ruta_file));
+            var archivo_nombre = Path.GetFileName(ruta_file);
+            
+            
+            //archivo_nombre.SaveAs();
 
             using (HttpClient httpClient = new HttpClient())
             {
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "octet-stream");
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, new Uri("https://graph.microsoft.com/v1.0/me/drive/root:/" + archivo_nombre + ":/content"));
+
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, new Uri("https://graph.microsoft.com/v1.0/me/drive/root:/" + archivo_nombre + ":/content"));
 
                 request.Content = new ByteArrayContent(ReadFileContent(archivo_ruta));
 
@@ -235,7 +249,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 //respuesta.StatusCode.ToString()
             }
 
-            return await Index3();
+            return await Index();
 
         }
 
