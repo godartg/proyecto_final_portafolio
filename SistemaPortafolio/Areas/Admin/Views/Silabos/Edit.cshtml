@@ -1,24 +1,24 @@
 ﻿@model SistemaPortafolio.Models.Silabo
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "EDITAR SÍLABO";
+    var resultadosList = (string[])ViewBag.ResultadosList;
 }
 
-<h2>Edit</h2>
+<h2>EDITAR SÍLABO</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Silabo</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.silabo_id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.cursodocente_id, "cursodocente_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.cursodocente_id, "CURSO :", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("cursodocente_id", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.cursodocente_id, "", new { @class = "text-danger" })
@@ -26,55 +26,131 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.descripcion, "DESCRIPCIÓN :", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control " })
                 @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.bibliografia, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.bibliografia, "BIBLIOGRAFÍA :", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.bibliografia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.bibliografia, new { @class = "form-control " })
                 @Html.ValidationMessageFor(model => model.bibliografia, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.competencias_curso, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.competencias_curso, "COMPETENCIAS :", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.competencias_curso, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.competencias_curso, new { @class = "form-control " })
                 @Html.ValidationMessageFor(model => model.competencias_curso, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.temas, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.temas, "TEMAS :", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.temas, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.temas, new { @class = "form-control " })
                 @Html.ValidationMessageFor(model => model.temas, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.resultados, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.resultados, "RESULTADOS :", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.resultados, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.resultados, "", new { @class = "text-danger" })
+                <p>Los Resultados de Aprendizaje del estudiante, son declaraciones breves que describen lo que el estudiante debe saber y ser capaz de hacer momento de la graduación. Estos se relacionan con las habilidades, conocimiento y comportamiento que los estudiantes adquieren a lo largo de su progreso en la carrera. Cada curso aporta a lograr estos resultados según su naturaleza. (*) </p>
+                <p>El aporte del curso al logro de los Resultados del Programa se indica en la tabla siguiente: </p>
+                <p><b>K</b> = clave</p>
+                <p><b>R</b> = relacionado</p>
+                <p><b>Guión</b> = no aplica</p>
+                <table class="table table-bordered bg-gray-light">
+                    <tr>
+                        <th>Resultados del programa</th>
+                        <th>Descripcion</th>
+                        <th>Aporte</th>
+                    </tr>
+                    <tr>
+                        <td>1a. Aplicación de Ciencias </td>
+                        <td>Aplica los conocimientos y habilidades en matemáticas, ciencias e ingeniería para resolver problemas de ingeniería sistemas.</td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[0]" value="@resultadosList[0]" /></td>
+                    </tr>
+                    <tr>
+                        <td>2b.Experimentación y Pruebas</td>
+                        <td>Diseña y conduce experimentos, analiza e interpreta datos.</td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[1]" value="@resultadosList[1]" /></td>
+                    </tr>
+                    <tr>
+                        <td>3c. Diseño en Ingeniería</td>
+                        <td>Diseña sistemas informáticos, componentes y/o procesos para satisfacer requerimientos considerando restricciones realistas de seguridad y sostenibilidad.</td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[2]" value="@resultadosList[2]" /></td>
+                    </tr>
+                    <tr>
+                        <td>4d. Trabajo en Equipo</td>
+                        <td>Participa activa y efectivamente en grupos multidisciplinarios siendo capaces de liderarlos.</td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[3]" value="@resultadosList[3]" /></td>
+                    </tr>
+                    <tr>
+                        <td>5e. Solución de Problemas de Ingeniería</td>
+                        <td>Identifica, fórmula y resuelve problemas de ingeniería usando las técnicas, métodos y herramientas apropiados.</td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[4]" value="@resultadosList[4]" /></td>
+                    </tr>
+                    <tr>
+                        <td>6f.Responsabilidad Ética y Profesional</td>
+                        <td>Entiende sus responsabilidades profesionales, éticas, sociales y legales, y cumple los compromisos asumidos.</td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[5]" value="@resultadosList[5]" /></td>
+                    </tr>
+                    <tr>
+                        <td>7g.Comunicación</td>
+                        <td>Se comunica clara y efectivamente en forma oral, escrita y gráfica, interactuando con diferentes tipos de audiencias.</td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[6]" value="@resultadosList[6]" /></td>
+                    </tr>
+                    <tr>
+                        <td>8h. Perspectiva Local y Global</td>
+                        <td>Comprende el impacto que tienen las soluciones de ingeniería en la sociedad en un contexto local y global.</td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[7]" value="@resultadosList[7]" /></td>
+                    </tr>
+                    <tr>
+                        <td>9i. Educación Continúa</td>
+                        <td>Reconoce la necesidad de mantener sus conocimientos y habilidades actualizadas de acuerdo a los avances de la ingeniería de software y sistemas de información y se compromete con un aprendizaje para toda la vida.</td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[8]" value="@resultadosList[8]" /></td>
+                    </tr>
+                    <tr>
+                        <td>10j. Asuntos Contemporáneos</td>
+                        <td>Conoce y analiza asuntos contemporáneos relevantes en contextos locales, nacionales y globales.</td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[9]" value="@resultadosList[9]" /></td>
+                    </tr>
+                    <tr>
+                        <td>11k. Práctica de la Ingeniería Moderna</td>
+                        <td>Usa las técnicas, métodos y herramientas de la ingeniería moderna necesarias para la práctica de la ingeniería de software y sistemas de información.</td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[10]" value="@resultadosList[10]" /></td>
+                    </tr>
+                    <tr>
+                        <td>12l. Gestión de Proyectos </td>
+                        <td>Planifica y gestiona proyectos de ingeniería tomando en cuenta criterios de eficiencia y productividad.</td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[11]" value="@resultadosList[11]" /></td>
+                    </tr>
+                    <tr>
+                        <td>13m. Desarrollo de Software e Implementación de SI</td>
+                        <td>Desarrolla e implementa software y sistemas de información satisfaciendo requerimientos y aplicando metodologías, técnicas y herramientas apropiados.</td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[12]" value="@resultadosList[12]" /></td>
+                    </tr>
+                </table>
+                @Html.HiddenFor(model => model.resultados, new { @class = "form-control " })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="EDITAR" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regresar", "Index")
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

@@ -342,6 +342,21 @@
     <Content Include="Areas\User\Views\Portafolios\Details.cshtml" />
     <Content Include="Areas\User\Views\Portafolios\Edit.cshtml" />
     <Content Include="Areas\User\Views\Portafolios\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Portafolios\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Portafolios\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Portafolios\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Portafolios\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Portafolios\Index.cshtml" />
+    <Content Include="Areas\User\Views\InformeFinals\Create.cshtml" />
+    <Content Include="Areas\User\Views\InformeFinals\Delete.cshtml" />
+    <Content Include="Areas\User\Views\InformeFinals\Details.cshtml" />
+    <Content Include="Areas\User\Views\InformeFinals\Edit.cshtml" />
+    <Content Include="Areas\User\Views\InformeFinals\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\InformeFinals\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\InformeFinals\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\InformeFinals\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\InformeFinals\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\InformeFinals\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -397,10 +412,12 @@
     <Compile Include="Areas\Admin\Controllers\HojaVidaDocenteMembresiaController.cs" />
     <Compile Include="Areas\Admin\Controllers\HojaVidaDocentePublicacionesController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\InformeFinalsController.cs" />
     <Compile Include="Areas\Admin\Controllers\NotificacionController.cs" />
     <Compile Include="Areas\Admin\Controllers\PerfilController.cs" />
     <Compile Include="Areas\Admin\Controllers\PersonaController.cs" />
     <Compile Include="Areas\Admin\Controllers\PlanEstudioController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PortafoliosController.cs" />
     <Compile Include="Areas\Admin\Controllers\PruebaEntradasController.cs" />
     <Compile Include="Areas\Admin\Controllers\SemestreController.cs" />
     <Compile Include="Areas\Admin\Controllers\SilabosController.cs" />
@@ -422,6 +439,7 @@
     <Compile Include="Areas\User\Controllers\HojaVidaDocenteMembresiaController.cs" />
     <Compile Include="Areas\User\Controllers\HojaVidaDocentePublicacionesController.cs" />
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
+    <Compile Include="Areas\User\Controllers\InformeFinalsController.cs" />
     <Compile Include="Areas\User\Controllers\NotificacionController.cs" />
     <Compile Include="Areas\User\Controllers\PerfilController.cs" />
     <Compile Include="Areas\User\Controllers\PortafoliosController.cs" />
@@ -466,6 +484,10 @@
     <Compile Include="Migrations\201907031626518_TablePortafolioAdded.Designer.cs">
       <DependentUpon>201907031626518_TablePortafolioAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907040403551_TableInformeFinalAdded.cs" />
+    <Compile Include="Migrations\201907040403551_TableInformeFinalAdded.Designer.cs">
+      <DependentUpon>201907040403551_TableInformeFinalAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Anexgrid.cs" />
     <Compile Include="Models\Archivo.cs" />
@@ -479,6 +501,7 @@
     <Compile Include="Models\CursoAlumno.cs" />
     <Compile Include="Models\CursoDocente.cs" />
     <Compile Include="Models\Documento.cs" />
+    <Compile Include="Models\InformeFinalDetalle.cs" />
     <Compile Include="Models\HashHelper.cs" />
     <Compile Include="Models\HojaVida.cs" />
     <Compile Include="Models\HojaVidaDocenteActividadesDesarrolloProfesional.cs" />
@@ -490,6 +513,7 @@
     <Compile Include="Models\HojaVidaDocenteHonoresPremios.cs" />
     <Compile Include="Models\HojaVidaDocenteMembresia.cs" />
     <Compile Include="Models\HojaVidaDocentePublicaciones.cs" />
+    <Compile Include="Models\InformeFinal.cs" />
     <Compile Include="Models\Meta.cs" />
     <Compile Include="Models\MetadataDocumento.cs" />
     <Compile Include="Models\ModeloDatos.cs" />
@@ -724,6 +748,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907031626518_TablePortafolioAdded.resx">
       <DependentUpon>201907031626518_TablePortafolioAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907040403551_TableInformeFinalAdded.resx">
+      <DependentUpon>201907040403551_TableInformeFinalAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

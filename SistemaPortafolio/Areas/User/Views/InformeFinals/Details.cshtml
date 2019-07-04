@@ -1,0 +1,264 @@
+﻿@model SistemaPortafolio.Models.InformeFinal
+@{
+    Layout = null;
+    var conocimientoContador = 0;
+    var aulaList = Model.observacion_aulavirtual.Split(new[] { "@@@" }, StringSplitOptions.None);
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Informe Final</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .table-black td {
+            border: 1px solid black;
+        }
+
+        .table-black {
+            border: 1px solid black;
+        }
+
+        body {
+            line-height: 10px;
+        }
+        .normal-height {
+            line-height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h4>INFORME FINAL DEL CURSO</h4>
+        <h4>2019-I</h4>
+    </div>
+
+    <div style="margin-top:50px;">
+        <table class="table ">
+            <tbody>
+            <tr>
+                <td colspan="2">Código de Curso :</td>
+                <td class="" colspan="2">@Model.CursoDocente.Curso.curso_cod</td>
+                <td colspan="2">Sección :</td>
+                <td class="" colspan="2">@Model.CursoDocente.Curso.seccion</td>
+                <td colspan="2">Ciclo :</td>
+                <td class="" colspan="2">@Model.CursoDocente.Curso.Ciclo.nombre</td>
+            </tr>
+            <tr>
+                <td colspan="4">Nombre del Curso :</td>
+                <td colspan="4">@Model.CursoDocente.Curso.nombre</td>
+                <td colspan="4"></td>
+            </tr>
+            <tr>
+                <td colspan="2">Horas :</td>
+                <td class="" colspan="2">@(Model.CursoDocente.Curso.horaspractica + Model.CursoDocente.Curso.horasteoria)</td>
+                <td colspan="2">Créditos :</td>
+                <td class="" colspan="2">@Model.CursoDocente.Curso.credito</td>
+                <td colspan="2">Tipo :</td>
+                <td class="" colspan="2">@Model.CursoDocente.Curso.tipo_curso</td>
+            </tr>
+            <tr>
+                <td colspan="4">Docente :</td>
+                <td colspan="4">@Model.CursoDocente.Persona.nombre @Model.CursoDocente.Persona.apellido</td>
+                <td colspan="4"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="margin-top:50px;">
+        <p>RESUMEN</p>
+        <table class="table" style="line-height: 5px">
+            <tbody class="text-center">
+                <tr>
+                    <td colspan="4">Resumen del curso</td>
+                    <td colspan="4">N°</td>
+                    <td colspan="4">%</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Porcentaje de cumplimiento del silabo</td>
+                    <td colspan="4">@Model.porcentaje_silabo</td>
+                    <td colspan="4">100</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Prácticas calificadas realizadas</td>
+                    <td colspan="4">@Model.practicas</td>
+                    <td colspan="4">100</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Experiencias de laboratorio realizadas</td>
+                    <td colspan="4">@Model.laboratorios</td>
+                    <td colspan="4">100</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Proyectos y/o trabajos realizados</td>
+                    <td colspan="4">@Model.proyectos</td>
+                    <td colspan="4">100</td>
+                </tr>
+
+                <tr>
+                    <td class="text-left" colspan="4">Estudiantes matriculados</td>
+                    <td colspan="4">@Model.matriculados</td>
+                    <td colspan="4">100</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Estudiantes con retiro</td>
+                    <td colspan="4">@Model.retiro</td>
+                    <td colspan="4">@(Model.retiro * 100 / Model.matriculados)</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Estudiantes en abandono</td>
+                    <td colspan="4">@Model.abandono</td>
+                    <td colspan="4">@(Model.abandono * 100 / Model.matriculados)</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Estudiantes que asisten</td>
+                    <td colspan="4">@Model.asisten</td>
+                    <td colspan="4">@(Model.asisten * 100 / Model.matriculados)</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Estudiantes aprobados</td>
+                    <td colspan="4">@Model.aprobados</td>
+                    <td colspan="4">@(Model.aprobados * 100 / Model.matriculados)</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Estudiantes desaprobados</td>
+                    <td colspan="4">@Model.desaprobados</td>
+                    <td colspan="4">@(Model.desaprobados * 100 / Model.matriculados)</td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Nota final más alta</td>
+                    <td colspan="4">@Model.nota_alta</td>
+                    <td colspan="4"></td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Nota final promedio</td>
+                    <td colspan="4">@Model.nota_promedio</td>
+                    <td colspan="4"></td>
+                </tr>
+                <tr>
+                    <td class="text-left" colspan="4">Nota final más baja</td>
+                    <td colspan="4">@Model.nota_baja</td>
+                    <td colspan="4"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div style="margin-top:50px;" class="normal-height">
+        <p>Indicaciones:</p>
+        <p>Según su apreciación deberá marcar (x) en el nivel que han alcanzado los estudiantes en los diferentes aspectos que se mencionan a continuación</p>
+        <table class="table" style="line-height: 5px">
+            <tbody class="text-center">
+                <tr>
+                    <td colspan="1">N</td>
+                    <td colspan="1">P</td>
+                    <td colspan="1">A</td>
+                    <td colspan="1">B</td>
+                    <td colspan="1">M</td>
+                </tr>
+                <tr>
+                    <td colspan="1">Nada</td>
+                    <td colspan="1">Poco</td>
+                    <td colspan="1">Aceptable</td>
+                    <td colspan="1">Bien</td>
+                    <td colspan="1">Muy Bien</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Logros de capacidades del curso</p>
+        <table class="table" style="line-height: 5px">
+            <tbody class="text-center">
+                <tr>
+                    <td colspan="1">Capacidades del curso</td>
+                    <td colspan="1">N</td>
+                    <td colspan="1">P</td>
+                    <td colspan="1">A</td>
+                    <td colspan="1">B</td>
+                    <td colspan="1">M</td>
+                </tr>
+                @foreach (var detalle in Model.InformeFinalDetalle)
+                {
+                    var selectedList = new string[5];
+
+                    switch (detalle.nivel_alcanzado)
+                    {
+                        case "Nada":
+                            selectedList[0] = "X";
+                            break;
+                        case "Poco":
+                            selectedList[1] = "X";
+                            break;
+                        case "Aceptable":
+                            selectedList[2] = "X";
+                            break;
+                        case "Bien":
+                            selectedList[3] = "X";
+                            break;
+                        case "Muy Bien":
+                            selectedList[4] = "X";
+                            break;
+                    }
+
+                    <tr>
+                        <td>@detalle.capacidad</td>
+                        <td>@selectedList[0]</td>
+                        <td>@selectedList[1]</td>
+                        <td>@selectedList[2]</td>
+                        <td>@selectedList[3]</td>
+                        <td>@selectedList[4]</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <p>¿Cuál cree que ha sido el motivo por el cual los estudiantes no alcanzaron el logro de capacidades</p>
+        <p>@Model.motivo</p>
+        <p><b>OBSERVACIONES</b></p>
+        <p>1.    De los estudiantes. Nivel académico, conocimientos previos, interés en el curso, estilos de aprendizaje</p>
+        <p>@Model.observacion_estudiantes</p>
+        <p>2.    Asistencia y puntualidad de los estudiantes.</p>
+        <p>@Model.observacion_asistencia</p>
+        <p>3.    Del sílabo.  ¿Qué temas del sílabo no se han completado? Considera todos los temas adecuados? ¿Qué temas requieren más tiempo de dedicación? </p>
+        <p>@Model.observacion_silabo</p>
+        <p>4.  Uso del Aula Virtual.  Información colocada, uso de foros, chat  y cantidad de visitas estudiantiles.</p>
+        <table class="table">
+            <tbody>
+            <tr>
+                <td colspan="3">Material del curso</td>
+                <td colspan="1">@aulaList[0]</td>
+                <td colspan="3">Cuestionarios</td>
+                <td colspan="1">@aulaList[1]</td>
+                <td colspan="3">Tareas encargadas</td>
+                <td colspan="1">@aulaList[2]</td>
+            </tr>
+            <tr>
+                <td colspan="3">Foros</td>
+                <td colspan="1">@aulaList[3]</td>
+                <td colspan="3">Exámenes virtuales</td>
+                <td colspan="1">@aulaList[4]</td>
+                <td colspan="3">Slideshow</td>
+                <td colspan="1">@aulaList[5]</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>5.  Administrativas.  Disponibilidad de recursos en aulas y laboratorios.</p>
+        <p>@Model.observacion_administrativas</p>
+        <p>6. Sílabo por competencias.  Qué actividades realizó usted para la evaluación del cumplimiento de las competencias  de su curso,  por los estudiantes? Podría presentar una propuesta de evaluación de las competencias de su curso?</p>
+        <p>@Model.observacion_silabo</p>
+        <p>7. Mejora continua. Qué actividades de mejora continua ha realizado en el curso en este ciclo y cuales      propone para el siguiente, para mejorar el rendimiento académico del estudiante. </p>
+        <p>@Model.observacion_mejora</p>
+        <p>8. Actualización docente. Ha seguido usted algún curso de actualización profesional o docente en los      últimos dos años. Indique tema del curso y duración. </p>
+        <p>@Model.observacion_docente</p>
+        <p>9. Comentarios y Recomendaciones. Serán útiles para mejorar el Plan de Estudios y los servicios que      brindan la Escuela, la Facultad y la Universidad</p>
+        <p>@Model.observacion_recomendaciones</p>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
+

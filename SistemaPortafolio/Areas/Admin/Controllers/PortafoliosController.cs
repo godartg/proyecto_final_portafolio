@@ -8,24 +8,23 @@ using System.Web;
 using System.Web.Mvc;
 using SistemaPortafolio.Models;
 
-namespace SistemaPortafolio.Areas.User.Controllers
+namespace SistemaPortafolio.Areas.Admin.Controllers
 {
     public class PortafoliosController : Controller
     {
         private ModeloDatos db = new ModeloDatos();
         readonly int _idUsuario = SessionHelper.GetUser();
-        List<string> unidadesList = new List<string>() { "I", "II", "III"};
+        readonly List<string> unidadesList = new List<string>() { "I", "II", "III" };
 
-
-        // GET: User/Portafolios
+        // GET: Admin/Portafolios
         public ActionResult Index()
         {
-            var personaId = db.Usuario.Find(_idUsuario).persona_id;
-            var portafolio = db.Portafolio.Include(p => p.CursoDocente).Where(x => x.CursoDocente.Persona.persona_id == personaId);
+            var personaId = db.Usuario.Find(_idUsuario).Persona.persona_id;
+            var portafolio = db.Portafolio.Include(p => p.CursoDocente);
             return View(portafolio.ToList());
         }
 
-        // GET: User/Portafolios/Details/5
+        // GET: Admin/Portafolios/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -57,7 +56,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
             return report;
         }
 
-        // GET: User/Portafolios/Create
+        // GET: Admin/Portafolios/Create
         public ActionResult Create()
         {
             var personaId = db.Usuario
@@ -69,7 +68,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
             return View();
         }
 
-        // POST: User/Portafolios/Create
+        // POST: Admin/Portafolios/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -100,7 +99,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
             return View(portafolio);
         }
 
-        // GET: User/Portafolios/Edit/5
+        // GET: Admin/Portafolios/Edit/5
         public ActionResult Edit(int? id)
         {
             var personaId = db.Usuario
@@ -121,7 +120,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
             return View(portafolio);
         }
 
-        // POST: User/Portafolios/Edit/5
+        // POST: Admin/Portafolios/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -147,7 +146,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
             return View(portafolio);
         }
 
-        // GET: User/Portafolios/Delete/5
+        // GET: Admin/Portafolios/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -162,7 +161,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
             return View(portafolio);
         }
 
-        // POST: User/Portafolios/Delete/5
+        // POST: Admin/Portafolios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

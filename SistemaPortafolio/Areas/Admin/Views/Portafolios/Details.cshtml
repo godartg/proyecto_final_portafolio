@@ -113,9 +113,6 @@
             </tbody>
         </table>
     </div>
-    
-    <div id="container" style="width: 500px; height: auto; margin: 0 auto"></div>
-    <div id="container" style="width: 500px; height: auto; margin: 0 auto"></div>
 
     <div style="margin-top:50px; line-height: 20px">
         <p><b>I. Material que el docente prepara y entrega a los estudiantes durante la ejecución de los cursos: </b>El material deberá estar asociado a los resultados del aprendizaje definidos en la planificación del curso. (Marcar con un X en las columnas Digital y/o Impreso siempre y cuando tenga evidencia)</p>
@@ -270,111 +267,5 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-
-
-<script>
-    Highcharts.theme = {
-        colors: ['#7cb5ec', '#f7a35c', '#90ee7e', '#7798BF', '#aaeeee', '#ff0066',
-            '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
-        chart: {
-            backgroundColor: null,
-            style: {
-                fontFamily: 'Dosis, sans-serif'
-            }
-        },
-        title: {
-            style: {
-                fontSize: '16px',
-                fontWeight: 'bold',
-                textTransform: 'uppercase'
-            }
-        },
-        tooltip: {
-            borderWidth: 0,
-            backgroundColor: 'rgba(219,219,216,0.8)',
-            shadow: false
-        },
-        legend: {
-            itemStyle: {
-                fontWeight: 'bold',
-                fontSize: '13px'
-            }
-        },
-        xAxis: {
-            gridLineWidth: 1,
-            labels: {
-                style: {
-                    fontSize: '12px'
-                }
-            }
-        },
-        yAxis: {
-            minorTickInterval: 'auto',
-            title: {
-                style: {
-                    textTransform: 'uppercase'
-                }
-            },
-            labels: {
-                style: {
-                    fontSize: '12px'
-                }
-            }
-        },
-        plotOptions: {
-            candlestick: {
-                lineColor: '#404048'
-            }
-        },
-
-
-        // General
-        background2: '#F0F0EA'
-
-    };
-
-    // Apply the theme
-    Highcharts.setOptions(Highcharts.theme);
-
-    Highcharts.chart('container', {
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: 'Rendimiento de estudiantes'
-        },
-        xAxis: {
-            categories: ["Porcentaje"]
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Rendimiento'
-            }
-        },
-        legend: {
-            reversed: true
-        },
-        plotOptions: {
-            series: {
-                stacking: 'normal'
-            }
-        },
-        series: [{
-            name: 'Aprobados',
-            data: [@Html.Raw(Model.aprobados)]
-        },{
-            name: 'Desaprobado',
-            data: [@Html.Raw(Model.desaprobados)]
-        }]
-    });
-    $("#container").highcharts().reflow();
-</script>
-
-
 </body>
 </html>
