@@ -84,7 +84,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             documento.estado = "activo";
             documento.GuardarArchivoDirecto(pdf, usuario.Persona.persona_id, "HojaDeVida.pdf", "Curriculum Vitae ICACIT");
             //HttpPostedFileBase objFile = (HttpPostedFileBase)new MemoryPostedFile(pdf);
-            SubirArchivo("hojaVida.pdf", "Curriculum Vitae ICACIT");
+            //SubirArchivo("hojaVida.pdf", "Curriculum Vitae ICACIT");
             //HttpPostedFileBase 
             return new FileContentResult(pdf, "application/pdf");
             //return View();
