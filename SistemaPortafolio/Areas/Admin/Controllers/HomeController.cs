@@ -189,7 +189,62 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
             return archivos;
         }
+        public O365RestSession OfficeAccessSession
+        {
+            get
+            {
+                var officeAccess = Session["OfficeAccess"];
+                if (officeAccess == null)
+                {
+                    officeAccess = new O365RestSession(Token.ClientId, Token.Secret, Token.CallbackUri);
+                    Session["OfficeAccess"] = officeAccess;
+                }
+                return officeAccess as O365RestSession;
+            }
+        }
+        public async Task<ActionResult> Index2()
+        {
+            //if user is not login, redirect to office 365 for authenticate
+            if (string.IsNullOrEmpty(OfficeAccessSession.AccessCode))
+            {
+                string url = OfficeAccessSession.GetLoginUrl("onedrive.readwrite");
 
+                return new RedirectResult(url);
+            }
+            var archivo_ruta = Path.Combine(Server.MapPath("~/Server/Docs/Curriculum Vitae ICACIT/"), Path.GetFileName("HojaVida.pdf"));
+            string result = await OfficeAccessSession.UploadFileAsync(archivo_ruta, "HojaVida.pdf");
+            return View();
+        }
+        //when user complate authenticate, will be call back this url with a code
+        public async Task<RedirectResult> OnAuthComplate(string code)
+        {
+            await OfficeAccessSession.RedeemTokensAsync(code);
+
+            return new RedirectResult("Index");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UploadFileAndGetShareUri(HttpPostedFileBase file)
+        {
+            //save upload file to temp dir in local disk
+            var path = Path.GetTempFileName();
+            file.SaveAs(path);
+
+            //upload the file to oneDrive and get a file id
+            string oneDrivePath = file.FileName;
+
+            string result = await OfficeAccessSession.UploadFileAsync(path, oneDrivePath);
+
+            JObject jo = JObject.Parse(result);
+            string fileId = jo.SelectToken("id").Value<string>();
+
+            //request oneDrive REST API with this file id to get a share link
+            string shareLink = await OfficeAccessSession.GetShareLinkAsync(fileId, OneDriveShareLinkType.embed, OneDrevShareScopeType.anonymous);
+
+            ViewBag.ShareLink = shareLink;
+
+            return View();
+        }
         private async Task<Archivos> listarAsync(string id)
         {
             Archivos archivos = new Archivos();

@@ -17,7 +17,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44382</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -357,6 +357,8 @@
     <Content Include="Areas\Admin\Views\InformeFinals\Details.cshtml" />
     <Content Include="Areas\Admin\Views\InformeFinals\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\InformeFinals\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index2.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\UploadFileAndGetShareUri.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
