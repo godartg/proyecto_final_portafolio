@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,6 +11,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SistemaPortafolio.CSOneDriveAccess;
 using SistemaPortafolio.Models;
 
 namespace SistemaPortafolio.Areas.Admin.Controllers
@@ -28,6 +30,20 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             return View(portafolio.ToList());
         }
 
+        public O365RestSession OfficeAccessSession
+        {
+            get
+            {
+                var officeAccess = Session["OfficeAccess"];
+                if (officeAccess == null)
+                {
+                    officeAccess = new O365RestSession(Token.ClientId, Token.Secret, Token.CallbackUri);
+                    Session["OfficeAccess"] = officeAccess;
+                }
+                return officeAccess as O365RestSession;
+            }
+        }
+
         // GET: Admin/Portafolios/Details/5
         public ActionResult Details(int? id)
         {
@@ -43,7 +59,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             return View(portafolio);
         }
 
-        public ActionResult Pdf(int? id)
+        public async Task<ActionResult> Pdf(int? id)
         {
             if (id == null)
             {
@@ -56,7 +72,16 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
+            var path = Path.Combine(Server.MapPath("~/Server"), "Portafolio" + id + ".pdf");
             var report = new Rotativa.ActionAsPdf("Details", new { id });
+            var pdfBytes = report.BuildFile(ControllerContext);
+            var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
+            fileStream.Write(pdfBytes, 0, pdfBytes.Length);
+            fileStream.Close();
+
+
+            string result = await OfficeAccessSession.UploadFileAsync(path, "Server/Docs/Portafolio" + id + ".pdf");
+
             return report;
         }
 
