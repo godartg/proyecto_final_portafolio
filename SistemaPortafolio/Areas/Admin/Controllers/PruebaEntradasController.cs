@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SistemaPortafolio.Models;
 using System.IO;
+using SistemaPortafolio.CSOneDriveAccess;
 
 namespace SistemaPortafolio.Areas.Admin.Controllers
 {
@@ -26,6 +27,19 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         {
             var pruebaEntrada = db.PruebaEntrada.Include(p => p.CursoDocente);
             return View(pruebaEntrada.ToList());
+        }
+        public O365RestSession OfficeAccessSession
+        {
+            get
+            {
+                var officeAccess = Session["OfficeAccess"];
+                if (officeAccess == null)
+                {
+                    officeAccess = new O365RestSession(Token.ClientId, Token.Secret, Token.CallbackUri);
+                    Session["OfficeAccess"] = officeAccess;
+                }
+                return officeAccess as O365RestSession;
+            }
         }
 
         // GET: Admin/PruebaEntradas/Details/5
@@ -43,7 +57,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             return View(pruebaEntrada);
         }
 
-        public ActionResult Pdf(int? id)
+        public async Task<ActionResult> Pdf(int? id)
         {
             if (id == null)
             {
@@ -55,8 +69,15 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
+            var path = Path.Combine(Server.MapPath("~/Server"), "PruebaEntrada" + id +".pdf");
             var report = new Rotativa.ActionAsPdf("Details", new { id });
-            byte[] r = report.BuildPdf(ControllerContext);
+            var pdfBytes = report.BuildFile(ControllerContext);
+            var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
+            fileStream.Write(pdfBytes, 0, pdfBytes.Length);
+            fileStream.Close();
+            
+
+            string result = await OfficeAccessSession.UploadFileAsync(path, "Server/Docs/PruebaEntrada" + id + ".pdf");
 
             return report;
         }
