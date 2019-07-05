@@ -7,6 +7,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SistemaPortafolio.Models;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Text;
 
 namespace SistemaPortafolio.Areas.Admin.Controllers
 {
@@ -14,6 +21,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
     {
         private ModeloDatos db = new ModeloDatos();
         int idUsuario = SessionHelper.GetUser();
+        Usuario usuario = new Usuario().Obtener(SessionHelper.GetUser());
 
         // GET: User/InformeFinals
         public ActionResult Index()
@@ -65,7 +73,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             ViewBag.cursodocente_id = new SelectList(db.CursoDocente.Where(x => x.persona_id == personaId), "cursodocente_id", "Curso.nombre");
             return View();
         }
-
+        
         // POST: User/InformeFinals/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

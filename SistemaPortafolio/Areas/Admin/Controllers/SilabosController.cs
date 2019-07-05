@@ -8,13 +8,21 @@ using System.Web;
 using System.Web.Mvc;
 using SistemaPortafolio.Models;
 using Wired.RazorPdf;
+using System.IO;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using SistemaPortafolio.Models;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace SistemaPortafolio.Areas.Admin.Controllers
 {
     public class SilabosController : Controller
     {
         private ModeloDatos db = new ModeloDatos();
-
+        Documento documento = new Documento();
+        Usuario usuario = new Usuario().Obtener(SessionHelper.GetUser());
         // GET: Admin/Silabos
         public ActionResult Index()
         {
@@ -36,8 +44,15 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             }
             var generator = new MvcGenerator(ControllerContext);
             var pdf = generator.GeneratePdf(silabo, "Details");
+            documento.persona_id = usuario.Persona.persona_id;
+            documento.tipodocumento_id = 1;
+            documento.descripcion = "Curriculum Vitae ICACIT";
+            documento.estado = "activo";
+            documento.GuardarArchivoDirecto(pdf, usuario.Persona.persona_id, "HojaDeVida.pdf", "Curriculum Vitae ICACIT");
+            
             return new FileContentResult(pdf, "application/pdf");
-            return View(silabo);
+
+            
         }
 
         // GET: Admin/Silabos/Create

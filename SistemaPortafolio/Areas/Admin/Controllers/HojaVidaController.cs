@@ -7,6 +7,13 @@ using SistemaPortafolio.Models;
 using SistemaPortafolio.Filters;
 using Wired.Razor;
 using Wired.RazorPdf;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Text;
 
 namespace SistemaPortafolio.Areas.Admin.Controllers
 {
@@ -28,11 +35,11 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         Parser parser = new Parser();
 
         // GET: Admin/HojaVida
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             return View(hojavida.Listar());
         }
-
+        
         public ActionResult MiHojaVida()
         {
             int hojavida_id = ObtenerHojaVidaId(0);
@@ -76,10 +83,54 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             documento.descripcion = "Curriculum Vitae ICACIT";
             documento.estado = "activo";
             documento.GuardarArchivoDirecto(pdf, usuario.Persona.persona_id, "HojaDeVida.pdf", "Curriculum Vitae ICACIT");
+            //HttpPostedFileBase objFile = (HttpPostedFileBase)new MemoryPostedFile(pdf);
+            SubirArchivo("hojaVida.pdf", "Curriculum Vitae ICACIT");
+            //HttpPostedFileBase 
             return new FileContentResult(pdf, "application/pdf");
             //return View();
         }
+        public async void SubirArchivo(string nombre, string name_carpeta = "")
+        {
+            var archivo_ruta= Path.Combine(Server.MapPath("~/Server/Docs/Curriculum Vitae ICACIT/"), Path.GetFileName( nombre));
+            
 
+            //archivo.SaveAs(archivo_ruta);
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token.token);
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "octet-stream");
+
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, new Uri("https://graph.microsoft.com/v1.0/me/drive/root:" + archivo_ruta + ":/content"));
+
+                request.Content = new ByteArrayContent(ReadFileContent(archivo_ruta));
+
+                var respuesta = await httpClient.SendAsync(request);
+                //respuesta.StatusCode.ToString()
+            }
+            
+
+
+
+        }
+
+        private byte[] ReadFileContent(string filePath)
+        {
+            using (FileStream inStrm = new FileStream(filePath, FileMode.Open))
+            {
+                byte[] buf = new byte[2048];
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    int readBytes = inStrm.Read(buf, 0, buf.Length);
+                    while (readBytes > 0)
+                    {
+                        memoryStream.Write(buf, 0, readBytes);
+                        readBytes = inStrm.Read(buf, 0, buf.Length);
+                    }
+                    return memoryStream.ToArray();
+                }
+            }
+        }
         public int ObtenerHojaVidaId(int id = 0)
         {
             if (id <= 0)

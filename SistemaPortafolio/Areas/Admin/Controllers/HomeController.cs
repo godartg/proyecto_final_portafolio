@@ -21,13 +21,13 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
     {
 
         // GET: Admin/Home
-        private string token = "EwCAA8l6BAAURSN/FHlDW5xN74t6GzbtsBBeBUYAAQGikB9tfwC1qwiGanoXCjzS86qFNTGjqlPknMuA7kzIbWmTUs9rLzIOiXP4mbv5O4DwtXqZ2GUyEvl1oT1vsFbHmraI6c9zD5UbLjLdzzx35yjL4ALQAv6wALMJDLOkCTczgDVLiQs9FgYbOEBDHOj7CmlGwW077yy7aqd0Zw2fABIorj53xgVPWLv0GYKKp5vrK8S2QTCuhnQ+08634ru24pbwm+dYvxNWAfPLi37MVfpiKopsHnDgZnsrkzCnLIDyTLrLj9ZqV/u2d51tMYEMXQXs9GDddLtBBq0aYEso/5l40SVE1vDsOGgGQMbjgwwgm7CGnh8crQaXX2IiKp0DZgAACPJyO/7oijw0UAK66sJemEleDsrWQZ36RxZx6bGfCHLgZ8sNm7u+lnCaszIWUN1dXIUs/wYrPjt/Q73Zt0lQJ+ubmCGBImZm+ZPHRYP6VOqeGRgf5nfEzKTtBJFzJ7rZuf1vaHh9sVICaQAKC1Akd8QWXMCIw8CzK86+mUnj3sTiMsbKY4qqParUN99OpLcpJCgehlXmUbZSPzQESPDD8Qws4DWjfz2UI/whTnY7ci1RzZxvZKeh58zO5kgpdk1yzilWfPuM84Zeppt67WVMIsukhpx7R+vCzb6qmLKO83MRJcC3n9V5j7XpPHWUnItWVuCIJBU/BfoXtJpKSMWxCnqTyQwGlSbJ/IhFJmWvI65hDSbi9t+nqI939t0/FWLqjdJ4cNRg6Ic+cZ/c+Tg0nYddWo/Xm1keDdXMqy43bSohvwLfxnm58iFW5k8AHZ+/lBg4mHfxgVZpwqV67VdC6vSgoK+12zMDg5xCAt9Yyu8brJaFckI/bun+wgC+pxRURqz8wMIIgz4aF3xYtHo7zjCaIFw91t1fMuB8Azue7hm+Nzg0OQmSs8rj/GR0F9+kLgYEcHkmw9MuWiNOoq2qqNEswkxH7JxQRYytrv1isvm+w4HlqoCPA6Zqo4XT1PRhWE9e8ovq+cPWdn7SLYzLbOdAifT7Ihl+h4CFROHWYiRKrxciwtn9HZv7Gg4UrTXhs9xqG5ULJfoX287yu3zxh0XcvnEOOnXPI1oQEl5/lE4EvCGxb34E2fBsEAo1VnNHPii73NeT54b+CdBRBDSh29zpqV8b/locJ7RTgwI=";
+        private string token = "EwCAA8l6BAAURSN/FHlDW5xN74t6GzbtsBBeBUYAAYR4Z/xhqJw0r3zNcmxYD+KXAuf20NStmih/i3N0Go7M7IPWJFhcxL6FpfNWNmQwdlhsn+YVZJkk6nhPkmqrubQUU9NZJuHFVTKZp7UoQL56gmLxbXGzrAWq7F8Z3X6ZRDSse5eOmAu7oJ+BTQpNNIHBD1QeuIKYoLeY0JXZktKYQW8MZXHCjPuHEp7ao6dHya+F0/U3ioaz2lU0qf7/tI0XUxgLKIqmvuq8LUmsMR4RJSbgBg5ORCRIkiP7r60OWHfS/FwBj9lyoNSMb1vlpkRRkfMl4z41NAtlKbUxkUOA93GTOcqhB4cS9d4AwnYl3KsRQo6NIDii4BlOAD/XeZ4DZgAACHFw8Nk4P7ltUAILB+ie4Tr7zg6ch7QqGlPc7qT36lhrMnDKs8Pb3HheKlDHwFFNl7VboBkukReXNmXwZc1ki0PMnVY5Nr7VOILGTOezZZYdo/VG8Ylvey9+QtxcvrCJJ3Rm5NXMUB3bEHhGfb5gpbUilkv5HYMw/rrfZ5pKcdotmSSxQwkJbe+PnvQRNhefHyBZNnnmiQCloSTQNdPSQRT2TOvW93L7RbUyde5UIAqgPbiPHxAElvfv3Z05KermqM405GlUdaT65T+hlN7XeAsfaeMG0ZtHHPht4GGnJjwTEejLKSwS4iqVj4cIWHmlm9UwXYYsAlc+FWUGJpwVdgiEm/bRoc0Om36RDx85cM7NX4Q5USnhq5B+AKZQgu8US3ejnnOqbXYnayQhbwSeMGic8JwpUkcbIC8OHnSPrj1sgqt+rRWFEJeAAh0KfBjtGNwe4g0sH+7gTw0hH1lhXcbn8zbfKzGGdCbMwQA+ZGn4XVplO8boDg7sksGxO/0LSHTDpipcx6UobCbly/cqFCP8pZVdNrcUYB2y8tl7Erd4j516lO3PYbeF+CrjhOwKK2j4BNjHLH2rwXjA0LMD8eq4x55jw+2NxTaxgaFRnUmRk6E90KDgf5Hv3DH4xjnj4ZQ52EGW01p4GaDeGBCuR6d8mpCWgwhlWCei2CJGW8EJ+WAlXzzJZswUBcvhDVvZ+93zFNaCN3IVj8VM1o/EBimiqPyI+9cbe9ZVocQox9XD5Pn1D79c1FCAOPxh2pjNW96F9wMZu+Eh56shsoKCOWqD/FM1Xtib610CgwI=";
 
         public async Task<ActionResult> Index()
         {
             var archivos = await listarAsync();
             List<ClsCarpeta> listaCarpetas = LeerArchivos();
-            realizarComparacion(archivos, listaCarpetas);
+            //realizarComparacion(archivos, listaCarpetas);
             return View();
         }
         
@@ -78,7 +78,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         }
         
 
-
+        /*
 
         private void realizarComparacion(Archivos archivos, List<ClsCarpeta> listaCarpetas)
         {
@@ -134,15 +134,20 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 {
                     foreach (var nombresCarpetas in listaDiferenciaFolder)
                     {
-                        CrearCarpeta(nombresCarpetas);
+                        var carpeta= CrearCarpeta(nombresCarpetas);
+                        
+                        
+                    }
+                    foreach(var nombresCarpetas in listaDiferenciaFolder)
+                    {
                         id_folder = (from lista in archivos.value where lista.name == nombresCarpetas select lista.id).FirstOrDefault();
-                        Ver(id_folder, nombresCarpetas);
+                        if (id_folder != null)
+                        {
+                            Ver(id_folder, nombresCarpetas);
+                        }
                     }
                 }
-                else
-                {
-
-                }
+                
 
                 string archivoRuta = "";
                 var listaDiferenciaArchivos = listaArchivoLocal.Except(listaArchivoNube).ToList();
@@ -157,13 +162,13 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             }
             //Listar Recursos de la nube
             
-        }
+        }**/
 
         public async Task<ActionResult> Ver(string id, string nombre)
         {
             var archivos = await listarAsync(id);
             List<ClsCarpeta> listaCarpetas = LeerArchivos();
-            realizarComparacion(archivos,listaCarpetas);
+            //realizarComparacion(archivos,listaCarpetas);
             return View("Index", archivos);
         }
 
@@ -204,7 +209,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CrearCarpeta(string nombre)
+        public async Task CrearCarpeta(string nombre)
         {
             using (HttpClient httpClient = new HttpClient())
             {
@@ -222,7 +227,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
             }
 
-            return await Index();
+            //return await Index();
 
         }
 

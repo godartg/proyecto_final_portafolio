@@ -514,6 +514,7 @@
     <Compile Include="Models\HojaVidaDocenteMembresia.cs" />
     <Compile Include="Models\HojaVidaDocentePublicaciones.cs" />
     <Compile Include="Models\InformeFinal.cs" />
+    <Compile Include="Models\MemoryPostedFile.cs" />
     <Compile Include="Models\Meta.cs" />
     <Compile Include="Models\MetadataDocumento.cs" />
     <Compile Include="Models\ModeloDatos.cs" />
@@ -531,6 +532,7 @@
     <Compile Include="Models\TipoDocumento.cs" />
     <Compile Include="Models\TipoPersona.cs" />
     <Compile Include="Models\TipoUsuario.cs" />
+    <Compile Include="Models\Token.cs" />
     <Compile Include="Models\Unidad.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

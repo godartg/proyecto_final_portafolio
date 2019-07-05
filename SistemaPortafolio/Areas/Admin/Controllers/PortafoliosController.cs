@@ -6,6 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using SistemaPortafolio.Models;
 
 namespace SistemaPortafolio.Areas.Admin.Controllers
@@ -180,5 +184,6 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+       
     }
 }

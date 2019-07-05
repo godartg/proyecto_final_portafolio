@@ -7,6 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SistemaPortafolio.Models;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using SistemaPortafolio.Models;
+using System.IO;
 
 namespace SistemaPortafolio.Areas.Admin.Controllers
 {
@@ -14,7 +20,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
     {
         private ModeloDatos db = new ModeloDatos();
         int idUsuario = SessionHelper.GetUser();
-
+        Usuario usuario = new Usuario().Obtener(SessionHelper.GetUser());
         // GET: Admin/PruebaEntradas
         public ActionResult Index()
         {
@@ -50,6 +56,8 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             }
 
             var report = new Rotativa.ActionAsPdf("Details", new { id });
+            byte[] r = report.BuildPdf(ControllerContext);
+
             return report;
         }
 
@@ -207,5 +215,6 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+        
     }
 }
