@@ -80,7 +80,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             fileStream.Close();
 
 
-            string result = await OfficeAccessSession.UploadFileAsync(path, "Server/Docs/Portafolio" + id + ".pdf");
+            string result = await OfficeAccessSession.UploadFileAsync(path, "Server/Docs/Portafolio/Portafolio" + id + ".pdf");
 
             return report;
         }

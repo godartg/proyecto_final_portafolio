@@ -77,7 +77,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             fileStream.Close();
             
 
-            string result = await OfficeAccessSession.UploadFileAsync(path, "Server/Docs/PruebaEntrada" + id + ".pdf");
+            string result = await OfficeAccessSession.UploadFileAsync(path, "Server/Docs/Prueba de Entrada/PruebaEntrada" + id + ".pdf");
 
             return report;
         }

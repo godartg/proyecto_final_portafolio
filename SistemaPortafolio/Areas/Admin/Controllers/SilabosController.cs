@@ -92,7 +92,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             fileStream.Close();
 
 
-            string result = await OfficeAccessSession.UploadFileAsync(path, "Server/Docs/Silabo" + id + ".pdf");
+            string result = await OfficeAccessSession.UploadFileAsync(path, "Server/Docs/Silabo/Silabo" + id + ".pdf");
 
             return report;
         }

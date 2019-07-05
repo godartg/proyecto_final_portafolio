@@ -118,7 +118,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             //HttpPostedFileBase objFile = (HttpPostedFileBase)new MemoryPostedFile(pdf);
             
 
-            string result = await OfficeAccessSession.UploadFileAsync(archivo_ruta, "Server/Docs/HojaVida.pdf");
+            string result = await OfficeAccessSession.UploadFileAsync(archivo_ruta, "Server/Docs/Curriculum Vitae ICACIT/HojaVida.pdf");
 
 
             
