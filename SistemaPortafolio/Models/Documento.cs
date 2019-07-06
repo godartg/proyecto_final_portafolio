@@ -335,6 +335,7 @@ namespace SistemaPortafolio.Models
 
                         HttpContext.Current.Session["nuevo"] = metadatanuevo(this);
                     }
+                    //SubirArchivo("");
                 }
 
             }

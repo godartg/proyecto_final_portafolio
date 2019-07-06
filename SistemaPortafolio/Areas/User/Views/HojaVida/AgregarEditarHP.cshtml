@@ -1,0 +1,124 @@
+﻿@model SistemaPortafolio.Models.HojaVidaDocenteHonoresPremios
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>HONORES Y PREMIOS</h2>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <a href="~/User/HojaVida/AgregarEditarADP/" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a Actividades de desarrollo profesional
+                </a>
+            </div>
+            <div class="col-lg-6 text-right">
+                <a href="~/User/HojaVida/AgregarEditarM/" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> Ir a membresias
+                </a>
+            </div>
+        </div>
+        <br />
+        @using (Html.BeginForm("AgregarEditarHP", "HojaVida", FormMethod.Post, new { id = "frm-HojaVida" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.idHojaVidaDocenteHonoresPremios)
+            @Html.HiddenFor(x => x.hojavida_id)
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Información de Honores y Premios</div>
+                <div class="panel-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <label>Institución:</label>
+                        @Html.EditorFor(model => model.institucion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.institucion, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Titulo:</label>
+                        @Html.EditorFor(model => model.titulo , new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.titulo, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha :</label>
+                        @try
+                        {
+                            System.DateTime dt;
+                            dt = Convert.ToDateTime(Model.fecha);
+
+                            string fecha;
+                            fecha = dt.ToString("yyyy-MM-dd");
+
+                            <input type="date" name="fecha" value="@fecha" class="form-control" />
+                        }
+                        catch (Exception e)
+                        {
+                            <input type="date" name="fecha" class="form-control" />
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="~/User/HojaVida/AgregarEditarHP" class="btn btn-danger">Cancelar</a>
+            </div>
+
+        }
+        <br />
+        <div class="panel panel-default">
+            <div class="panel-heading">Mis honores y premios</div>
+            <div class="panel-body">
+                <table class="table table-hover table-responsive">
+                    <tr>
+                        <th>
+                            Institucion
+                        </th>
+                        <th>
+                            Titulo
+                        </th>
+                        <th>
+                            fecha
+                        </th>
+                        <th>Opción</th>
+                    </tr>
+
+                    @foreach (var item in ViewData["listado"] as List<SistemaPortafolio.Models.HojaVidaDocenteHonoresPremios>)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.institucion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.titulo)
+                        </td>
+                        <td>
+                            @try
+                            {
+                                System.DateTime dt;
+                                dt = Convert.ToDateTime(item.fecha);
+
+                                string fecha;
+                                fecha = dt.ToString("dd/MM/yyyy");
+                                @fecha
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
+                        </td>
+                        <td>
+                            <i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/User/HojaVida/AgregarEditarHP/@item.idHojaVidaDocenteHonoresPremios" class="glyphicon glyphicon-pencil btn btn-sm btn-info"></a></i>
+                        
+                            <i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/User/HojaVidaDocenteHonoresPremios/Eliminar/@item.idHojaVidaDocenteHonoresPremios" class="glyphicon glyphicon-remove btn btn-sm btn-danger"></a></i>
+                        </td>
+                    </tr>
+                    }
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

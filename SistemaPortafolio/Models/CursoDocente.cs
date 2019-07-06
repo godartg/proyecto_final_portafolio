@@ -13,6 +13,9 @@ namespace SistemaPortafolio.Models
         public CursoDocente()
         {
             Silabo = new HashSet<Silabo>();
+            PruebaEntrada = new HashSet<PruebaEntrada>();
+            PruebaEntrada = new HashSet<PruebaEntrada>();
+            Portafolio = new HashSet<Portafolio>();
         }
 
         [Key]
@@ -29,5 +32,11 @@ namespace SistemaPortafolio.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Silabo> Silabo { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PruebaEntrada> PruebaEntrada { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Portafolio> Portafolio { get; set; }
     }
 }

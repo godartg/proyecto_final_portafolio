@@ -18,7 +18,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
         public ActionResult Index()
         {
             usuario.Obtener(SessionHelper.GetUser());
-            return View(crp.Listar(usuario.persona_id));
+            return View(crp.Listar(usuario.Persona.persona_id));
           
         }
         //grilla
@@ -34,7 +34,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
         public ActionResult AgregarEditar(int id = 0)
         {
             usuario.Obtener(SessionHelper.GetUser());
-            ViewBag.Persona = crp.Listar(usuario.persona_id);    //para el combo
+            ViewBag.Persona = crp.Listar(usuario.Persona.persona_id);    //para el combo
             ViewBag.Rango = hojavida.Listar();    //para el combo
             return View(
                 id == 0 ? new HojaVidaDocenteCRP()//generar un nuevo semestre
@@ -57,7 +57,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
         {
             crp.hojavidadocentecrp_id = id;
             crp.Eliminar();
-            return Redirect("~/User/HojaVida/AgregarEditarCRP");
+            return Redirect("~/Admin/HojaVida/AgregarEditarCRP");
         }
         //consulta
     

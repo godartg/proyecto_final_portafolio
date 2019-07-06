@@ -39,6 +39,11 @@
         public virtual DbSet<Unidad> Unidad { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Silabo> Silabo { get; set; }
+        public virtual DbSet<PruebaEntrada> PruebaEntrada { get; set; }
+        public virtual DbSet<PruebaEntradaDetalle> PruebaEntradaDetalle { get; set; }
+        public virtual DbSet<Portafolio> Portafolio { get; set; }
+        public virtual DbSet<InformeFinal> InformeFinal { get; set; }
+        public virtual DbSet<InformeFinalDetalle> InformeFinalDetalle { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -211,6 +216,11 @@
                 .Property(e => e.curso)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<InformeFinal>()
+                .HasMany(e => e.InformeFinalDetalle)
+                .WithRequired(e => e.InformeFinal)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<MetadataDocumento>()
                 .Property(e => e.curso_id);
             
@@ -320,6 +330,11 @@
             modelBuilder.Entity<PlanEstudio>()
                 .HasMany(e => e.Curso)
                 .WithRequired(e => e.PlanEstudio)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<PruebaEntrada>()
+                .HasMany(e => e.PruebaEntradaDetalle)
+                .WithRequired(e => e.PruebaEntrada)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Semestre>()

@@ -27,6 +27,7 @@
     <link href="~/Assets/css/bootstrap-theme.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Assets/js/moment.min.js"></script>
+    <link href="~/Assets/css/custom-user.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 
@@ -242,35 +243,69 @@
                                     <li><a href="~/User/Silabos/Index"><i class="glyphicon glyphicon-expand"></i>Mi Sílabo</a></li>
                                 </ul>
                             </li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-modal-window"></i> <span>Prueba de Entrada</span>
+                                    <span class="pull-right-container">
+                                        <i class="glyphicon glyphicon-menu-down"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="~/User/PruebaEntradas/Index"><i class="glyphicon glyphicon-expand"></i>Mis Pruebas</a></li>
+                                </ul>
+                            </li>
 
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-modal-window"></i> <span>Portafolio</span>
+                                    <span class="pull-right-container">
+                                        <i class="glyphicon glyphicon-menu-down"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="~/User/Portafolios/Index"><i class="glyphicon glyphicon-expand"></i>Mi Portafolio</a></li>
+                                </ul>
+                            </li>
 
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="glyphicon glyphicon-file"></i> <span>Documentos</span>
-                                <span class="pull-right-container">
-                                    <i class="glyphicon glyphicon-menu-down"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="~/User/EvaluacionDocumento"><i class="glyphicon glyphicon-expand"></i>Documentos Alumnos</a></li>
-                                <li><a href="~/User/Documento"><i class="glyphicon glyphicon-expand"></i>Mis Documentos</a></li>
-                            </ul>
-                        </li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-modal-window"></i> <span>Informe Final</span>
+                                    <span class="pull-right-container">
+                                        <i class="glyphicon glyphicon-menu-down"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="~/User/InformeFinals/Index"><i class="glyphicon glyphicon-expand"></i>Mi Informe Final</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-file"></i> <span>Documentos</span>
+                                    <span class="pull-right-container">
+                                        <i class="glyphicon glyphicon-menu-down"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="~/User/EvaluacionDocumento"><i class="glyphicon glyphicon-expand"></i>Documentos Alumnos</a></li>
+                                    <li><a href="~/User/Documento"><i class="glyphicon glyphicon-expand"></i>Mis Documentos</a></li>
+                                </ul>
+                            </li>
                         }
                         else
                         {
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="glyphicon glyphicon-file"></i> <span>Documentos</span>
-                                <span class="pull-right-container">
-                                    <i class="glyphicon glyphicon-menu-down"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="~/User/Documento/IngresoDocumento"><i class="glyphicon glyphicon-expand"></i>Ingresar Documentos</a></li>
-                                <li><a href="~/User/Documento"><i class="glyphicon glyphicon-expand"></i>Mis Documentos</a></li>
-                            </ul>
-                        </li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-file"></i> <span>Documentos</span>
+                                    <span class="pull-right-container">
+                                        <i class="glyphicon glyphicon-menu-down"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="~/User/Documento/IngresoDocumento"><i class="glyphicon glyphicon-expand"></i>Ingresar Documentos</a></li>
+                                    <li><a href="~/User/Documento"><i class="glyphicon glyphicon-expand"></i>Mis Documentos</a></li>
+                                </ul>
+                            </li>
                         }
                     </ul>
                 </section>
@@ -296,7 +331,8 @@
         @RenderBody()
     }
 
-    <script src="~/Assets/js/jquery-3.1.1.min.js"></script>
+    @*<script src="~/Assets/js/jquery-3.1.1.min.js"></script>*@
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- Bootstrap 3.3.6 -->
     <script src="~/assets/js/bootstrap.min.js"></script>
     <!-- SlimScroll -->

@@ -3,14 +3,14 @@
 <br />
 <div class="panel panel-default">
     <div class="panel-body text-right">
-        <a href="~/User/HojaVida/AgregarEditarFA" class="btn btn-primary">Mi Hoja de Vida</a>
+        <a href="~/Admin/HojaVida/AgregarEditarFA" class="btn btn-primary">Mi Hoja de Vida</a>
     </div><br />
     <div class="panel-body text-right">
-        <a href="~/User/HojaVida/Imprimir" class="btn btn-primary">Exportar a PDF</a>
+        <a href="~/Admin/HojaVida/Imprimir" class="btn btn-primary">Exportar a PDF</a>
     </div>
 </div>
 
-@*<table class="table">
+<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Persona.dni)
@@ -23,12 +23,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.Persona.dni)
         </td>
-        @*<td>
+        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.hojavida_id }) |
             @Html.ActionLink("Details", "Details", new { id=item.hojavida_id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.hojavida_id })
-        </td>*@
-    @*</tr>
+        </td>
+    </tr>
 }
 
-</table>*@
+</table>

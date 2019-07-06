@@ -6,14 +6,20 @@ using System.Web.Mvc;
 using SistemaPortafolio.Models;
 using SistemaPortafolio.Filters;
 using System.IO;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace SistemaPortafolio.Areas.Admin.Controllers
 {
     [Autenticado]
     public class DocumentoController : Controller
     {
-
+        string token = Token.token;
         Documento documento = new Documento();
+        Usuario usuario = new Usuario().Obtener(SessionHelper.GetUser());
         // GET: Admin/Documento
         public ActionResult Index()
         {
@@ -207,7 +213,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 }
             }
         }
-
+        
         public ActionResult Detalle(int id)
         {
             Documento doc = new Documento();

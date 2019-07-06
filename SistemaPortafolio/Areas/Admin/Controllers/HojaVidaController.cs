@@ -7,6 +7,14 @@ using SistemaPortafolio.Models;
 using SistemaPortafolio.Filters;
 using Wired.Razor;
 using Wired.RazorPdf;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Text;
+using SistemaPortafolio.CSOneDriveAccess;
 
 namespace SistemaPortafolio.Areas.Admin.Controllers
 {
@@ -28,11 +36,11 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         Parser parser = new Parser();
 
         // GET: Admin/HojaVida
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             return View(hojavida.Listar());
         }
-
+        
         public ActionResult MiHojaVida()
         {
             int hojavida_id = ObtenerHojaVidaId(0);
@@ -43,18 +51,48 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
             return View(hojas);
         }
-
-        public ActionResult Imprimir()
+        public O365RestSession OfficeAccessSession
         {
-            /*
-            if (usuario_id > 0)
+            get
             {
-                usuario = new Usuario().Obtener(usuario_id);
+                var officeAccess = Session["OfficeAccess"];
+                if (officeAccess == null)
+                {
+                    officeAccess = new O365RestSession(Token.ClientId, Token.Secret, Token.CallbackUri);
+                    Session["OfficeAccess"] = officeAccess;
+                }
+                return officeAccess as O365RestSession;
             }
-            */
+        }
+        [HttpPost]
+        public async Task<ActionResult> UploadFileAndGetShareUri(HttpPostedFileBase file)
+        {
+            //save upload file to temp dir in local disk
+            var path = Path.GetTempFileName();
+            file.SaveAs(path);
+
+            //upload the file to oneDrive and get a file id
+            string oneDrivePath = file.FileName;
+
+            string result = await OfficeAccessSession.UploadFileAsync(path, oneDrivePath);
+
+            JObject jo = JObject.Parse(result);
+            string fileId = jo.SelectToken("id").Value<string>();
+
+            //request oneDrive REST API with this file id to get a share link
+            string shareLink = await OfficeAccessSession.GetShareLinkAsync(fileId, OneDriveShareLinkType.embed, OneDrevShareScopeType.anonymous);
+
+            ViewBag.ShareLink = shareLink;
+
+            return View();
+        }
+
+        public async Task<ActionResult> Imprimir(int persona_id=0)
+        {
+
             Documento doc = new Documento();
             TipoDocumento tipoDocumento = new TipoDocumento();
-            int hojavida_id = ObtenerHojaVidaId(0);
+            int hojavida_id = ObtenerHojaVidaId(persona_id);
 
             HojaVida hoja = new HojaVida();
             
@@ -76,11 +114,70 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             documento.descripcion = "Curriculum Vitae ICACIT";
             documento.estado = "activo";
             documento.GuardarArchivoDirecto(pdf, usuario.Persona.persona_id, "HojaDeVida.pdf", "Curriculum Vitae ICACIT");
+            var archivo_ruta = Path.Combine(Server.MapPath("~/Server/Docs/Curriculum Vitae ICACIT/"), Path.GetFileName("HojaVida.pdf"));
+            //HttpPostedFileBase objFile = (HttpPostedFileBase)new MemoryPostedFile(pdf);
+            
+
+            string result = await OfficeAccessSession.UploadFileAsync(archivo_ruta, "Server/Docs/Curriculum Vitae ICACIT/HojaVida.pdf");
+
+
+            
+            //HttpPostedFileBase 
             return new FileContentResult(pdf, "application/pdf");
             //return View();
+        }
+        /**
+        public async Task<ActionResult> DirectUpload()
+        {
+            //if user is not login, redirect to office 365 for authenticate
+            if (string.IsNullOrEmpty(OfficeAccessSession.AccessCode))
+            {
+                string url = OfficeAccessSession.GetLoginUrl("onedrive.readwrite");
 
+                return new RedirectResult(url);
+            }
+
+            string result = await OfficeAccessSession.UploadFileAsync("C:\Users\Drei\Dropbox\UPT\eXtra Work\proyecto_final_portafolio\SistemaPortafolio\Server\Docs\Curriculum Vitae ICACIT\hojaVida.pdf", "ojio.pdf");
+
+
+            return View();
+        }*/
+        public async void SubirArchivo(string nombre, byte[] pdf)
+        {
+            var archivo_ruta = Path.Combine(Server.MapPath("~/Server/Docs/Curriculum Vitae ICACIT/"), Path.GetFileName(nombre));
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token.token);
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "octet-stream");
+
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, new Uri("https://graph.microsoft.com/v1.0/me/drive/root:" + nombre + ":/content"));
+
+                request.Content = new ByteArrayContent(pdf);
+
+                var respuesta = await httpClient.SendAsync(request);
+                //respuesta.StatusCode.ToString()
+            }
+            
         }
 
+        private byte[] ReadFileContent(string filePath)
+        {
+            using (FileStream inStrm = new FileStream(filePath, FileMode.Open))
+            {
+                byte[] buf = new byte[2048];
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    int readBytes = inStrm.Read(buf, 0, buf.Length);
+                    while (readBytes > 0)
+                    {
+                        memoryStream.Write(buf, 0, readBytes);
+                        readBytes = inStrm.Read(buf, 0, buf.Length);
+                    }
+                    return memoryStream.ToArray();
+                }
+            }
+        }
         public int ObtenerHojaVidaId(int id = 0)
         {
             if (id <= 0)
@@ -93,7 +190,6 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                     hojavida = new HojaVida();
                     hojavida.persona_id = usuario.persona_id;
                     hojavida.Guardar();
-
                     id = hojavida.hojavida_id;
                 }
                 else
@@ -101,7 +197,11 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                     id = hojavida.hojavida_id;
                 }
             }
-
+            else
+            {
+                hojavida = hojavida.ObtenerByPersona(id);
+                id = hojavida.hojavida_id;
+            }
             return id;
         }
 
@@ -370,7 +470,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
             return View(hojavidadocentem);
         }
-
+        
         [HttpPost]
         public ActionResult AgregarEditarM(HojaVidaDocenteMembresia model)
         {
@@ -382,5 +482,6 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
             return Redirect("~/Admin/HojaVida/AgregarEditarM");
         }
+        
     }
 }

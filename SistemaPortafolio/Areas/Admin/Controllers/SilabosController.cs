@@ -8,18 +8,41 @@ using System.Web;
 using System.Web.Mvc;
 using SistemaPortafolio.Models;
 using Wired.RazorPdf;
+using System.IO;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using SistemaPortafolio.Models;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using SistemaPortafolio.CSOneDriveAccess;
 
 namespace SistemaPortafolio.Areas.Admin.Controllers
 {
     public class SilabosController : Controller
     {
         private ModeloDatos db = new ModeloDatos();
-
+        Documento documento = new Documento();
+        Usuario usuario = new Usuario().Obtener(SessionHelper.GetUser());
         // GET: Admin/Silabos
         public ActionResult Index()
         {
             var silabo = db.Silabo.Include(s => s.CursoDocente);
             return View(silabo.ToList());
+        }
+
+        public O365RestSession OfficeAccessSession
+        {
+            get
+            {
+                var officeAccess = Session["OfficeAccess"];
+                if (officeAccess == null)
+                {
+                    officeAccess = new O365RestSession(Token.ClientId, Token.Secret, Token.CallbackUri);
+                    Session["OfficeAccess"] = officeAccess;
+                }
+                return officeAccess as O365RestSession;
+            }
         }
 
         // GET: Admin/Silabos/Details/5
@@ -34,10 +57,44 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            var generator = new MvcGenerator(ControllerContext);
-            var pdf = generator.GeneratePdf(silabo, "Details");
-            return new FileContentResult(pdf, "application/pdf");
+            //var generator = new MvcGenerator(ControllerContext);
+            //var pdf = generator.GeneratePdf(silabo, "Details");
+            //documento.persona_id = usuario.Persona.persona_id;
+            //documento.tipodocumento_id = 1;
+            //documento.descripcion = "Curriculum Vitae ICACIT";
+            //documento.estado = "activo";
+            //documento.GuardarArchivoDirecto(pdf, usuario.Persona.persona_id, "HojaDeVida.pdf", "Curriculum Vitae ICACIT");
+            
+            //return new FileContentResult(pdf, "application/pdf");
             return View(silabo);
+
+        }
+
+        public async Task<ActionResult> Pdf(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var silabo = db.Silabo.Find(id);
+
+            if (silabo == null)
+            {
+                return HttpNotFound();
+            }
+
+            var path = Path.Combine(Server.MapPath("~/Server"), "Silabo" + id + ".pdf");
+            var report = new Rotativa.ActionAsPdf("Details", new { id });
+
+            var pdfBytes = report.BuildFile(ControllerContext);
+            var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
+            fileStream.Write(pdfBytes, 0, pdfBytes.Length);
+            fileStream.Close();
+
+
+            string result = await OfficeAccessSession.UploadFileAsync(path, "Server/Docs/Silabo/Silabo" + id + ".pdf");
+
+            return report;
         }
 
         // GET: Admin/Silabos/Create

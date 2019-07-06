@@ -27,7 +27,32 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         {
             Session["idd_persona"] = id;
             Curso curso = new Curso();
+            PlanEstudio planEstudio = new PlanEstudio();
+            string anoActual = DateTime.Now.Year+"";
+            int  mesActual = DateTime.Now.Month;
+            string nombre_planEstudio = "Plan de Estudio "+anoActual;
+            if(mesActual < 4)
+            {
+                nombre_planEstudio += "-R";
+            }else if(mesActual >= 4){
+                nombre_planEstudio += "-I";
+            }
+            else
+            {
+                nombre_planEstudio += "-II";
+            }
+            var _planEstudio = (from pe in planEstudio.listar() where pe.nombre == nombre_planEstudio select pe).FirstOrDefault() ;
+            if(_planEstudio!= null)
+            {
+                ViewBag.cursos = curso.listarcurso(_planEstudio.plan_id);
+            }
+            else
+            {
+                _planEstudio = (from pe in planEstudio.listar() select pe).LastOrDefault();
+            }
             ViewBag.cursoalumno = curso.cursoal(id);
+
+            
             return View();
         }
 

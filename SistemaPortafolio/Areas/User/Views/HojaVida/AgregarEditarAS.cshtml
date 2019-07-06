@@ -1,0 +1,160 @@
+﻿@model SistemaPortafolio.Models.HojaVidaDocenteActividadServicios
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>ACTIVIDADES DE SERVICIO</h2>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <a href="~/User/HojaVida/AgregarEditarCRP/" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a certificaciones o registros profesionales
+                </a>
+            </div>
+            <div class="col-lg-6 text-right">
+                <a href="~/User/HojaVida/AgregarEditarADP/" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> Ir a Actividades de desarrollo profesional
+                </a>
+            </div>
+        </div>
+        <br />
+        @using (Html.BeginForm("AgregarEditarAS", "HojaVida", FormMethod.Post, new { id = "frm-HojaVida" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.idHojaVidaDocenteActividadServicios)
+            @Html.HiddenFor(x => x.hojavida_id)
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Información de Certificaciones O Registros Profesionales</div>
+                <div class="panel-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <label>Institución:</label>
+                        @Html.EditorFor(model => model.institucion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.institucion, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Certificación:</label>
+                        @Html.EditorFor(model => model.servicio, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.servicio, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Inicio:</label>
+                        @try
+                        {
+                            System.DateTime dt;
+                            dt = Convert.ToDateTime(Model.fechainicio);
+
+                            string fecha;
+                            fecha = dt.ToString("yyyy-MM-dd");
+
+                            <input type="date" name="fechainicio" value="@fecha" class="form-control" />
+                        }
+                        catch (Exception e)
+                        {
+                            <input type="date" name="fechainicio" class="form-control" />
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Culminación::</label>
+                        @try
+                        {
+                            System.DateTime dt;
+                            dt = Convert.ToDateTime(Model.fechafin);
+
+                            string fecha;
+                            fecha = dt.ToString("yyyy-MM-dd");
+
+                            <input type="date" name="fechafin" value="@fecha" class="form-control" />
+                        }
+                        catch (Exception e)
+                        {
+                            <input type="date" name="fechafin" class="form-control" />
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="~/User/HojaVida/AgregarEditarAS" class="btn btn-danger">Cancelar</a>
+            </div>
+
+        }
+        <br />
+        <div class="panel panel-default">
+            <div class="panel-heading">Actividad de servicios</div>
+            <div class="panel-body">
+                <table class="table table-hover table-responsive">
+                    <tr>
+                        <th>
+                            Institucion
+                        </th>
+                        <th>
+                            Servicio
+                        </th>
+                        <th>
+                            Fecha inicio
+                        </th>
+                        <th>
+                            Fecha fin
+                        </th>
+                        <th>Opción</th>
+                    </tr>
+
+                    @foreach (var item in ViewData["listado"] as List<SistemaPortafolio.Models.HojaVidaDocenteActividadServicios>)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.institucion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.servicio)
+                        </td>
+                        <td>
+                            @try
+                            {
+                                System.DateTime dt;
+                                dt = Convert.ToDateTime(item.fechainicio);
+
+                                string fecha_inicio;
+                                fecha_inicio = dt.ToString("dd/MM/yyyy");
+                                @fecha_inicio
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
+                        </td>
+                        <td>
+                            @try
+                            {
+                                System.DateTime dt;
+                                dt = Convert.ToDateTime(item.fechafin);
+
+                                string fechafin;
+                                fechafin = dt.ToString("dd/MM/yyyy");
+                                @fechafin
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
+                        </td>
+                        <td>
+                            <i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/User/HojaVida/AgregarEditarAS/@item.idHojaVidaDocenteActividadServicios" class="glyphicon glyphicon-pencil btn btn-sm btn-info"></a></i>
+                        
+                            <i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/User/HojaVidaDocenteActividadServicios/Eliminar/@item.idHojaVidaDocenteActividadServicios" class="glyphicon glyphicon-remove btn btn-sm btn-danger"></a></i>
+                        </td>
+                    </tr>
+                    }
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
