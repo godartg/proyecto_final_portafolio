@@ -2,7 +2,11 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <h2>HONORES Y PREMIOS</h2>
-
+        <div class="col-lg-6">
+            <a href="~/Admin/HojaVida/MiHojaVida" class="btn btn-primary">
+                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a Mi Hoja de vida
+            </a>
+        </div>
         <div class="row">
             <div class="col-lg-6">
                 <a href="~/Admin/HojaVida/AgregarEditarADP/" class="btn btn-primary">
@@ -35,7 +39,7 @@
 
                     <div class="form-group">
                         <label>Titulo:</label>
-                        @Html.EditorFor(model => model.titulo , new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.titulo, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.titulo, "", new { @class = "text-danger" })
                     </div>
 
@@ -86,34 +90,34 @@
 
                     @foreach (var item in ViewData["listado"] as List<SistemaPortafolio.Models.HojaVidaDocenteHonoresPremios>)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.institucion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.titulo)
-                        </td>
-                        <td>
-                            @try
-                            {
-                                System.DateTime dt;
-                                dt = Convert.ToDateTime(item.fecha);
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.institucion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.titulo)
+                            </td>
+                            <td>
+                                @try
+                                {
+                                    System.DateTime dt;
+                                    dt = Convert.ToDateTime(item.fecha);
 
-                                string fecha;
-                                fecha = dt.ToString("dd/MM/yyyy");
-                                @fecha
-                            }
-                            catch (Exception e)
-                            {
+                                    string fecha;
+                                    fecha = dt.ToString("dd/MM/yyyy");
+                                    @fecha
+                                }
+                                catch (Exception e)
+                                {
 
-                            }
-                        </td>
-                        <td>
-                            <i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/Admin/HojaVida/AgregarEditarHP/@item.idHojaVidaDocenteHonoresPremios" class="glyphicon glyphicon-pencil btn btn-sm btn-info"></a></i>
-                        
-                            <i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/Admin/HojaVidaDocenteHonoresPremios/Eliminar/@item.idHojaVidaDocenteHonoresPremios" class="glyphicon glyphicon-remove btn btn-sm btn-danger"></a></i>
-                        </td>
-                    </tr>
+                                }
+                            </td>
+                            <td>
+                                <i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/Admin/HojaVida/AgregarEditarHP/@item.idHojaVidaDocenteHonoresPremios" class="glyphicon glyphicon-pencil btn btn-sm btn-info"></a></i>
+
+                                <i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/Admin/HojaVidaDocenteHonoresPremios/Eliminar/@item.idHojaVidaDocenteHonoresPremios" class="glyphicon glyphicon-remove btn btn-sm btn-danger"></a></i>
+                            </td>
+                        </tr>
                     }
 
                 </table>
