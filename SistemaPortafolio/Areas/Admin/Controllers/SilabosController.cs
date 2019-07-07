@@ -24,6 +24,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         private ModeloDatos db = new ModeloDatos();
         Documento documento = new Documento();
         Usuario usuario = new Usuario().Obtener(SessionHelper.GetUser());
+        
         // GET: Admin/Silabos
         public ActionResult Index()
         {
@@ -72,6 +73,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
         public async Task<ActionResult> Pdf(int? id)
         {
+            var nombreSemestre = (from _semestre in db.Semestre.ToList() select _semestre.nombre).LastOrDefault();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -92,7 +94,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             fileStream.Close();
 
 
-            string result = await OfficeAccessSession.UploadFileAsync(path, "Server/Docs/Silabo/Silabo" + id + ".pdf");
+            string result = await OfficeAccessSession.UploadFileAsync(path, "EPIS/Portafolio/Portafolio" +silabo.CursoDocente.Curso.PlanEstudio.nombre +"/"+ silabo.CursoDocente.Persona.nombre + " "+ silabo.CursoDocente.Persona.apellido+ "/2.Silabo_UPT_ICACIT/"+silabo.CursoDocente.Curso.curso_cod+"_"+ silabo.CursoDocente.Curso.nombre+"_" + "ICACIT.pdf");
 
             return report;
         }

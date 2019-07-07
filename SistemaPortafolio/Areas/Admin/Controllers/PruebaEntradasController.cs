@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -77,7 +77,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             fileStream.Close();
             
 
-            string result = await OfficeAccessSession.UploadFileAsync(path, "Server/Docs/Prueba de Entrada/PruebaEntrada" + id + ".pdf");
+            string result = await OfficeAccessSession.UploadFileAsync(path, "EPIS/Portafolio/Portafolio"+pruebaEntrada.CursoDocente.Curso.PlanEstudio.nombre+"/"+pruebaEntrada.CursoDocente.Persona.nombre+" "+ pruebaEntrada.CursoDocente.Persona.apellido + "/3.Prueba de Entrada/PruebaEntrada" + pruebaEntrada.CursoDocente.Curso.PlanEstudio.nombre + ".pdf");
 
             return report;
         }
