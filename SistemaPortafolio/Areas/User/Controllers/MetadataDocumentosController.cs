@@ -92,7 +92,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
         public async Task<ActionResult> Create(MetadataDocumento metadataDocumento, HttpPostedFileBase file)
         {
             var documento = new Documento();
-            var personaId = metadataDocumento.Persona.persona_id;
+            var personaId = db.Usuario.Find(_idUsuario).persona_id;
             var cursos = db.CursoDocente.Where(x => x.persona_id == personaId).Select(x => x.Curso).ToList();
 
             var curso = db.Curso.Find(metadataDocumento.curso_id);

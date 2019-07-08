@@ -160,6 +160,8 @@
     <Content Include="Assets\css\fondo.css" />
     <Content Include="Assets\css\font-awesome.min.css" />
     <Content Include="Assets\css\fonts.css" />
+    <Content Include="Assets\css\footable.bootstrap.css" />
+    <Content Include="Assets\css\footable.bootstrap.min.css" />
     <Content Include="Assets\css\ionicons.min.css" />
     <Content Include="Assets\css\jquery-jvectormap-1.2.2.css" />
     <Content Include="Assets\css\skins\skin-black-light.css" />
@@ -204,6 +206,8 @@
     <Content Include="Assets\js\demo.js" />
     <Content Include="Assets\js\fastclick.js" />
     <Content Include="Assets\js\fastclick.min.js" />
+    <Content Include="Assets\js\footable.js" />
+    <Content Include="Assets\js\footable.min.js" />
     <Content Include="Assets\js\highcharts\exporting.js" />
     <Content Include="Assets\js\highcharts\highcharts-3d.js" />
     <Content Include="Assets\js\highcharts\highcharts.js" />
