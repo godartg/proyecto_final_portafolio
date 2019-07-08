@@ -207,7 +207,7 @@ namespace SistemaPortafolio.Models
                     {
 
                         db.Entry(this).State = EntityState.Modified; //si el valor es mayor que cero solo modifica
-                        if (Directory.Exists(path))
+                        /*if (Directory.Exists(path))
                         {
                             Directory.Move(HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + sem_ant),
                                            HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + this.nombre));
@@ -216,14 +216,14 @@ namespace SistemaPortafolio.Models
                         {
                             Directory.CreateDirectory(path);
                         }
-                        
+                        */
 
                     }
                     else
                     {
                         db.Entry(this).State = EntityState.Added; //si el valor es  cero va a agregar
                         
-                        Directory.CreateDirectory(path);
+                        //Directory.CreateDirectory(path);
                     }
                     db.SaveChanges();
                 }

@@ -111,7 +111,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             fileStream.Write(pdf, 0, pdf.Length);
             fileStream.Close();
             
-            string result = await OfficeAccessSession.UploadFileAsync(path, "EPIS/Portafolio/Portafolio" + semestreNombre + "/"+hojavida.Persona.nombre+" "+ hojavida.Persona.apellido + "/1.Curriculum Vitae ICACIT/curriculum_vitae_ICACIT.pdf");
+            string result = await OfficeAccessSession.UploadFileAsync(path, "/EPIS/Portafolio/Portafolio" + semestreNombre + "/"+hojavida.Persona.nombre+" "+ hojavida.Persona.apellido + "/1.Curriculum Vitae ICACIT/curriculum_vitae_ICACIT.pdf");
             return new FileContentResult(pdf, "application/pdf");
         }
         public JsonResult CargarGrilla(AnexGRID grid)
