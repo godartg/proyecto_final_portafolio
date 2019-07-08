@@ -178,7 +178,7 @@ namespace SistemaPortafolio.Models
             {
                 using (var db = new ModeloDatos())
                 {
-                    var _listaPlan = (from listaPlan in db.PlanEstudio select listaPlan).ToList();
+                    
                     //this.semestre_id es como un "boolean"
                     if (this.plan_id > 0)
                     {
@@ -186,11 +186,7 @@ namespace SistemaPortafolio.Models
                     }
                     else
                     {
-                        foreach( var plan in _listaPlan)
-                        {
-                            plan.estado = "Inactivo";
-                            db.Entry(plan).State = EntityState.Modified;
-                        }
+                        
                         db.Entry(this).State = EntityState.Added;
                         
                     }

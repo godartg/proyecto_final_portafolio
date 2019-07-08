@@ -28,7 +28,7 @@
                         <td>@hoja.hojavida_id </td>
                         <td>@hoja.Persona.nombre </td>
                         <td>@hoja.Persona.apellido </td>
-                        <td><a href="~/Admin/Views/HojaVida/Imprimir/ @hoja.persona_id">Ver</a></td>
+                        <td>@Html.ActionLink("Ver", "Imprimir", new { persona_id = hoja.persona_id })</td>
                     </tr>
                 }
             </tbody>

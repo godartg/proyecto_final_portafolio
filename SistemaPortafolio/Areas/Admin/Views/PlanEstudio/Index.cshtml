@@ -51,7 +51,7 @@
                     { style: "width: 40px;", class: "info" },//boton curso
                         { style: 'Width: 40px;', class: "info" },//visualizar
                 { style: 'Width: 40px;', class: "info" },//Modificar
-                { style: 'Width: 40px;', class: "info" },//Elimianr
+                
                 ],
 
                 modelo: [
@@ -100,19 +100,6 @@
                         }
                     },
 
-                    {
-                        formato: function (tr, obj, valor) {
-                            return anexGrid_link({
-                                href: '@Url.Content("~/Admin/PlanEstudio/Eliminar/")'
-                            + obj.plan_id, contenido: "Eliminar",
-                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Eliminar" class="glyphicon glyphicon-remove" aria-hidden="true"></i>',
-                            class: 'btn btn-danger btn-sm',
-                                attr: [
-                                    'onclick="return confirm(\'¿Estás seguro de eliminar...?\')"'
-                                ]
-                            });
-                        },
-                    }
                 ],
 
                 url: '@Url.Content("~/Admin/PlanEstudio/CargarGrilla/")',

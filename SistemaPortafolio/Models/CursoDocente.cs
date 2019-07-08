@@ -5,6 +5,7 @@ namespace SistemaPortafolio.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     [Table("CursoDocente")]
     public partial class CursoDocente
@@ -38,5 +39,21 @@ namespace SistemaPortafolio.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Portafolio> Portafolio { get; set; }
+        public List<CursoDocente> listarCursoDocente()
+        {
+            var cursoDocente = new List<CursoDocente>();
+            try
+            {
+                using( var db= new ModeloDatos())
+                {
+                    cursoDocente = db.CursoDocente.ToList();
+                }
+            }catch(Exception e)
+            {
+                throw;
+            }
+            return cursoDocente;
+        }
+        
     }
 }

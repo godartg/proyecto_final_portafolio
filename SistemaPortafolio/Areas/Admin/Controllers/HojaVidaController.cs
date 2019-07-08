@@ -29,6 +29,9 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         HojaVidaDocentePublicaciones hojavidadocentep = new HojaVidaDocentePublicaciones();
         Usuario usuario = new Usuario().Obtener(SessionHelper.GetUser());
         Documento documento = new Documento();
+        Curso curso = new Curso();
+        CursoDocente cursoDocente = new CursoDocente();
+        PlanEstudio plan = new PlanEstudio();
         Parser parser = new Parser();
 
         // GET: Admin/HojaVida
@@ -88,30 +91,40 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
             Documento doc = new Documento();
             TipoDocumento tipoDocumento = new TipoDocumento();
+            var planEstudiosId = (from lista in plan.listar() where lista.estado == "Activo" select lista.plan_id).FirstOrDefault();
+            List<Curso> cursos = curso.listarcurso(planEstudiosId);
             int hojavida_id = ObtenerHojaVidaId(persona_id);
             Semestre semestre = new Semestre();
             HojaVida hoja = new HojaVida();
-            string semestreNombre = (from listaSemestre in semestre.Listar() select listaSemestre.nombre).LastOrDefault() ;
+            //string semestreNombre = (from listaSemestre in semestre.Listar() select listaSemestre.nombre).LastOrDefault() ;
             hoja = hojavida.Obtener(hojavida_id);
 
-            ViewData["hojavidadocentefa"] = hojavidadocentefa.Listar(usuario.Persona.persona_id);
-            ViewData["hojavidadocentefc"] = hojavidadocentefc.Listar(usuario.Persona.persona_id);
-            ViewData["hojavidadocenteex"] = hojavidadocenteex.Listar(usuario.Persona.persona_id);
-            ViewData["hojavidadocentecrp"] = hojavidadocentecrp.Listar(usuario.Persona.persona_id);
-            ViewData["hojavidadocenteadp"] = hojavidadocenteadp.Listar(usuario.Persona.persona_id);
-            ViewData["hojavidadocenteas"] = hojavidadocenteas.Listar(usuario.Persona.persona_id);
-            ViewData["hojavidadocentehp"] = hojavidadocentehp.Listar(usuario.Persona.persona_id);
-            ViewData["hojavidadocentem"] = hojavidadocentem.Listar(usuario.Persona.persona_id);
-            ViewData["hojavidadocentep"] = hojavidadocentep.Listar(usuario.Persona.persona_id);
+            ViewData["hojavidadocentefa"] = hojavidadocentefa.Listar(persona_id);
+            ViewData["hojavidadocentefc"] = hojavidadocentefc.Listar(persona_id);
+            ViewData["hojavidadocenteex"] = hojavidadocenteex.Listar(persona_id);
+            ViewData["hojavidadocentecrp"] = hojavidadocentecrp.Listar(persona_id);
+            ViewData["hojavidadocenteadp"] = hojavidadocenteadp.Listar(persona_id);
+            ViewData["hojavidadocenteas"] = hojavidadocenteas.Listar(persona_id);
+            ViewData["hojavidadocentehp"] = hojavidadocentehp.Listar(persona_id);
+            ViewData["hojavidadocentem"] = hojavidadocentem.Listar(persona_id);
+            ViewData["hojavidadocentep"] = hojavidadocentep.Listar(persona_id);
             var generator = new MvcGenerator(ControllerContext);
             var pdf = generator.GeneratePdf(hoja, "Imprimir");
+            var listCursoDocente = from _cursoDocente in cursoDocente.listarCursoDocente()
+                                   join curso in cursos on _cursoDocente.curso_id equals curso.curso_id into grupoCursoDocente
+                                   select new { cursoID = curso.curso_id, cursoCodigo = curso.curso_cod, cursoNombre = curso.nombre, cursoSeccion = curso.seccion, docenteID = cursoDocente.persona_id };
+
+            var listCurso = from _cursoDoc in listCursoDocente where _cursoDoc.docenteID == persona_id select new { _cursoDoc.cursoCodigo, _cursoDoc.cursoNombre, _cursoDoc.cursoSeccion };
 
             var path = Path.Combine(Server.MapPath("~/Server"), "1.Curriculum Vitae ICACIT" + persona_id + ".pdf");
             var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
             fileStream.Write(pdf, 0, pdf.Length);
             fileStream.Close();
+            foreach (var _items in listCurso)
+            {
+                string result = await OfficeAccessSession.UploadFileAsync(path, "/EPIS/Portafolio/Portafolio" + planEstudiosId + "/" + hojavida.Persona.nombre + " " + hojavida.Persona.apellido + "/" + _items.cursoCodigo + " " + _items.cursoNombre + " " + _items.cursoSeccion + "/1.Curriculum Vitae ICACIT/curriculum_vitae_ICACIT.pdf");
+            }
             
-            string result = await OfficeAccessSession.UploadFileAsync(path, "/EPIS/Portafolio/Portafolio" + semestreNombre + "/"+hojavida.Persona.nombre+" "+ hojavida.Persona.apellido + "/1.Curriculum Vitae ICACIT/curriculum_vitae_ICACIT.pdf");
             return new FileContentResult(pdf, "application/pdf");
         }
         public JsonResult CargarGrilla(AnexGRID grid)

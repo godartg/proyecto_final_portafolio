@@ -260,3 +260,5 @@ insert into ConfigEntrega VALUES(2,'Configuracion de Entrega Unidad II','01/06/2
 insert into ConfigEntrega VALUES(3,'Configuracion de Entrega Unidad III','01/06/2019','05/07/2019','Activo');
 
 insert into Notificacion VALUES(4,1,'¡Urgente!','Cambio de Documentos','Debe cambiar los documentos marcados como Rechazado','01/07/2019','No Leido');
+
+select * from 
