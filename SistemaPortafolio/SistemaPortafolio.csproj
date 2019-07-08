@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AlphaFS, Version=2.2.0.0, Culture=neutral, PublicKeyToken=4d31a58f7d7ad5c9, processorArchitecture=MSIL">
+      <HintPath>..\packages\AlphaFS.2.2.6\lib\net452\AlphaFS.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0-preview6-19304-03\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -85,6 +88,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -365,6 +369,11 @@
     <Content Include="Areas\Admin\Views\InformeFinals\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index2.cshtml" />
     <Content Include="Areas\Admin\Views\Home\UploadFileAndGetShareUri.cshtml" />
+    <Content Include="Areas\User\Views\MetadataDocumentos\Create.cshtml" />
+    <Content Include="Areas\User\Views\MetadataDocumentos\Delete.cshtml" />
+    <Content Include="Areas\User\Views\MetadataDocumentos\Details.cshtml" />
+    <Content Include="Areas\User\Views\MetadataDocumentos\Edit.cshtml" />
+    <Content Include="Areas\User\Views\MetadataDocumentos\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -386,7 +395,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -446,6 +457,7 @@
     <Compile Include="Areas\User\Controllers\HojaVidaDocentePublicacionesController.cs" />
     <Compile Include="Areas\User\Controllers\HomeController.cs" />
     <Compile Include="Areas\User\Controllers\InformeFinalsController.cs" />
+    <Compile Include="Areas\User\Controllers\MetadataDocumentosController.cs" />
     <Compile Include="Areas\User\Controllers\NotificacionController.cs" />
     <Compile Include="Areas\User\Controllers\PerfilController.cs" />
     <Compile Include="Areas\User\Controllers\PortafoliosController.cs" />

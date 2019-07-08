@@ -28,10 +28,14 @@
     </style>
 </head>
 <body>
-
-    <div class="text-center">
-        <h4>MATERIALES CONSIGNAR PARA EL PORTAFOLIO</h4>
-        <h4>@Model.unidad UNIDAD</h4>
+    <div class="row" style="margin-left: 15px">
+        <div class="">
+            <img src="@Server.MapPath("~/Assets/img/logo.jpg")" height="75" alt="logo" />
+        </div>
+        <div class="text-center" style="padding-left: 100px">
+            <h4>MATERIALES A CONSIGNAR PARA EL PORTAFOLIO</h4>
+            <h4>@Model.unidad UNIDAD</h4>
+        </div>
     </div>
 
     <div style="margin-top:50px;">
@@ -114,7 +118,10 @@
         </table>
     </div>
     
-    <div id="container" style="width: 500px; height: auto; margin: 0 auto"></div>
+    <div class="text-center" style="display: inline-block; ">
+        <div id="container1" style="display: inline-block; width: 400px; height: auto; margin: 0 auto"></div>
+        <div id="container2" style="display: inline-block; width: 400px; height: auto; margin: 0 auto"></div>
+    </div>
 
     <div style="margin-top:50px; line-height: 20px">
         <p><b>I. Material que el docente prepara y entrega a los estudiantes durante la ejecución de los cursos: </b>El material deberá estar asociado a los resultados del aprendizaje definidos en la planificación del curso. (Marcar con un X en las columnas Digital y/o Impreso siempre y cuando tenga evidencia)</p>
@@ -265,17 +272,20 @@
             </tbody>
         </table>
     </div>
-
+    
+    <div class="text-center" style="margin-top: 50px; line-height: 20px">
+        @*<p></p>*@
+    </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
 
 
-<script>
+        <script>
     Highcharts.theme = {
         colors: ['#7cb5ec', '#f7a35c', '#90ee7e', '#7798BF', '#aaeeee', '#ff0066',
             '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
@@ -339,7 +349,7 @@
     // Apply the theme
     Highcharts.setOptions(Highcharts.theme);
 
-    Highcharts.chart('container', {
+    Highcharts.chart('container1', {
         chart: {
             type: 'bar'
         },
@@ -371,8 +381,57 @@
             data: [@Html.Raw(Model.desaprobados)]
         }]
     });
-    $("#container").highcharts().reflow();
-</script>
+
+    Highcharts.chart('container2', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Asistencia de estudiantes'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                'Alumnos'
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Cantidad'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.0,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Estudiantes matriculados',
+            data: [@Html.Raw(Model.matriculados)]
+
+        }, {
+            name: 'Estudiantes que asisten',
+            data: [@Html.Raw(Model.asisten)]
+
+        }]
+    });
+
+    $("#container1").highcharts().reflow();
+    $("#container2").highcharts().reflow();
+    </script>
 
 
 </body>

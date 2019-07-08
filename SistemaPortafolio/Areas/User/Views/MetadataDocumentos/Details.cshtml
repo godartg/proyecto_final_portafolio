@@ -1,0 +1,162 @@
+﻿@model SistemaPortafolio.Models.MetadataDocumento
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MetadataDocumento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Curso.curso_cod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Curso.curso_cod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Documento.archivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Documento.archivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Persona.dni)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Persona.dni)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Semestre.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Semestre.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoDocumento.extension)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoDocumento.extension)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Unidad.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Unidad.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pagina_total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pagina_total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.palabra_total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.palabra_total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.caracter_total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.caracter_total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.linea_total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.linea_total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.parrafo_total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.parrafo_total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.celda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.celda)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.columna)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.columna)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.diapositiva)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.diapositiva)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tamanio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tamanio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.programa_nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.programa_nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_creacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_creacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_subida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_subida)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.metadata_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
