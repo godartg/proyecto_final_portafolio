@@ -51,7 +51,10 @@ namespace SistemaPortafolio.Areas.User.Controllers
                 return HttpNotFound();
             }
 
-            var report = new Rotativa.ActionAsPdf("Details", new { id });
+            var report = new Rotativa.ActionAsPdf("Details", new { id })
+            {
+                CustomSwitches = "--debug-javascript --no-stop-slow-scripts --javascript-delay 10000"
+            };
             return report;
         }
 
@@ -181,7 +184,12 @@ namespace SistemaPortafolio.Areas.User.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            InformeFinal informeFinal = db.InformeFinal.Find(id);
+            var informeFinal = db.InformeFinal.Find(id);
+            var finalDetalles = db.InformeFinalDetalle.Where(x => x.informefinal_id == id).ToList();
+            foreach (var detalle in finalDetalles)
+            {
+                db.InformeFinalDetalle.Remove(detalle);
+            }
             db.InformeFinal.Remove(informeFinal);
             db.SaveChanges();
             return RedirectToAction("Index");
