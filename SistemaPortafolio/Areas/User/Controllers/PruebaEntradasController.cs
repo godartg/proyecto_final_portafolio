@@ -77,12 +77,13 @@ namespace SistemaPortafolio.Areas.User.Controllers
             var planEstudio = db.PlanEstudio.FirstOrDefault(x => x.estado == "Activo");
             var docente = db.Persona.Find(personaId);
 
-            var cursoNombre = curso.curso_cod + " " + curso.curso_id;
+            var cursoNombre = curso.curso_cod + " " + curso.nombre;
             var planEstudioNombre = planEstudio.nombre;
             var docenteNombre = docente.nombre + " " + docente.apellido;
 
             var rutaServer = "~/Server/EPIS/Docs/PruebaEntrada/";
             var rutaOneDrive = "EPIS/Portafolio/Portafolio" + planEstudioNombre + "/" + docenteNombre + "/" + cursoNombre + "/3.Prueba_de_Entrada/";
+            Directory.CreateDirectory(Server.MapPath(rutaServer));
 
             var path = Path.Combine(Server.MapPath(rutaServer), "PruebaEntrada" + id + ".pdf");
             var report = new Rotativa.ActionAsPdf("Details", new { id });
@@ -238,6 +239,11 @@ namespace SistemaPortafolio.Areas.User.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             PruebaEntrada pruebaEntrada = db.PruebaEntrada.Find(id);
+            foreach (var pruebaEntradaDetalle in pruebaEntrada.PruebaEntradaDetalle)
+            {
+                db.PruebaEntradaDetalle.Remove(pruebaEntradaDetalle);
+                db.SaveChanges();
+            }
             db.PruebaEntrada.Remove(pruebaEntrada);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -101,7 +101,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
             var planEstudio = db.Curso.Find(metadataDocumento.curso_id).PlanEstudio;
             var docente = db.Persona.Find(personaId);
 
-            var cursoNombre = curso.curso_cod + " " + curso.curso_id;
+            var cursoNombre = curso.curso_cod + " " + curso.nombre;
             var unidadDescripcion = unidad.descripcion;
             var tipoRecurso = tipoDocumento.tipopersona_id == 2 ? "Recursos_Estudiantes" : "Recursos_Docente";
             var recurso = tipoDocumento.nombre;

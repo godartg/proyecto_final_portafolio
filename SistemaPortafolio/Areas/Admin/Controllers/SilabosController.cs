@@ -24,7 +24,8 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         private ModeloDatos db = new ModeloDatos();
         Documento documento = new Documento();
         Usuario usuario = new Usuario().Obtener(SessionHelper.GetUser());
-        
+        int idUsuario = SessionHelper.GetUser();
+
         // GET: Admin/Silabos
         public ActionResult Index()
         {
@@ -46,7 +47,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             }
         }
 
-        // GET: Admin/Silabos/Details/5
+        // GET: User/Silabos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -58,74 +59,14 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+
             //var generator = new MvcGenerator(ControllerContext);
             //var pdf = generator.GeneratePdf(silabo, "Details");
-            //documento.persona_id = usuario.Persona.persona_id;
-            //documento.tipodocumento_id = 1;
-            //documento.descripcion = "Curriculum Vitae ICACIT";
-            //documento.estado = "activo";
-            //documento.GuardarArchivoDirecto(pdf, usuario.Persona.persona_id, "HojaDeVida.pdf", "Curriculum Vitae ICACIT");
-            
             //return new FileContentResult(pdf, "application/pdf");
             return View(silabo);
-
         }
 
         public async Task<ActionResult> Pdf(int? id)
-        {
-            var nombreSemestre = (from _semestre in db.Semestre.ToList() select _semestre.nombre).LastOrDefault();
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var silabo = db.Silabo.Find(id);
-
-            if (silabo == null)
-            {
-                return HttpNotFound();
-            }
-
-            var path = Path.Combine(Server.MapPath("~/Server"), "Silabo" + id + ".pdf");
-            var report = new Rotativa.ActionAsPdf("Details", new { id });
-
-            var pdfBytes = report.BuildFile(ControllerContext);
-            var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
-            fileStream.Write(pdfBytes, 0, pdfBytes.Length);
-            fileStream.Close();
-
-
-            string result = await OfficeAccessSession.UploadFileAsync(path, "EPIS/Portafolio/Portafolio" +silabo.CursoDocente.Curso.PlanEstudio.nombre +"/"+ silabo.CursoDocente.Persona.nombre + " "+ silabo.CursoDocente.Persona.apellido+ "/2.Silabo_UPT_ICACIT/"+silabo.CursoDocente.Curso.curso_cod+"_"+ silabo.CursoDocente.Curso.nombre+"_" + "ICACIT.pdf");
-
-            return report;
-        }
-
-        // GET: Admin/Silabos/Create
-        public ActionResult Create()
-        {
-            ViewBag.cursodocente_id = new SelectList(db.CursoDocente, "cursodocente_id", "cursodocente_id");
-            return View();
-        }
-
-        // POST: Admin/Silabos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "silabo_id,cursodocente_id,descripcion,bibliografia,competencias_curso,temas,resultados")] Silabo silabo)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Silabo.Add(silabo);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.cursodocente_id = new SelectList(db.CursoDocente, "cursodocente_id", "cursodocente_id", silabo.cursodocente_id);
-            return View(silabo);
-        }
-
-        // GET: Admin/Silabos/Edit/5
-        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -136,7 +77,108 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.cursodocente_id = new SelectList(db.CursoDocente, "cursodocente_id", "cursodocente_id", silabo.cursodocente_id);
+
+            //RUTA GRAFICOS
+            var documento = new Documento();
+            var personaId = db.Usuario.Find(idUsuario).persona_id;
+            var cursos = db.CursoDocente.Where(x => x.persona_id == personaId).Select(x => x.Curso).ToList();
+
+            var curso = db.Curso.Find(silabo.CursoDocente.curso_id);
+            var planEstudio = db.PlanEstudio.FirstOrDefault(x => x.estado == "Activo");
+            var docente = db.Persona.Find(personaId);
+
+            var cursoNombre = curso.curso_cod + " " + curso.nombre;
+            var planEstudioNombre = planEstudio.nombre;
+            var docenteNombre = docente.nombre + " " + docente.apellido;
+
+            var rutaServer = "~/Server/EPIS/Docs/Silabo/";
+            var rutaOneDrive = "EPIS/Portafolio/Portafolio" + planEstudioNombre + "/" + docenteNombre + "/" + cursoNombre + "/2.Silabos_UPT_ICACIT/";
+            Directory.CreateDirectory(Server.MapPath(rutaServer));
+
+            var path = Path.Combine(Server.MapPath(rutaServer), "Silabo_" + id + ".pdf");
+            var report = new Rotativa.ActionAsPdf("Details", new { id });
+            var pdfBytes = report.BuildFile(ControllerContext);
+            var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
+            fileStream.Write(pdfBytes, 0, pdfBytes.Length);
+            fileStream.Close();
+
+            //var result = await OfficeAccessSession.UploadFileAsync(Path.Combine(Server.MapPath(rutaServer), fileName), rutaOneDrive + fileName);
+            string result = await OfficeAccessSession.UploadFileAsync(path, rutaOneDrive + "Silabo_" + id + ".pdf");
+
+            return report;
+        }
+
+        // GET: Admin/Silabos/Create
+        public ActionResult Create()
+        {
+            var idUsuario = SessionHelper.GetUser();
+            var personaId = db.Usuario
+                .Where(x => x.usuario_id == idUsuario)
+                .Select(x => x.persona_id).FirstOrDefault();
+
+            ViewBag.cursodocente_id = new SelectList(db.CursoDocente
+                .Where(x => x.persona_id == personaId), "cursodocente_id", "Curso.nombre");
+            return View();
+        }
+
+        // POST: Admin/Silabos/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Silabo silabo, string[] aportes)
+        {
+            var idUsuario = SessionHelper.GetUser();
+            var personaId = db.Usuario
+                .Where(x => x.usuario_id == idUsuario)
+                .Select(x => x.persona_id).FirstOrDefault();
+
+            if (ModelState.IsValid)
+            {
+                foreach (var aporte in aportes)
+                {
+                    silabo.resultados += aporte + "@@@";
+                }
+                db.Silabo.Add(silabo);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.cursodocente_id = new SelectList(db.CursoDocente
+                .Where(x => x.persona_id == personaId), "cursodocente_id", "Curso.nombre", silabo.cursodocente_id);
+
+            return View(silabo);
+        }
+
+        // GET: Admin/Silabos/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            var idUsuario = SessionHelper.GetUser();
+            var personaId = db.Usuario
+                .Where(x => x.usuario_id == idUsuario)
+                .Select(x => x.persona_id).FirstOrDefault();
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Silabo silabo = db.Silabo.Find(id);
+
+            if (silabo != null)
+            {
+                var resultadosList = silabo.resultados.Split(new[] { "@@@" }, StringSplitOptions.None);
+                ViewBag.ResultadosList = resultadosList;
+            }
+
+            if (silabo == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.cursodocente_id = new SelectList(db.CursoDocente
+                .Where(x => x.persona_id == personaId), "cursodocente_id", "Curso.nombre", silabo.cursodocente_id);
+
             return View(silabo);
         }
 
@@ -145,15 +187,28 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "silabo_id,cursodocente_id,descripcion,bibliografia,competencias_curso,temas,resultados")] Silabo silabo)
+        public ActionResult Edit(Silabo silabo, string[] aportes)
         {
+            var idUsuario = SessionHelper.GetUser();
+            var personaId = db.Usuario
+                .Where(x => x.usuario_id == idUsuario)
+                .Select(x => x.persona_id).FirstOrDefault();
+
             if (ModelState.IsValid)
             {
+                silabo.resultados = "";
+                foreach (var aporte in aportes)
+                {
+                    silabo.resultados += aporte + "@@@";
+                }
                 db.Entry(silabo).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.cursodocente_id = new SelectList(db.CursoDocente, "cursodocente_id", "cursodocente_id", silabo.cursodocente_id);
+
+            ViewBag.cursodocente_id = new SelectList(db.CursoDocente
+                .Where(x => x.persona_id == personaId), "cursodocente_id", "Curso.nombre", silabo.cursodocente_id);
+
             return View(silabo);
         }
 
