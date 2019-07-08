@@ -71,7 +71,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
             
             //RUTA GRAFICOS
             var documento = new Documento();
-            var personaId = db.Usuario.Find(idUsuario).persona_id;
+            var personaId = informeFinal.CursoDocente.Persona.persona_id;
             var cursos = db.CursoDocente.Where(x => x.persona_id == personaId).Select(x => x.Curso).ToList();
 
             var curso = db.Curso.Find(informeFinal.CursoDocente.curso_id);
