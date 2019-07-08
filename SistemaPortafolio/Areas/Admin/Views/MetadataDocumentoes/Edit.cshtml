@@ -1,10 +1,11 @@
 ﻿@model SistemaPortafolio.Models.Silabo
 
 @{
-    ViewBag.Title = "CREAR SÍLABO";
+    ViewBag.Title = "EDITAR SÍLABO";
+    var resultadosList = (string[])ViewBag.ResultadosList;
 }
 
-<h2>CREAR SÍLABO</h2>
+<h2>EDITAR SÍLABO</h2>
 
 
 @using (Html.BeginForm())
@@ -14,6 +15,8 @@
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.silabo_id)
+
         <div class="form-group">
             @Html.LabelFor(model => model.cursodocente_id, "CURSO :", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -71,67 +74,67 @@
                     <tr>
                         <td>1a. Aplicación de Ciencias </td>
                         <td>Aplica los conocimientos y habilidades en matemáticas, ciencias e ingeniería para resolver problemas de ingeniería sistemas.</td>
-                        <td><input class="text-center" type="text" maxlength="1" name="aportes[0]" value="-" /></td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[0]" value="@resultadosList[0]" /></td>
                     </tr>
                     <tr>
                         <td>2b.Experimentación y Pruebas</td>
                         <td>Diseña y conduce experimentos, analiza e interpreta datos.</td>
-                        <td><input class="text-center" type="text" maxlength="1" name="aportes[1]" value="-" /></td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[1]" value="@resultadosList[1]" /></td>
                     </tr>
                     <tr>
                         <td>3c. Diseño en Ingeniería</td>
                         <td>Diseña sistemas informáticos, componentes y/o procesos para satisfacer requerimientos considerando restricciones realistas de seguridad y sostenibilidad.</td>
-                        <td><input class="text-center" type="text" maxlength="1" name="aportes[2]" value="-" /></td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[2]" value="@resultadosList[2]" /></td>
                     </tr>
                     <tr>
                         <td>4d. Trabajo en Equipo</td>
                         <td>Participa activa y efectivamente en grupos multidisciplinarios siendo capaces de liderarlos.</td>
-                        <td><input class="text-center" type="text" maxlength="1" name="aportes[3]" value="-" /></td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[3]" value="@resultadosList[3]" /></td>
                     </tr>
                     <tr>
                         <td>5e. Solución de Problemas de Ingeniería</td>
                         <td>Identifica, fórmula y resuelve problemas de ingeniería usando las técnicas, métodos y herramientas apropiados.</td>
-                        <td><input class="text-center" type="text" maxlength="1" name="aportes[4]" value="-" /></td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[4]" value="@resultadosList[4]" /></td>
                     </tr>
                     <tr>
                         <td>6f.Responsabilidad Ética y Profesional</td>
                         <td>Entiende sus responsabilidades profesionales, éticas, sociales y legales, y cumple los compromisos asumidos.</td>
-                        <td><input class="text-center" type="text" maxlength="1" name="aportes[5]" value="-" /></td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[5]" value="@resultadosList[5]" /></td>
                     </tr>
                     <tr>
                         <td>7g.Comunicación</td>
                         <td>Se comunica clara y efectivamente en forma oral, escrita y gráfica, interactuando con diferentes tipos de audiencias.</td>
-                        <td><input class="text-center" type="text" maxlength="1" name="aportes[6]" value="-" /></td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[6]" value="@resultadosList[6]" /></td>
                     </tr>
                     <tr>
                         <td>8h. Perspectiva Local y Global</td>
                         <td>Comprende el impacto que tienen las soluciones de ingeniería en la sociedad en un contexto local y global.</td>
-                        <td><input class="text-center" type="text" maxlength="1" name="aportes[7]" value="-" /></td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[7]" value="@resultadosList[7]" /></td>
                     </tr>
                     <tr>
                         <td>9i. Educación Continúa</td>
                         <td>Reconoce la necesidad de mantener sus conocimientos y habilidades actualizadas de acuerdo a los avances de la ingeniería de software y sistemas de información y se compromete con un aprendizaje para toda la vida.</td>
-                        <td><input class="text-center" type="text" maxlength="1" name="aportes[8]" value="-" /></td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[8]" value="@resultadosList[8]" /></td>
                     </tr>
                     <tr>
                         <td>10j. Asuntos Contemporáneos</td>
                         <td>Conoce y analiza asuntos contemporáneos relevantes en contextos locales, nacionales y globales.</td>
-                        <td><input class="text-center" type="text" maxlength="1" name="aportes[9]" value="-" /></td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[9]" value="@resultadosList[9]" /></td>
                     </tr>
                     <tr>
                         <td>11k. Práctica de la Ingeniería Moderna</td>
                         <td>Usa las técnicas, métodos y herramientas de la ingeniería moderna necesarias para la práctica de la ingeniería de software y sistemas de información.</td>
-                        <td><input class="text-center" type="text" maxlength="1" name="aportes[10]" value="-" /></td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[10]" value="@resultadosList[10]" /></td>
                     </tr>
                     <tr>
                         <td>12l. Gestión de Proyectos </td>
                         <td>Planifica y gestiona proyectos de ingeniería tomando en cuenta criterios de eficiencia y productividad.</td>
-                        <td><input class="text-center" type="text" maxlength="1" name="aportes[11]" value="-" /></td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[11]" value="@resultadosList[11]" /></td>
                     </tr>
                     <tr>
                         <td>13m. Desarrollo de Software e Implementación de SI</td>
                         <td>Desarrolla e implementa software y sistemas de información satisfaciendo requerimientos y aplicando metodologías, técnicas y herramientas apropiados.</td>
-                        <td><input class="text-center" type="text" maxlength="1" name="aportes[12]" value="-" /></td>
+                        <td><input class="text-center" type="text" maxlength="1" name="aportes[12]" value="@resultadosList[12]" /></td>
                     </tr>
                 </table>
                 @Html.HiddenFor(model => model.resultados, new { @class = "form-control " })
@@ -140,7 +143,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="CREAR" class="btn btn-default" />
+                <input type="submit" value="EDITAR" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -150,6 +153,6 @@
     @Html.ActionLink("Regresar", "Index")
 </div>
 
-<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

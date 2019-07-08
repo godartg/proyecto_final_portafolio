@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using Alphaleonis.Win32.Filesystem;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Alphaleonis.Win32.Filesystem;
 using SistemaPortafolio.CSOneDriveAccess;
 using SistemaPortafolio.Models;
 
-namespace SistemaPortafolio.Areas.User.Controllers
+namespace SistemaPortafolio.Areas.Admin.Controllers
 {
-    public class MetadataDocumentosController : Controller
+    public class MetadataDocumentoesController : Controller
     {
         private ModeloDatos db = new ModeloDatos();
         readonly int _idUsuario = SessionHelper.GetUser();
@@ -29,8 +29,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
                 .Include(m => m.Persona)
                 .Include(m => m.Semestre)
                 .Include(m => m.TipoDocumento)
-                .Include(m => m.Unidad)
-                .Where(x => x.curso_id == cursoId && x.persona_id == personaId);
+                .Include(m => m.Unidad);
             return View(metadataDocumento.ToList());
         }
 
@@ -148,7 +147,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
 
                 var cursoDocenteId = db.CursoDocente.Where(x =>
                     x.curso_id == metadataDocumento.curso_id && x.persona_id == metadataDocumento.persona_id).FirstOrDefault().cursodocente_id;
-                return RedirectToAction("Index", new{id= cursoDocenteId});
+                return RedirectToAction("Index", new { id = cursoDocenteId });
             }
 
             //var tipoDocumento = new List<TipoDocumento>();

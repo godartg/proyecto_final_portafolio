@@ -374,6 +374,11 @@
     <Content Include="Areas\User\Views\MetadataDocumentos\Details.cshtml" />
     <Content Include="Areas\User\Views\MetadataDocumentos\Edit.cshtml" />
     <Content Include="Areas\User\Views\MetadataDocumentos\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\MetadataDocumentoes\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\MetadataDocumentoes\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\MetadataDocumentoes\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\MetadataDocumentoes\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\MetadataDocumentoes\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -430,6 +435,7 @@
     <Compile Include="Areas\Admin\Controllers\HojaVidaDocentePublicacionesController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\InformeFinalsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MetadataDocumentoesController.cs" />
     <Compile Include="Areas\Admin\Controllers\NotificacionController.cs" />
     <Compile Include="Areas\Admin\Controllers\PerfilController.cs" />
     <Compile Include="Areas\Admin\Controllers\PersonaController.cs" />

@@ -75,19 +75,20 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
             //RUTA GRAFICOS
             var documento = new Documento();
-            var personaId = db.Usuario.Find(_idUsuario).persona_id;
+            var personaId = portafolio.CursoDocente.Persona.persona_id;
             var cursos = db.CursoDocente.Where(x => x.persona_id == personaId).Select(x => x.Curso).ToList();
 
             var curso = db.Curso.Find(portafolio.CursoDocente.curso_id);
             var planEstudio = db.PlanEstudio.FirstOrDefault(x => x.estado == "Activo");
             var docente = db.Persona.Find(personaId);
 
-            var cursoNombre = curso.curso_cod + " " + curso.curso_id;
+            var cursoNombre = curso.curso_cod + " " + curso.nombre;
             var planEstudioNombre = planEstudio.nombre;
             var docenteNombre = docente.nombre + " " + docente.apellido;
 
             var rutaServer = "~/Server/EPIS/Docs/Portafolio/";
             var rutaOneDrive = "EPIS/Portafolio/Portafolio" + planEstudioNombre + "/" + docenteNombre + "/" + cursoNombre + "/4.Portafolio_por_Unidad/";
+            Directory.CreateDirectory(Server.MapPath(rutaServer));
 
             var path = Path.Combine(Server.MapPath(rutaServer), "Portafolio" + id + ".pdf");
             var report = new Rotativa.ActionAsPdf("Details", new { id });
