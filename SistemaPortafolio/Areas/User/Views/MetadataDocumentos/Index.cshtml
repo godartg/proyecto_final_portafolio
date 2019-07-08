@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SistemaPortafolio.Models.MetadataDocumento>
+
+@{
+    ViewBag.Title = "DOCUMENTO";
+}
+
+<h2>DOCUMENTO</h2>
+
+<p>
+    <button class="btn btn-default">@Html.ActionLink("SUBIR RECURSO ESTUDIANTE", "Create", new { tipoRecurso = 2 })</button>
+    <button class="btn btn-default">@Html.ActionLink("SUBIR RECURSO DOCENTE", "Create", new { tipoRecurso = 1 })</button>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            CÓDIGO
+        </th>
+        <th>
+            CURSO
+        </th>
+        <th>
+            UNIDAD
+        </th>
+        <th>
+            RECURSO
+        </th>
+        <th>
+            TIPO
+        </th>
+        <th>
+            NOMBRE
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.Curso.curso_cod
+        </td>
+        <td>
+            @item.Curso.nombre
+        </td>
+        <td>
+            @item.Unidad.descripcion
+        </td>
+        <td>
+            @if (item.TipoDocumento.tipopersona_id == 1)
+            {
+                <text>Recurso Docente</text>
+            }
+            else
+            {
+                <text>Recurso Estudiante</text>
+            }
+        </td>
+        <td>
+            @item.TipoDocumento.nombre
+        </td>
+        <td>
+            @item.Documento.archivo
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.metadata_id }) |
+            @Html.ActionLink("Ver", "Details", new { id=item.metadata_id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.metadata_id })
+        </td>
+    </tr>
+}
+
+</table>

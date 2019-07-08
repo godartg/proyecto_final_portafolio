@@ -1,24 +1,24 @@
 ﻿@model IEnumerable<SistemaPortafolio.Models.Portafolio>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "PORTAFOLIOS";
 }
 
-<h2>Index</h2>
+<h2>PORTAFOLIOS</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <button class="btn btn-default">@Html.ActionLink("CREAR", "Create")</button>
 </p>
 <table class="table">
     <tr>
+        <th>
+            Código
+        </th>
         <th>
             Curso
         </th>
         <th>
             Unidad
-        </th>
-        <th>
-            Código
         </th>
         <th></th>
     </tr>
@@ -26,18 +26,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.CursoDocente.Curso.curso_cod)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.CursoDocente.Curso.nombre)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.unidad)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CursoDocente.Curso.curso_cod)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.portafolio_id }) |
-            @Html.ActionLink("Ver", "Pdf", new { id=item.portafolio_id }) |
-            @Html.ActionLink("Borrar", "Delete", new { id=item.portafolio_id })
+            @Html.ActionLink("Documentos", "Index", "MetadataDocumentos", new { id = item.cursodocente_id }, "") |
+            @Html.ActionLink("Editar", "Edit", new { id = item.portafolio_id }) |
+            @Html.ActionLink("Ver", "Pdf", new { id = item.portafolio_id }) |
+            @Html.ActionLink("Borrar", "Delete", new { id = item.portafolio_id })
         </td>
     </tr>
 }

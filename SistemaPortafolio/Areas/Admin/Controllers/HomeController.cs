@@ -23,7 +23,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         // GET: Admin/Home
         private string token = "EwCAA8l6BAAURSN/FHlDW5xN74t6GzbtsBBeBUYAAYR4Z/xhqJw0r3zNcmxYD+KXAuf20NStmih/i3N0Go7M7IPWJFhcxL6FpfNWNmQwdlhsn+YVZJkk6nhPkmqrubQUU9NZJuHFVTKZp7UoQL56gmLxbXGzrAWq7F8Z3X6ZRDSse5eOmAu7oJ+BTQpNNIHBD1QeuIKYoLeY0JXZktKYQW8MZXHCjPuHEp7ao6dHya+F0/U3ioaz2lU0qf7/tI0XUxgLKIqmvuq8LUmsMR4RJSbgBg5ORCRIkiP7r60OWHfS/FwBj9lyoNSMb1vlpkRRkfMl4z41NAtlKbUxkUOA93GTOcqhB4cS9d4AwnYl3KsRQo6NIDii4BlOAD/XeZ4DZgAACHFw8Nk4P7ltUAILB+ie4Tr7zg6ch7QqGlPc7qT36lhrMnDKs8Pb3HheKlDHwFFNl7VboBkukReXNmXwZc1ki0PMnVY5Nr7VOILGTOezZZYdo/VG8Ylvey9+QtxcvrCJJ3Rm5NXMUB3bEHhGfb5gpbUilkv5HYMw/rrfZ5pKcdotmSSxQwkJbe+PnvQRNhefHyBZNnnmiQCloSTQNdPSQRT2TOvW93L7RbUyde5UIAqgPbiPHxAElvfv3Z05KermqM405GlUdaT65T+hlN7XeAsfaeMG0ZtHHPht4GGnJjwTEejLKSwS4iqVj4cIWHmlm9UwXYYsAlc+FWUGJpwVdgiEm/bRoc0Om36RDx85cM7NX4Q5USnhq5B+AKZQgu8US3ejnnOqbXYnayQhbwSeMGic8JwpUkcbIC8OHnSPrj1sgqt+rRWFEJeAAh0KfBjtGNwe4g0sH+7gTw0hH1lhXcbn8zbfKzGGdCbMwQA+ZGn4XVplO8boDg7sksGxO/0LSHTDpipcx6UobCbly/cqFCP8pZVdNrcUYB2y8tl7Erd4j516lO3PYbeF+CrjhOwKK2j4BNjHLH2rwXjA0LMD8eq4x55jw+2NxTaxgaFRnUmRk6E90KDgf5Hv3DH4xjnj4ZQ52EGW01p4GaDeGBCuR6d8mpCWgwhlWCei2CJGW8EJ+WAlXzzJZswUBcvhDVvZ+93zFNaCN3IVj8VM1o/EBimiqPyI+9cbe9ZVocQox9XD5Pn1D79c1FCAOPxh2pjNW96F9wMZu+Eh56shsoKCOWqD/FM1Xtib610CgwI=";
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index2()
         {
             var archivos = await listarAsync();
             List<ClsCarpeta> listaCarpetas = LeerArchivos();
@@ -202,7 +202,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 return officeAccess as O365RestSession;
             }
         }
-        public async Task<ActionResult> Index2()
+        public async Task<ActionResult> Index()
         {
             //if user is not login, redirect to office 365 for authenticate
             if (string.IsNullOrEmpty(OfficeAccessSession.AccessCode))

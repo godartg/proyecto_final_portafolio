@@ -1,0 +1,90 @@
+﻿@model SistemaPortafolio.Models.MetadataDocumento
+
+@{
+    ViewBag.Title = "CREAR";
+}
+
+<h2>CREAR</h2>
+
+
+@using (Html.BeginForm("Create", "MetadataDocumentos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ 
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+    <h4>DOCUMENTO</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    
+    <div class="form-group">
+        @Html.LabelFor(model => model.curso_id, "CURSO", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("curso_id", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.curso_id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.semestre_id, "SEMESTRE", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("semestre_id", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.semestre_id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.tipodocumento_id, "TIPO", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("tipodocumento_id", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.tipodocumento_id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.id_unidad, "UNIDAD", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("id_unidad", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.id_unidad, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Subir archivo</label>
+        <div class="col-md-10">
+            <input type="file" name="file"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.HiddenFor(model => model.documento_id)
+        @Html.ValidationMessageFor(model => model.documento_id, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.persona_id, new { id = "natureOfVisitField", Value = "0" })
+        @Html.ValidationMessageFor(model => model.persona_id, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.pagina_total)
+        @Html.HiddenFor(model => model.palabra_total)
+        @Html.HiddenFor(model => model.caracter_total)
+        @Html.HiddenFor(model => model.linea_total)
+        @Html.HiddenFor(model => model.parrafo_total)
+        @Html.HiddenFor(model => model.celda)
+        @Html.HiddenFor(model => model.diapositiva)
+        @Html.HiddenFor(model => model.tamanio)
+        @Html.HiddenFor(model => model.columna)
+        @Html.HiddenFor(model => model.programa_nombre)
+        @Html.HiddenFor(model => model.fecha_subida)
+        @Html.HiddenFor(model => model.fecha_creacion)
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

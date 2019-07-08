@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using SistemaPortafolio.CSOneDriveAccess;
 using SistemaPortafolio.Models;
 
 namespace SistemaPortafolio.Areas.User.Controllers
@@ -23,6 +26,20 @@ namespace SistemaPortafolio.Areas.User.Controllers
             return View(informeFinal.ToList());
         }
 
+        public O365RestSession OfficeAccessSession
+        {
+            get
+            {
+                var officeAccess = Session["OfficeAccess"];
+                if (officeAccess == null)
+                {
+                    officeAccess = new O365RestSession(Token.ClientId, Token.Secret, Token.CallbackUri);
+                    Session["OfficeAccess"] = officeAccess;
+                }
+                return officeAccess as O365RestSession;
+            }
+        }
+
         // GET: User/InformeFinals/Details/5
         public ActionResult Details(int? id)
         {
@@ -38,7 +55,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
             return View(informeFinal);
         }
 
-        public ActionResult Pdf(int? id)
+        public async Task<ActionResult> Pdf(int? id)
         {
             if (id == null)
             {
@@ -51,10 +68,16 @@ namespace SistemaPortafolio.Areas.User.Controllers
                 return HttpNotFound();
             }
 
-            var report = new Rotativa.ActionAsPdf("Details", new { id })
-            {
-                CustomSwitches = "--debug-javascript --no-stop-slow-scripts --javascript-delay 10000"
-            };
+            var path = Path.Combine(Server.MapPath("~/Server"), "InformeFinal" + id + ".pdf");
+            var report = new Rotativa.ActionAsPdf("Details", new { id });
+            var pdfBytes = report.BuildFile(ControllerContext);
+            var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
+            fileStream.Write(pdfBytes, 0, pdfBytes.Length);
+            fileStream.Close();
+
+
+            string result = await OfficeAccessSession.UploadFileAsync(path, "Server/Docs/Informe Final del Curso/InformeFinal" + id + ".pdf");
+
             return report;
         }
 
