@@ -87,7 +87,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             var docenteNombre = docente.nombre + " " + docente.apellido;
 
             var rutaServer = "~/Server/EPIS/Docs/Portafolio/";
-            var rutaOneDrive = "EPIS/Portafolio/Portafolio" + planEstudioNombre + "/" + docenteNombre + "/" + cursoNombre + "/4.Portafolio_por_Unidad/" + portafolio.unidad + "_Unidad";
+            var rutaOneDrive = "EPIS/Portafolio/Portafolio" + planEstudioNombre + "/" + docenteNombre + "/" + cursoNombre + "/4.Portafolio_por_Unidad/" + portafolio.unidad + "_Unidad/";
             Directory.CreateDirectory(Server.MapPath(rutaServer));
 
             var path = Path.Combine(Server.MapPath(rutaServer), "Portafolio" + id + ".pdf");

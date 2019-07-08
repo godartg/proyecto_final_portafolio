@@ -29,7 +29,8 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 .Include(m => m.Persona)
                 .Include(m => m.Semestre)
                 .Include(m => m.TipoDocumento)
-                .Include(m => m.Unidad);
+                .Include(m => m.Unidad)
+                .Where(m => m.curso_id == cursoId && m.persona_id == personaId);
             return View(metadataDocumento.ToList());
         }
 
@@ -83,15 +84,12 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: User/MetadataDocumentos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(MetadataDocumento metadataDocumento, HttpPostedFileBase file)
         {
             var documento = new Documento();
-            var personaId = metadataDocumento.persona_id;
+            var personaId = db.Usuario.Find(_idUsuario).persona_id;
             var cursos = db.CursoDocente.Where(x => x.persona_id == personaId).Select(x => x.Curso).ToList();
 
             var curso = db.Curso.Find(metadataDocumento.curso_id);  
@@ -143,6 +141,9 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 metadataDocumento.persona_id = personaId;
                 db.MetadataDocumento.Add(metadataDocumento);
                 db.SaveChanges();
+
+
+
                 var result = await OfficeAccessSession.UploadFileAsync(Path.Combine(Server.MapPath(rutaServer), fileName), rutaOneDrive + fileName);
 
                 var cursoDocenteId = db.CursoDocente.Where(x =>
