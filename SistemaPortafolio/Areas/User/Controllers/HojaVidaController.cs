@@ -55,9 +55,9 @@ namespace SistemaPortafolio.Areas.User.Controllers
             Documento doc = new Documento();
             TipoDocumento tipoDocumento = new TipoDocumento();
             int hojavida_id = ObtenerHojaVidaId(persona_id);
-
+            Semestre semestre = new Semestre();
             HojaVida hoja = new HojaVida();
-            
+            string semestreNombre = (from listaSemestre in semestre.Listar() select listaSemestre.nombre).LastOrDefault();
             hoja = hojavida.Obtener(hojavida_id);
 
             ViewData["hojavidadocentefa"] = hojavidadocentefa.Listar(usuario.Persona.persona_id);
@@ -75,7 +75,10 @@ namespace SistemaPortafolio.Areas.User.Controllers
             documento.tipodocumento_id = 1;
             documento.descripcion = "Curriculum Vitae ICACIT";
             documento.estado = "activo";
-            documento.GuardarArchivoDirecto(pdf, usuario.Persona.persona_id, "HojaDeVida.pdf", "Curriculum Vitae ICACIT");
+            var soloRuta = "~/Server/EPIS/Portafolio/Portafolio" + semestreNombre + "/" + hojavida.Persona.nombre + " " + hojavida.Persona.apellido + "/1.Curriculum Vitae ICACIT/";
+            var nombreDocumento = "curriculum_vitae_ICACIT.pdf";
+
+            documento.GuardarArchivoDirecto(pdf, usuario.Persona.persona_id, soloRuta, "Curriculum Vitae ICACIT", nombreDocumento);
             return new FileContentResult(pdf, "application/pdf");
             //return View();
         }

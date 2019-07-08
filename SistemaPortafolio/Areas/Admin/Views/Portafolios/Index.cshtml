@@ -35,7 +35,7 @@
                 @Html.DisplayFor(modelItem => item.unidad)
             </td>
             <td>
-                @Html.ActionLink("Documentos", "Index", "MetadataDocumentos", new { id = item.cursodocente_id }, "") |
+                @Html.ActionLink("Documentos", "Index", "MetadataDocumentoes", new { id = item.cursodocente_id }, "") |
                 @Html.ActionLink("Editar", "Edit", new { id = item.portafolio_id }) |
                 @Html.ActionLink("Ver", "Pdf", new { id = item.portafolio_id }) |
                 @Html.ActionLink("Borrar", "Delete", new { id = item.portafolio_id })

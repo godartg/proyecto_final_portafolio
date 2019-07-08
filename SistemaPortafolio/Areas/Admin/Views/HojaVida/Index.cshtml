@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
 }
 
+
 <br />
 
 <div class="panel panel-default">
@@ -11,57 +12,53 @@
         <div class="text-right">
             <a class="btn btn-primary" href="~/Admin/HojaVida/AgregarEditar/">Nueva Hoja de vida</a>
         </div><br /><br />
-        <div id="Grilla" class="panel-group"></div>
+        <table id="Grilla" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Hoja ID</th>
+                    <th>Docente nombre</th>
+                    <th>Docente apellido</th>
+                    <th>Opción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var hoja in Model)
+                {
+                    <tr>
+                        <td>@hoja.hojavida_id </td>
+                        <td>@hoja.Persona.nombre </td>
+                        <td>@hoja.Persona.apellido </td>
+                        <td><a href="~/Admin/Views/HojaVida/Imprimir/ @hoja.persona_id">Ver</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 
+<script src="~/Scripts/datatables.min.js"></script>
 <script>
-    $(document).ready(function ()
-    {
-        $("#Grilla").anexGrid(
-            {
-                class: 'table table-hover',
-                columnas: [
+    $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#Grilla tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Buscar ' + title + '" />');
+        });
 
-                    { leyenda: "ID", columna: "hojavida_Id", class: "info" },
+        // DataTable
+        var table = $('#Grilla').DataTable();
 
-                    { leyenda: 'Nombre de docente', columna: 'Persona_id', class: "info", filtro: true, ordenable: true },
+        // Apply the search
+        table.columns().every(function () {
+            var that = this;
 
-                    
-
-                { style: 'Width: 40px;', class: "info" },//visualizar
-                ],
-
-                modelo: [
-
-                    { propiedad: "hojavida_Id" },
-                    { propiedad: "Persona_id" },
-                    {
-                        style: '', class: '', formato: function (tr, obj, valor) {
-                            return obj.nombre + ' ' + obj.apellido;
-                        }
-                    },
-                    { propiedad: "apellido_docente"},
-
-
-                    {
-                        formato: function (tr, obj, valor) {
-                            return anexGrid_link({
-                                href: '@Url.Content("~/Admin/HojaVida/Imprimir/")'
-                                    + obj.hojavida_Id, contenido: "Detalle",
-                            contenido: '<i data-toggle="tooltip" data-placement="top" title="Visualizar" class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>',
-                            class: 'btn btn-success btn-sm'
-                            });
-                        }
-                    }
-                ],
-
-                url: '@Url.Content("~/Admin/HojaVida/CargarGrilla/")',
-                filtrable: true,
-                paginable: true, //para mostrar la paginación
-                limite: [10, 20, 50, 100], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
-                columna: 'hojavida_id',
-                columna_orden: "ASC"
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
             });
-    })
+        });
+    });
 </script>
