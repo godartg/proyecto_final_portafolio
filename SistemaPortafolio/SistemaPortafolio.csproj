@@ -696,10 +696,6 @@
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />
-    <Content Include="Server\Docs\Curriculum Vitae ICACIT\web 2.docx_1_1_1_SI-572_4_1.docx" />
-    <Content Include="Server\Docs\Informe Final del Curso\web 2.docx_1_13_3_SI-572_4_3.docx" />
-    <Content Include="Server\Docs\Informe Final del Curso\web 2.docx_1_13_3_SI-572_4_4.docx" />
-    <Content Include="Server\Docs\Otros\web 2.docx_1_8_2_SI-874_4_2.docx" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

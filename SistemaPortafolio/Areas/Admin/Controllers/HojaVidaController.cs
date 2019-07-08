@@ -8,12 +8,8 @@ using SistemaPortafolio.Filters;
 using Wired.Razor;
 using Wired.RazorPdf;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Text;
 using SistemaPortafolio.CSOneDriveAccess;
 
 namespace SistemaPortafolio.Areas.Admin.Controllers
@@ -93,9 +89,9 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             Documento doc = new Documento();
             TipoDocumento tipoDocumento = new TipoDocumento();
             int hojavida_id = ObtenerHojaVidaId(persona_id);
-
+            Semestre semestre = new Semestre();
             HojaVida hoja = new HojaVida();
-            
+            string semestreNombre = (from listaSemestre in semestre.Listar() select listaSemestre.nombre).LastOrDefault() ;
             hoja = hojavida.Obtener(hojavida_id);
 
             ViewData["hojavidadocentefa"] = hojavidadocentefa.Listar(usuario.Persona.persona_id);
@@ -113,59 +109,18 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             documento.tipodocumento_id = 1;
             documento.descripcion = "Curriculum Vitae ICACIT";
             documento.estado = "activo";
-            documento.GuardarArchivoDirecto(pdf, usuario.Persona.persona_id, "HojaDeVida.pdf", "Curriculum Vitae ICACIT");
-            var archivo_ruta = Path.Combine(Server.MapPath("~/Server/Docs/Curriculum Vitae ICACIT/"), Path.GetFileName("HojaVida.pdf"));
-            //HttpPostedFileBase objFile = (HttpPostedFileBase)new MemoryPostedFile(pdf);
-            
-
-            string result = await OfficeAccessSession.UploadFileAsync(archivo_ruta, "EPIS/Portafolio/"+hojavida.Persona.nombre+" "+ hojavida.Persona.apellido + "1.Curriculum Vitae ICACIT/curriculum_vitae_ICACIT.pdf");
-
-
-            
-            //HttpPostedFileBase 
+            var soloRuta = "~/Server/EPIS/Portafolio/Portafolio" + semestreNombre + "/" + hojavida.Persona.nombre + " " + hojavida.Persona.apellido + "/1.Curriculum Vitae ICACIT/";
+            var nombreDocumento = "curriculum_vitae_ICACIT.pdf";
+            documento.GuardarArchivoDirecto(pdf, hojavida.Persona.persona_id, soloRuta, "Curriculum Vitae ICACIT", nombreDocumento);
+            var path = Server.MapPath(soloRuta+nombreDocumento);
+            string result = await OfficeAccessSession.UploadFileAsync(path, "EPIS/Portafolio/Portafolio" + semestreNombre + "/"+hojavida.Persona.nombre+" "+ hojavida.Persona.apellido + "1.Curriculum Vitae ICACIT/curriculum_vitae_ICACIT.pdf");
             return new FileContentResult(pdf, "application/pdf");
-            //return View();
         }
         public JsonResult CargarGrilla(AnexGRID grid)
         {
             return Json(hojavida.ListarGrilla(grid));
         }
-        public async void SubirArchivo(string nombre, byte[] pdf)
-        {
-            var archivo_ruta = Path.Combine(Server.MapPath("~/Server/Docs/Curriculum Vitae ICACIT/"), Path.GetFileName(nombre));
-
-            using (HttpClient httpClient = new HttpClient())
-            {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token.token);
-                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "octet-stream");
-
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, new Uri("https://graph.microsoft.com/v1.0/me/drive/root:" + nombre + ":/content"));
-
-                request.Content = new ByteArrayContent(pdf);
-
-                var respuesta = await httpClient.SendAsync(request);
-                //respuesta.StatusCode.ToString()
-            }
-            
-        }
-
-        private byte[] ReadFileContent(string filePath)
-        {
-            using (FileStream inStrm = new FileStream(filePath, FileMode.Open))
-            {
-                byte[] buf = new byte[2048];
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    int readBytes = inStrm.Read(buf, 0, buf.Length);
-                    while (readBytes > 0)
-                    {
-                        memoryStream.Write(buf, 0, readBytes);
-                        readBytes = inStrm.Read(buf, 0, buf.Length);
-                    }
-                    return memoryStream.ToArray();
-                }
-            }
-        }
+        
         public int ObtenerHojaVidaId(int id = 0)
         {
             if (id <= 0)

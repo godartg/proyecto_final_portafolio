@@ -483,36 +483,50 @@ namespace SistemaPortafolio.Models
         //METODO GUARDAR
         public void Guardar(string SiDocente, string siSemestre, bool docente)
         {
-            string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + siSemestre),
-                            this.nombre + " " + this.apellido);
+            string path = ""; 
             try
             {
                 using (var db = new ModeloDatos())
                 {
+                    List<Semestre> listaSemestre = db.Semestre.ToList();
                     if (this.persona_id > 0)
                     {
                         db.Entry(this).State = EntityState.Modified;
-                        if (docente)
+                        foreach(var semestre in listaSemestre)
+                        {
+                            
+                            
+                            if (docente)
+                            {
+                                path = Path.Combine(HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio" + semestre.nombre),
+                                    this.nombre + " " + this.apellido);
+                                if (Directory.Exists(path))
+                                {
+                                    Directory.Move(
+                                    HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio" + semestre.nombre + "/" + SiDocente),
+                                    HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio" + semestre.nombre + "/" + this.nombre + " " + this.apellido));
+                                }
+
+                            }
+                        }
+                        /*if (docente)
                         {
                             if (Directory.Exists(path))
                             {
                                 Directory.Move(
-                                HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + siSemestre + "/" + SiDocente),
-                                HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + siSemestre + "/" +  this.nombre + " " + this.apellido));
+                                HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio" + siSemestre + "/" + SiDocente),
+                                HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio" + siSemestre + "/" +  this.nombre + " " + this.apellido));
                             }
                             else
                             {
                                 Directory.CreateDirectory(path);
                             }
-                        }
+                        }*/
                     }
                     else
                     {
                         db.Entry(this).State = EntityState.Added;
-                        if (docente)
-                        {
-                            Directory.CreateDirectory(path);
-                        }
+                        
                     }
                     db.SaveChanges();
                 }

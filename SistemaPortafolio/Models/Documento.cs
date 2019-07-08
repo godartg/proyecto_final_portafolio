@@ -158,7 +158,7 @@ namespace SistemaPortafolio.Models
             return grilla.responde();
         }
 
-        public void GuardarArchivoDirecto(byte[] arrayOfBytes, int User_id, string nombre, string tiposDoc)
+        public void GuardarArchivoDirecto(byte[] arrayOfBytes, int User_id,string soloRuta, string tiposDoc, string nombreDocumento)
         {
             var tipoDocumento = tiposDoc;
             string nombrearchivo = "";
@@ -166,10 +166,15 @@ namespace SistemaPortafolio.Models
             bool flag2 = true;
             int codigo = 0;
             string archivogeneral = "";
-            System.IO.FileStream file = System.IO.File.Create(HttpContext.Current.Server.MapPath("~/Server/Docs/" + tipoDocumento + "/"+"hojaVida.pdf "));
-
-            file.Write(arrayOfBytes, 0, arrayOfBytes.Length);
-            file.Close();
+            if (!Directory.Exists(HttpContext.Current.Server.MapPath(soloRuta)))
+            {
+                Directory.CreateDirectory(soloRuta);
+            }
+            
+            System.IO.FileInfo file = new System.IO.FileInfo(HttpContext.Current.Server.MapPath(@soloRuta + nombreDocumento));
+            file.Directory.Create();
+            //System.IO.File.WriteAllBytes(System.Web.HttpContext.Current.Server.MapPath(soloRuta), arrayOfBytes);
+            
             
             //archivo.SaveAs(Path.Combine(HttpContext.Current.Server.MapPath("~/Server/Docs/" + TipoDocumento.nombre), archivogeneral));
             //archivo.SaveAs(HttpContext.Current.Server.MapPath("~/Server/Docs/" + TipoDocumento.nombre + "/" + archivogeneral));
@@ -185,9 +190,9 @@ namespace SistemaPortafolio.Models
                         db.Configuration.ValidateOnSaveEnabled = false;
                         var Doc = db.Entry(this);
                         Doc.State = System.Data.Entity.EntityState.Modified;
-                        string extension = Path.GetExtension(nombre).ToLower();
+                        string extension = Path.GetExtension(nombreDocumento).ToLower();
                         var filtroextension = new[] { ".docx", ".doc", ".xlsx", ".xls", ".pptx", ".ppt" };
-                        var extensiones = Path.GetExtension(nombre);
+                        var extensiones = Path.GetExtension(nombreDocumento);
 
                         TipoDocumento tipodoc = new TipoDocumento();
 
@@ -208,8 +213,8 @@ namespace SistemaPortafolio.Models
                         this.fecha_entrega = dt;
                         this.hora_entrega = dtt;
 
-                        string arc = Path.GetFileName(nombre);
-                        nombrearchivo = Path.GetFileName(nombre);
+                        string arc = Path.GetFileName(nombreDocumento);
+                        nombrearchivo = Path.GetFileName(nombreDocumento);
                         this.descripcion = arc;
                         
 
@@ -263,9 +268,9 @@ namespace SistemaPortafolio.Models
                         if (archivo != null)
                         {
                             tipodoc = db.TipoDocumento.Where(x => x.tipodocumento_id == this.tipodocumento_id).SingleOrDefault();
-                            string extension = Path.GetExtension(nombre).ToLower();
+                            string extension = Path.GetExtension(nombreDocumento).ToLower();
                             var filtroextension = new[] { ".docx", ".doc", ".xlsx", ".xls", ".pptx", ".ppt" };
-                            var extensiones = Path.GetExtension(nombre);
+                            var extensiones = Path.GetExtension(nombreDocumento);
                             
                             DateTime dt;
                             dt = Convert.ToDateTime(DateTime.Now.ToShortDateString());
@@ -282,8 +287,8 @@ namespace SistemaPortafolio.Models
                             this.fecha_entrega = dt;
                             this.hora_entrega = dtt;
 
-                            string arc = Path.GetFileName(nombre);
-                            nombrearchivo = Path.GetFileName(nombre);
+                            string arc = Path.GetFileName(nombreDocumento);
+                            nombrearchivo = Path.GetFileName(nombreDocumento);
                             this.descripcion = arc;
 
                             this.archivo = arc + "_" + "_" + 1 + "_" + 0 + "_" + 0 + "_" + this.persona_id;
@@ -315,23 +320,23 @@ namespace SistemaPortafolio.Models
 
                     if (flag && !flag2)
                     {
-                        File.WriteAllBytes(@"~/Server/Docs/" + tipodoc.nombre +"/"+ nombre, arrayOfBytes);
+                        File.WriteAllBytes(@soloRuta+nombrearchivo, arrayOfBytes);
                         //archivo.SaveAs(Path.Combine(HttpContext.Current.Server.MapPath("~/Server/Docs/" + TipoDocumento.nombre), archivogeneral));
                         //archivo.SaveAs(HttpContext.Current.Server.MapPath("~/Server/Docs/" + TipoDocumento.nombre + "/" + archivogeneral));
                         //metadata
 
-                        meta.registrarmetada(Path.Combine(HttpContext.Current.Server.MapPath("~/Server/Docs/" + tipodoc.nombre), archivogeneral), this.extension, this.curso_id.ToString(), this.persona_id, this.Unidad.id_semestre, this.tipodocumento_id, this.id_unidad, this.fecha_entrega, this.tamanio);
+                        meta.registrarmetada(Path.Combine(HttpContext.Current.Server.MapPath(soloRuta + tipodoc.nombre), archivogeneral), this.extension, this.curso_id.ToString(), this.persona_id, this.Unidad.id_semestre, this.tipodocumento_id, this.id_unidad, this.fecha_entrega, this.tamanio);
 
                     }
                     else
                     {
                         HttpContext.Current.Session["antiguo"] = ultimometadata(this);
 
-                        File.WriteAllBytes(@"~/Server/Docs/" + TipoDocumento.nombre + nombre, arrayOfBytes);
+                        File.WriteAllBytes(@soloRuta+nombrearchivo, arrayOfBytes);
                         //archivo.SaveAs(HttpContext.Current.Server.MapPath("~/Server/Docs/" + archivogeneral));
                         //metadata
 
-                        meta.registrarmetada(HttpContext.Current.Server.MapPath("~/Server/Docs/" + tipodoc.nombre + nombre), this.extension, this.curso_id.ToString(), this.persona_id, this.Unidad.id_semestre, this.tipodocumento_id, this.id_unidad, this.fecha_entrega, this.tamanio);
+                        meta.registrarmetada(HttpContext.Current.Server.MapPath(soloRuta + tipodoc.nombre + nombrearchivo), this.extension, this.curso_id.ToString(), this.persona_id, this.Unidad.id_semestre, this.tipodocumento_id, this.id_unidad, this.fecha_entrega, this.tamanio);
 
                         HttpContext.Current.Session["nuevo"] = metadatanuevo(this);
                     }
@@ -869,6 +874,7 @@ namespace SistemaPortafolio.Models
             bool flag2 = true;
             int codigo = 0;
             string archivogeneral = "";
+            var soloRuta = "~/Server/EPIS/Portafolio/";
             try
             {
                 if (HttpContext.Current.Session["modificar"] == null || HttpContext.Current.Session["modificar"].ToString().Equals("no"))
@@ -1110,22 +1116,22 @@ namespace SistemaPortafolio.Models
 
                 if (flag && !flag2)
                 {
-                    archivo.SaveAs(Path.Combine(HttpContext.Current.Server.MapPath("~/Server/Docs/" + TipoDocumento.nombre), archivogeneral));
+                    archivo.SaveAs(Path.Combine(HttpContext.Current.Server.MapPath(soloRuta), archivogeneral));
                     //archivo.SaveAs(HttpContext.Current.Server.MapPath("~/Server/Docs/" + TipoDocumento.nombre + "/" + archivogeneral));
                     //metadata
                     Meta meta = new Meta();
-                    meta.registrarmetada(Path.Combine(HttpContext.Current.Server.MapPath("~/Server/Docs/" + TipoDocumento.nombre), archivogeneral), this.extension, this.curso_id.ToString(), this.persona_id, this.Unidad.id_semestre, this.tipodocumento_id, this.id_unidad, this.fecha_entrega, this.tamanio);
+                    meta.registrarmetada(Path.Combine(HttpContext.Current.Server.MapPath(soloRuta + TipoDocumento.nombre), archivogeneral), this.extension, this.curso_id.ToString(), this.persona_id, this.Unidad.id_semestre, this.tipodocumento_id, this.id_unidad, this.fecha_entrega, this.tamanio);
 
                     rm.SetResponse(true);
                 }
                 else
                 {
                     HttpContext.Current.Session["antiguo"] = ultimometadata(this);
-                    archivo.SaveAs(Path.Combine(HttpContext.Current.Server.MapPath("~/Server/Docs"), archivogeneral));
+                    archivo.SaveAs(Path.Combine(HttpContext.Current.Server.MapPath(soloRuta), archivogeneral));
                     //archivo.SaveAs(HttpContext.Current.Server.MapPath("~/Server/Docs/" + archivogeneral));
                     //metadata
                     Meta meta = new Meta();
-                    meta.registrarmetada(HttpContext.Current.Server.MapPath("~/Server/Docs/" + archivogeneral), this.extension, this.curso_id.ToString(), this.persona_id, this.Unidad.id_semestre, this.tipodocumento_id, this.id_unidad, this.fecha_entrega, this.tamanio);
+                    meta.registrarmetada(HttpContext.Current.Server.MapPath(soloRuta + archivogeneral), this.extension, this.curso_id.ToString(), this.persona_id, this.Unidad.id_semestre, this.tipodocumento_id, this.id_unidad, this.fecha_entrega, this.tamanio);
 
                     HttpContext.Current.Session["nuevo"] = metadatanuevo(this);
                     rm.SetResponse(true);
