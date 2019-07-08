@@ -2,11 +2,9 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <h2>ACTIVIDADES DE SERVICIO</h2>
-        <div class="col-lg-6">
-            <a href="~/Admin/HojaVida/MiHojaVida" class="btn btn-primary">
-                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a Mi Hoja de vida
-            </a>
-        </div>
+        <a href="~/Admin/HojaVida/MiHojaVida" class="">
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a Mi Hoja de vida
+        </a>
         <div class="row">
             <div class="col-lg-6">
                 <a href="~/Admin/HojaVida/AgregarEditarCRP/" class="btn btn-primary">
@@ -18,6 +16,7 @@
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> Ir a Actividades de desarrollo profesional
                 </a>
             </div>
+            
         </div>
         <br />
         @using (Html.BeginForm("AgregarEditarAS", "HojaVida", FormMethod.Post, new { id = "frm-HojaVida" }))
