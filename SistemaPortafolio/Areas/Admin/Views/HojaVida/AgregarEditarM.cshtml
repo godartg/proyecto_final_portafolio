@@ -3,6 +3,9 @@
     <div class="panel-body">
         <h2>MEMBRESIAS</h2>
 
+        <a href="~/Admin/HojaVida/MiHojaVida" class="">
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a Mi Hoja de vida
+        </a>
         <div class="row">
             <div class="col-lg-6">
                 <a href="~/Admin/HojaVida/AgregarEditarHP/" class="btn btn-primary">
@@ -14,6 +17,7 @@
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> Ir a publicaciones
                 </a>
             </div>
+            
         </div>
         <br />
         @using (Html.BeginForm("AgregarEditarM", "HojaVida", FormMethod.Post, new { id = "frm-HojaVida" }))
@@ -84,7 +88,7 @@
                             </td>
                             <td>
                                 <i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/Admin/HojaVida/AgregarEditarM/@item.idHojaVidaDocenteMembresia" class="glyphicon glyphicon-pencil btn btn-sm btn-info"></a></i>
-                            
+
                                 <i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/Admin/HojaVidaDocenteMembresia/Eliminar/@item.idHojaVidaDocenteMembresia" class="glyphicon glyphicon-remove btn btn-sm btn-danger"></a></i>
                             </td>
                         </tr>

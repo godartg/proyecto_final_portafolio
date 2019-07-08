@@ -2,7 +2,9 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <h2>CERTIFICACIONES O REGISTROS PROFESIONALES</h2>
-
+        <a href="~/Admin/HojaVida/MiHojaVida" class="">
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a Mi Hoja de vida
+        </a>
         <div class="row">
             <div class="col-lg-6">
                 <a href="~/Admin/HojaVida/AgregarEditarEX/" class="btn btn-primary">
@@ -14,6 +16,7 @@
                     <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> Ir a Actividades de servicio
                 </a>
             </div>
+            
         </div>
         <br />
         @using (Html.BeginForm("AgregarEditarCRP", "HojaVida", FormMethod.Post, new { id = "frm-HojaVida" }))

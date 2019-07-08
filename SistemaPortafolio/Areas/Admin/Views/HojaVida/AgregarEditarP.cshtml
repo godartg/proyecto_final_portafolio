@@ -2,14 +2,14 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <h2>PUBLICACIONES</h2>
-
+        <a href="~/Admin/HojaVida/MiHojaVida" class="">
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a Mi Hoja de vida
+        </a>
         <div class="row">
             <div class="col-lg-6">
                 <a href="~/Admin/HojaVida/AgregarEditarM/" class="btn btn-primary">
                     <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a membresias
                 </a>
-            </div>
-            <div class="col-lg-6">
             </div>
         </div>
         <br />
@@ -26,7 +26,7 @@
 
                     <div class="form-group">
                         <label>Tipo de Produccion:</label>
-                        <select name="tiempo_duracion" class="form-control">
+                        <select name="tipoProduccion" class="form-control">
                             <option @(Model.tipoProduccion == "Articulo" ? "selected" : "") value="Articulo">Articulo</option>
                             <option @(Model.tipoProduccion == "Otros" ? "selected" : "") value="Otros">Otros</option>
                         </select>
@@ -106,34 +106,34 @@
 
                     @foreach (var item in ViewData["listado"] as List<SistemaPortafolio.Models.HojaVidaDocentePublicaciones>)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.tipoProduccion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.titulo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.primerAutor)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.coAutores)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ano)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.doi)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.fuente)
-                        </td>
-                        <td>
-                            <i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/Admin/HojaVida/AgregarEditarP/@item.idHojaVidaDocentePublicaciones" class="glyphicon glyphicon-pencil btn btn-sm btn-info"></a></i>
-                        
-                            <i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/Admin/HojaVidaDocentePublicaciones/Eliminar/@item.idHojaVidaDocentePublicaciones" class="glyphicon glyphicon-remove btn btn-sm btn-danger"></a></i>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tipoProduccion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.titulo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.primerAutor)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.coAutores)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ano)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.doi)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fuente)
+                            </td>
+                            <td>
+                                <i data-toggle="tooltip" data-placement="top" title="Modificar" aria-hidden="true"><a href="~/Admin/HojaVida/AgregarEditarP/@item.idHojaVidaDocentePublicaciones" class="glyphicon glyphicon-pencil btn btn-sm btn-info"></a></i>
+
+                                <i data-toggle="tooltip" data-placement="top" title="Eliminar" aria-hidden="true"><a href="~/Admin/HojaVidaDocentePublicaciones/Eliminar/@item.idHojaVidaDocentePublicaciones" class="glyphicon glyphicon-remove btn btn-sm btn-danger"></a></i>
+                            </td>
+                        </tr>
                     }
 
                 </table>

@@ -198,6 +198,7 @@ namespace SistemaPortafolio.Models
         //metodo guardar
         public void Guardar(string sem_ant)
         {
+            string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/"), "Portafolio_" + this.nombre);
             try
             {
                 using (var db = new ModeloDatos())//si existe solo modifica si no existe solo agrega
@@ -206,15 +207,22 @@ namespace SistemaPortafolio.Models
                     {
 
                         db.Entry(this).State = EntityState.Modified; //si el valor es mayor que cero solo modifica
-                        Directory.Move(
-                            HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + sem_ant),
-                            HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + this.nombre));
+                        if (Directory.Exists(path))
+                        {
+                            Directory.Move(HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + sem_ant),
+                                           HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + this.nombre));
+                        }
+                        else
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+                        
 
                     }
                     else
                     {
                         db.Entry(this).State = EntityState.Added; //si el valor es  cero va a agregar
-                        string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/"), "Portafolio_" + this.nombre);
+                        
                         Directory.CreateDirectory(path);
                     }
                     db.SaveChanges();
