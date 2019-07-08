@@ -6,9 +6,13 @@
     var detalleCounter = 0;
 }
 
+<style>
+    .vertical-center > tbody > tr > td {
+        vertical-align: middle
+    }
+</style>
+
 <h2>EDITAR</h2>
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -30,77 +34,77 @@
             @Html.LabelFor(model => model.porcentaje_silabo, "RESUMEN DEL CURSO:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <table class="table table-bordered table-striped">
-                    <thead>
+                    <thead class="text-bold">
                         <tr>
-                            <td>RESUMEN DEL CURSO</td>
-                            <td>N°</td>
-                            <td>%</td>
+                            <td style="width: 80%">RESUMEN DEL CURSO</td>
+                            <td style="width: 10%">N°</td>
+                            <td style="width: 10%">%</td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Porcentaje de cumplimiento del sílabo</td>
-                            <td>@Html.TextBoxFor(m => m.porcentaje_silabo, new { htmlAttributes = new { @class = "form-control" } })</td>
-                            <td></td>
+                            <td>@Html.TextBoxFor(m => m.porcentaje_silabo, new { @class = "form-control text-center", @type = "number", @min = 0 })</td>
+                            <td id="porcentaje_silabo_porcentaje"></td>
                         </tr>
                         <tr>
                             <td>Prácticas calificadas realizadas</td>
-                            <td>@Html.TextBoxFor(m => m.practicas, new { htmlAttributes = new { @class = "form-control" } })</td>
-                            <td></td>
+                            <td>@Html.TextBoxFor(m => m.practicas, new { @class = "form-control text-center", @type = "number", @min = 0 })</td>
+                            <td id="practicas_porcentaje"></td>
                         </tr>
                         <tr>
                             <td>Experiencias de laboratorio realizadas</td>
-                            <td>@Html.TextBoxFor(m => m.laboratorios, new { htmlAttributes = new { @class = "form-control" } })</td>
-                            <td></td>
+                            <td>@Html.TextBoxFor(m => m.laboratorios, new { @class = "form-control text-center", @type = "number", @min = 0 })</td>
+                            <td id="laboratorios_porcentaje"></td>
                         </tr>
                         <tr>
                             <td>Proyectos y/o trabajos realizados</td>
-                            <td>@Html.TextBoxFor(m => m.proyectos, new { htmlAttributes = new { @class = "form-control" } })</td>
-                            <td></td>
+                            <td>@Html.TextBoxFor(m => m.proyectos, new { @class = "form-control text-center", @type = "number", @min = 0 })</td>
+                            <td id="proyectos_porcentaje"></td>
                         </tr>
                         <tr>
                             <td>Estudiantes matriculados</td>
-                            <td>@Html.TextBoxFor(m => m.matriculados, new { htmlAttributes = new { @class = "form-control" } })</td>
-                            <td></td>
+                            <td>@Html.TextBoxFor(m => m.matriculados, new { @class = "form-control text-center", @type = "number", @min = 0 })</td>
+                            <td id="matriculados_porcentaje"></td>
                         </tr>
                         <tr>
                             <td>Estudiantes con retiro</td>
-                            <td>@Html.TextBoxFor(m => m.retiro, new { htmlAttributes = new { @class = "form-control" } })</td>
-                            <td></td>
+                            <td>@Html.TextBoxFor(m => m.retiro, new { @class = "form-control text-center", @type = "number", @min = 0 })</td>
+                            <td id="retiro_porcentaje"></td>
                         </tr>
                         <tr>
                             <td>Estudiantes en abandono</td>
-                            <td>@Html.TextBoxFor(m => m.abandono, new { htmlAttributes = new { @class = "form-control" } })</td>
-                            <td></td>
+                            <td>@Html.TextBoxFor(m => m.abandono, new { @class = "form-control text-center", @type = "number", @min = 0 })</td>
+                            <td id="abandono_porcentaje"></td>
                         </tr>
                         <tr>
                             <td>Estudiantes que asisten</td>
-                            <td>@Html.TextBoxFor(m => m.asisten, new { htmlAttributes = new { @class = "form-control" } })</td>
-                            <td></td>
+                            <td>@Html.TextBoxFor(m => m.asisten, new { @class = "form-control text-center", @type = "number", @min = 0, @readonly = "" })</td>
+                            <td id="asisten_porcentaje"></td>
                         </tr>
                         <tr>
                             <td>Estudiantes aprobados</td>
-                            <td>@Html.TextBoxFor(m => m.aprobados, new { htmlAttributes = new { @class = "form-control" } })</td>
-                            <td></td>
+                            <td>@Html.TextBoxFor(m => m.aprobados, new { @class = "form-control text-center", @type = "number", @min = 0 })</td>
+                            <td id="aprobados_porcentaje"></td>
                         </tr>
                         <tr>
                             <td>Estudiantes desaprobados</td>
-                            <td>@Html.TextBoxFor(m => m.desaprobados, new { htmlAttributes = new { @class = "form-control" } })</td>
-                            <td></td>
+                            <td>@Html.TextBoxFor(m => m.desaprobados, new { @class = "form-control text-center", @type = "number", @min = 0, @readonly = "" })</td>
+                            <td id="desaprobados_porcentaje"></td>
                         </tr>
                         <tr>
                             <td>Nota final más alta</td>
-                            <td>@Html.TextBoxFor(m => m.nota_alta, new { htmlAttributes = new { @class = "form-control" } })</td>
+                            <td>@Html.TextBoxFor(m => m.nota_alta, new { @class = "form-control text-center", @type = "number", @min = 0 })</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Nota final promedio</td>
-                            <td>@Html.TextBoxFor(m => m.nota_promedio, new { htmlAttributes = new { @class = "form-control" } })</td>
+                            <td>@Html.TextBoxFor(m => m.nota_promedio, new { @class = "form-control text-center", @type = "number", @min = 0 })</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Nota final mas baja</td>
-                            <td>@Html.TextBoxFor(m => m.nota_baja, new { htmlAttributes = new { @class = "form-control" } })</td>
+                            <td>@Html.TextBoxFor(m => m.nota_baja, new { @class = "form-control text-center", @type = "number", @min = 0 })</td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -268,40 +272,120 @@
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script>
-    var capacidadesCounter = @Html.Raw(detalleCounter-1);
-    $("#btnAgregar").click(function () {
-        capacidadesCounter++;
-        $("#tblCapacidades").find('tbody')
-            .append($('<tr>')
-                .append($('<td>')
-                    .append($('<input type="text" class="form-control" name="capacidad[' + capacidadesCounter + ']">')
-                    )
-                )
-                .append($('<td>')
-                    .append($('<input type="radio" value="Nada" name="nivel[' + capacidadesCounter + ']">')
-                    )
-                )
-                .append($('<td>')
-                    .append($('<input type="radio" value="Poco" name="nivel[' + capacidadesCounter + ']">')
-                    )
-                )
-                .append($('<td>')
-                    .append($('<input type="radio" value="Aceptable" name="nivel[' + capacidadesCounter + ']">')
-                    )
-                )
-                .append($('<td>')
-                    .append($('<input type="radio" value="Bien" name="nivel[' + capacidadesCounter + ']">')
-                    )
-                )
-                .append($('<td>')
-                    .append($('<input type="radio" value="Muy Bien" name="nivel[' + capacidadesCounter + ']">')
-                    )
-                )
-            );
-    });
 
-    $("#btnEliminar").click(function () {
-        $("#tblCapacidades tr:last").remove();
-        capacidadesCounter--;
+    $(document).ready(function () {
+
+        //RESUMEN
+        $("#porcentaje_silabo").on("input",
+            function () {
+                $("#porcentaje_silabo_porcentaje").text("100.00");
+            });
+
+        $("#practicas").on("input",
+            function () {
+                $("#practicas_porcentaje").text("100.00");
+            });
+
+        $("#laboratorios").on("input",
+            function () {
+                $("#laboratorios_porcentaje").text("100.00");
+            });
+
+        $("#proyectos").on("input",
+            function () {
+                $("#proyectos_porcentaje").text("100.00");
+            });
+
+        $("#matriculados").on("input",
+            function () {
+                $("#matriculados_porcentaje").text("100.00");
+                $("#asisten").val($("#matriculados").val());
+                $("#desaprobados").val($("#matriculados").val());
+                $("#retiro").trigger("change");
+                $("#abandono").trigger("change");
+                $("#asisten").trigger("change");
+                $("#aprobados").trigger("change");
+                $("#desaprobados").trigger("change");
+            });
+
+        $("#asisten").on("input change",
+            function () {
+                $("#asisten").val($("#matriculados").val() - $("#retiro").val() - $("#abandono").val());
+                var asistenVal = $("#asisten").val();
+                $("#asisten_porcentaje").text((asistenVal * 100 / $("#matriculados").val()).toFixed(2));
+            });
+
+        $("#retiro").on("input change",
+            function () {
+                var asistenVal = $("#retiro").val();
+                $("#retiro_porcentaje").text((asistenVal * 100 / $("#matriculados").val()).toFixed(2));
+                $("#asisten").trigger("change");
+            });
+
+        $("#abandono").on("input change",
+            function () {
+                var asistenVal = $("#abandono").val();
+                $("#abandono_porcentaje").text((asistenVal * 100 / $("#matriculados").val()).toFixed(2));
+                $("#asisten").trigger("change");
+            });
+
+        $("#aprobados").on("input change",
+            function () {
+                $("#desaprobados").trigger("change");
+                $("#aprobados_porcentaje").text(($("#aprobados").val() * 100 / $("#matriculados").val()).toFixed(2));
+            });
+
+        $("#desaprobados").on("input change",
+            function () {
+                $("#desaprobados").val($("#matriculados").val() - $("#aprobados").val());
+                $("#desaprobados_porcentaje").text(($("#desaprobados").val() * 100 / $("#matriculados").val()).toFixed(2));
+            });
+
+        //$("#asisten").change(
+        //    function () {
+        //        $("#asisten_porcentaje").text($("#asisten").val() * 100 / $("#matriculados").val());
+        //    });
+
+
+
+
+
+        //CAPACIDADES
+        var capacidadesCounter = 2;
+        $("#btnAgregar").click(function () {
+            capacidadesCounter++;
+            $("#tblCapacidades").find('tbody')
+                .append($('<tr>')
+                    .append($('<td>')
+                        .append($('<input type="text" class="form-control" name="capacidad[' + capacidadesCounter + ']">')
+                        )
+                    )
+                    .append($('<td>')
+                        .append($('<input type="radio" value="Nada" name="nivel[' + capacidadesCounter + ']">')
+                        )
+                    )
+                    .append($('<td>')
+                        .append($('<input type="radio" value="Poco" name="nivel[' + capacidadesCounter + ']">')
+                        )
+                    )
+                    .append($('<td>')
+                        .append($('<input type="radio" value="Aceptable" checked name="nivel[' + capacidadesCounter + ']">')
+                        )
+                    )
+                    .append($('<td>')
+                        .append($('<input type="radio" value="Bien" name="nivel[' + capacidadesCounter + ']">')
+                        )
+                    )
+                    .append($('<td>')
+                        .append($('<input type="radio" value="Muy Bien" name="nivel[' + capacidadesCounter + ']">')
+                        )
+                    )
+                );
+        });
+
+        $("#btnEliminar").click(function () {
+            $("#tblCapacidades tr:last").remove();
+            capacidadesCounter--;
+        });
     });
 </script>

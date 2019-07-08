@@ -68,15 +68,32 @@ namespace SistemaPortafolio.Areas.User.Controllers
                 return HttpNotFound();
             }
 
-            var path = Path.Combine(Server.MapPath("~/Server"), "InformeFinal" + id + ".pdf");
+            
+            //RUTA GRAFICOS
+            var documento = new Documento();
+            var personaId = db.Usuario.Find(idUsuario).persona_id;
+            var cursos = db.CursoDocente.Where(x => x.persona_id == personaId).Select(x => x.Curso).ToList();
+
+            var curso = db.Curso.Find(informeFinal.CursoDocente.curso_id);
+            var planEstudio = db.PlanEstudio.FirstOrDefault(x => x.estado == "Activo");
+            var docente = db.Persona.Find(personaId);
+
+            var cursoNombre = curso.curso_cod + " " + curso.curso_id;
+            var planEstudioNombre = planEstudio.nombre;
+            var docenteNombre = docente.nombre + " " + docente.apellido;
+
+            var rutaServer = "~/Server/EPIS/Docs/InformeFinal/";
+            var rutaOneDrive = "EPIS/Portafolio/Portafolio" + planEstudioNombre + "/" + docenteNombre + "/" + cursoNombre + "/5.Informe_Final/";
+
+            var path = Path.Combine(Server.MapPath(rutaServer), "InformeFinal" + id + ".pdf");
             var report = new Rotativa.ActionAsPdf("Details", new { id });
             var pdfBytes = report.BuildFile(ControllerContext);
             var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
             fileStream.Write(pdfBytes, 0, pdfBytes.Length);
             fileStream.Close();
 
-
-            string result = await OfficeAccessSession.UploadFileAsync(path, "Server/Docs/Informe Final del Curso/InformeFinal" + id + ".pdf");
+            //var result = await OfficeAccessSession.UploadFileAsync(Path.Combine(Server.MapPath(rutaServer), fileName), rutaOneDrive + fileName);
+            string result = await OfficeAccessSession.UploadFileAsync(path, rutaOneDrive + "InformeFinal_" + id + ".pdf");
 
             return report;
         }

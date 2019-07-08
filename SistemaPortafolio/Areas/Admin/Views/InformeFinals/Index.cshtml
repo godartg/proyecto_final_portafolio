@@ -14,9 +14,6 @@
 <table class="table">
     <tr>
         <th>
-            Docente
-        </th>
-        <th>
             Curso
         </th>
         <th>
@@ -27,9 +24,6 @@
 
     @foreach (var item in Model) {
         <tr>
-            <td>
-                @item.CursoDocente.Persona.nombre @item.CursoDocente.Persona.apellido
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CursoDocente.Curso.nombre)
             </td>
