@@ -199,7 +199,10 @@ namespace SistemaPortafolio.Areas.User.Controllers
             {
                 db.Entry(metadataDocumento).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                var cursoDocente = db.CursoDocente
+                    .SingleOrDefault(x => x.persona_id == metadataDocumento.persona_id &&
+                                          x.curso_id == metadataDocumento.curso_id).cursodocente_id;
+                return RedirectToAction("Index", new { id = cursoDocente });
             }
             ViewBag.curso_id = new SelectList(db.Curso, "curso_id", "curso_cod", metadataDocumento.curso_id);
             ViewBag.documento_id = new SelectList(db.Documento, "documento_id", "archivo", metadataDocumento.documento_id);
@@ -233,7 +236,10 @@ namespace SistemaPortafolio.Areas.User.Controllers
             MetadataDocumento metadataDocumento = db.MetadataDocumento.Find(id);
             db.MetadataDocumento.Remove(metadataDocumento);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            var cursoDocente = db.CursoDocente
+                .SingleOrDefault(x => x.persona_id == metadataDocumento.persona_id &&
+                                      x.curso_id == metadataDocumento.curso_id).cursodocente_id;
+            return RedirectToAction("Index", new { id = cursoDocente });
         }
 
         protected override void Dispose(bool disposing)
