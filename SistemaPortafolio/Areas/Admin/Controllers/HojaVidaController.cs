@@ -105,15 +105,13 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             ViewData["hojavidadocentep"] = hojavidadocentep.Listar(usuario.Persona.persona_id);
             var generator = new MvcGenerator(ControllerContext);
             var pdf = generator.GeneratePdf(hoja, "Imprimir");
-            documento.persona_id = usuario.Persona.persona_id;
-            documento.tipodocumento_id = 1;
-            documento.descripcion = "Curriculum Vitae ICACIT";
-            documento.estado = "activo";
-            var soloRuta = "~/Server/EPIS/Portafolio/Portafolio" + semestreNombre + "/" + hojavida.Persona.nombre + " " + hojavida.Persona.apellido + "/1.Curriculum Vitae ICACIT/";
-            var nombreDocumento = "curriculum_vitae_ICACIT.pdf";
-            documento.GuardarArchivoDirecto(pdf, hojavida.Persona.persona_id, soloRuta, "Curriculum Vitae ICACIT", nombreDocumento);
-            var path = Server.MapPath(soloRuta+nombreDocumento);
-            string result = await OfficeAccessSession.UploadFileAsync(path, "EPIS/Portafolio/Portafolio" + semestreNombre + "/"+hojavida.Persona.nombre+" "+ hojavida.Persona.apellido + "1.Curriculum Vitae ICACIT/curriculum_vitae_ICACIT.pdf");
+
+            var path = Path.Combine(Server.MapPath("~/Server"), "1.Curriculum Vitae ICACIT" + persona_id + ".pdf");
+            var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
+            fileStream.Write(pdf, 0, pdf.Length);
+            fileStream.Close();
+            
+            string result = await OfficeAccessSession.UploadFileAsync(path, "EPIS/Portafolio/Portafolio" + semestreNombre + "/"+hojavida.Persona.nombre+" "+ hojavida.Persona.apellido + "/1.Curriculum Vitae ICACIT/curriculum_vitae_ICACIT.pdf");
             return new FileContentResult(pdf, "application/pdf");
         }
         public JsonResult CargarGrilla(AnexGRID grid)

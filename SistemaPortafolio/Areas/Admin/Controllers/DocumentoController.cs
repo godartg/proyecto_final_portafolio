@@ -158,7 +158,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
                 string nombrearchivo = "";
                 busqueda = semestre.id_semestre + "_" + model.tipodocumento_id + "_" + model.id_unidad + "_" + model.curso_id + "_" + model.persona_id + "_" + model.documento_id;
-                DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Server/Docs/"));
+                DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Server/EPIS/Portafolio/"));
 
                 foreach (var fi in di.GetFiles())
                 {
@@ -238,8 +238,8 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         {
             Documento doc = new Documento();
             doc = documento.obtenerdocumento(id);
-            var ruta = Server.MapPath("~/Server/Docs/" + doc.archivo);
-
+            var ruta = Server.MapPath("~/Server/EPIS/Portafolio/" + doc.archivo);
+            
             string type = "";
 
             doc.extension = doc.extension.Trim();
@@ -279,7 +279,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             var codcurso = doc.curso_id;
             doc.EliminarDocumento();
 
-            var file = Path.Combine(HttpContext.Server.MapPath("/Server/Docs/"), doc.archivo);
+            var file = Path.Combine(HttpContext.Server.MapPath("~/Server/EPIS/Portafolio/"), doc.archivo);
             if (System.IO.File.Exists(file))
                 try
                 {

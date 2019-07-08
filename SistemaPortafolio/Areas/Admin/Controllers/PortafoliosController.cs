@@ -80,7 +80,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             fileStream.Close();
 
 
-            string result = await OfficeAccessSession.UploadFileAsync(path, "Server/Docs/Portafolio/Portafolio" + id + ".pdf");
+            string result = await OfficeAccessSession.UploadFileAsync(path, "EPIS/Portafolio/Portafolio" + portafolio.CursoDocente.Curso.PlanEstudio.nombre + "/" + portafolio.CursoDocente.Persona.nombre + " " + portafolio.CursoDocente.Persona.apellido + "/" + "/4.Portafolio_por_Unidad/" + portafolio.unidad+"_Unidad/Portafolio_por_Unidad/2_Portafolio_U"+ portafolio.unidad+"_"+portafolio.CursoDocente.Curso.PlanEstudio.nombre + ".pdf");
 
             return report;
         }

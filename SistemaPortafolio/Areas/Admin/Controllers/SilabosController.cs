@@ -127,16 +127,32 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         // GET: Admin/Silabos/Edit/5
         public ActionResult Edit(int? id)
         {
+            var idUsuario = SessionHelper.GetUser();
+            var personaId = db.Usuario
+                .Where(x => x.usuario_id == idUsuario)
+                .Select(x => x.persona_id).FirstOrDefault();
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Silabo silabo = db.Silabo.Find(id);
+
+            if (silabo != null)
+            {
+                var resultadosList = silabo.resultados.Split(new[] { "@@@" }, StringSplitOptions.None);
+                ViewBag.ResultadosList = resultadosList;
+            }
+
             if (silabo == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.cursodocente_id = new SelectList(db.CursoDocente, "cursodocente_id", "cursodocente_id", silabo.cursodocente_id);
+
+            ViewBag.cursodocente_id = new SelectList(db.CursoDocente
+                .Where(x => x.persona_id == personaId), "cursodocente_id", "Curso.nombre", silabo.cursodocente_id);
+
             return View(silabo);
         }
 
