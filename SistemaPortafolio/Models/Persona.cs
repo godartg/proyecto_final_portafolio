@@ -483,6 +483,8 @@ namespace SistemaPortafolio.Models
         //METODO GUARDAR
         public void Guardar(string SiDocente, string siSemestre, bool docente)
         {
+            string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + siSemestre),
+                            this.nombre + " " + this.apellido);
             try
             {
                 using (var db = new ModeloDatos())
@@ -490,18 +492,25 @@ namespace SistemaPortafolio.Models
                     if (this.persona_id > 0)
                     {
                         db.Entry(this).State = EntityState.Modified;
-                        Directory.Move(
-                            HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + siSemestre + "/" + SiDocente),
-                            HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + siSemestre + "/" + this.dni + "_" + this.nombre + " " + this.apellido));
-
+                        if (docente)
+                        {
+                            if (Directory.Exists(path))
+                            {
+                                Directory.Move(
+                                HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + siSemestre + "/" + SiDocente),
+                                HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + siSemestre + "/" +  this.nombre + " " + this.apellido));
+                            }
+                            else
+                            {
+                                Directory.CreateDirectory(path);
+                            }
+                        }
                     }
                     else
                     {
                         db.Entry(this).State = EntityState.Added;
                         if (docente)
                         {
-                            string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Server/EPIS/Portafolio/Portafolio_" + siSemestre),
-                                this.dni + "_" + this.nombre + " " + this.apellido);
                             Directory.CreateDirectory(path);
                         }
                     }

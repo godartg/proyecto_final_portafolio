@@ -9,8 +9,12 @@
                     <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a membresias
                 </a>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 text-right">
+                <a href="~/Admin/HojaVida/MiHojaVida" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Regresar a Mi Hoja de vida
+                </a>
             </div>
+
         </div>
         <br />
         @using (Html.BeginForm("AgregarEditarP", "HojaVida", FormMethod.Post, new { id = "frm-HojaVida" }))

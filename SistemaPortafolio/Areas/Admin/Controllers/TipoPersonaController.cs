@@ -27,6 +27,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         {
             return View(tipopersona.Obtener(id));
         }
+        
         public ActionResult AgregarEditar(int id = 0)
         {
             return View(
@@ -34,23 +35,24 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 : tipopersona.Obtener(id)//devuelve un registro por el id
                 );
         }
+        
         public ActionResult Guardar(TipoPersona model)
         {
             if (ModelState.IsValid)
             {
                 model.Guardar();
-                return Redirect("~/tipopersona");//se referencia al index automaticamente
+                return Redirect("~/Admin/TipoPersona/Index");//se referencia al index automaticamente
             }
             else
             {
-                return View("~/views/tipopersona/AgregarEditar.cshtml", model);
+                return View("AgregarEditar", model);
             }
         }
         public ActionResult Eliminar(int id)
         {
             tipopersona.tipopersona_id = id;
             tipopersona.Eliminar();
-            return Redirect("~/tipopersona");
+            return Redirect("~/Admin/TipoPersona/Index");
         }
         //consulta
         public ActionResult Consulta()
