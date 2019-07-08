@@ -91,10 +91,10 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
         public async Task<ActionResult> Create(MetadataDocumento metadataDocumento, HttpPostedFileBase file)
         {
             var documento = new Documento();
-            var personaId = metadataDocumento.Persona.persona_id;
+            var personaId = metadataDocumento.persona_id;
             var cursos = db.CursoDocente.Where(x => x.persona_id == personaId).Select(x => x.Curso).ToList();
 
-            var curso = db.Curso.Find(metadataDocumento.curso_id);
+            var curso = db.Curso.Find(metadataDocumento.curso_id);  
             var unidad = db.Unidad.Find(metadataDocumento.id_unidad);
             var tipoDocumento = db.TipoDocumento.Find(metadataDocumento.tipodocumento_id);
             var planEstudio = db.Curso.Find(metadataDocumento.curso_id).PlanEstudio;

@@ -1,71 +1,54 @@
-﻿@model IEnumerable<SistemaPortafolio.Models.MetadataDocumento>
+﻿@model IEnumerable<SistemaPortafolio.Models.Silabo>
 
 @{
-    ViewBag.Title = "DOCUMENTO";
+    ViewBag.Title = "Index";
 }
 
-<h2>DOCUMENTO</h2>
+<h2>SÍLABOS</h2>
 
 <p>
-    <button class="btn btn-default">@Html.ActionLink("SUBIR RECURSO ESTUDIANTE", "Create", new { tipoRecurso = 2 })</button>
-    <button class="btn btn-default">@Html.ActionLink("SUBIR RECURSO DOCENTE", "Create", new { tipoRecurso = 1 })</button>
+    <button class="btn btn-default">@Html.ActionLink("CREAR", "Create")</button>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            CÓDIGO
-        </th>
-        <th>
-            CURSO
-        </th>
-        <th>
-            UNIDAD
-        </th>
-        <th>
-            RECURSO
-        </th>
-        <th>
-            TIPO
-        </th>
-        <th>
-            NOMBRE
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model) {
+<table data-paging="true" data-filtering="true" data-sorting="true" data-state="true" class="table table-bordered bg-gray-light">
+    <thead>
         <tr>
-            <td>
-                @item.Curso.curso_cod
-            </td>
-            <td>
-                @item.Curso.nombre
-            </td>
-            <td>
-                @item.Unidad.descripcion
-            </td>
-            <td>
-                @if (item.TipoDocumento.tipopersona_id == 1)
-                {
-                    <text>Recurso Docente</text>
-                }
-                else
-                {
-                    <text>Recurso Estudiante</text>
-                }
-            </td>
-            <td>
-                @item.TipoDocumento.nombre
-            </td>
-            <td>
-                @item.Documento.archivo
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id=item.metadata_id }) |
-                @Html.ActionLink("Ver", "Details", new { id=item.metadata_id }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id=item.metadata_id })
-            </td>
+            <th>
+                ID
+            </th>
+            <th>
+                CURSO
+            </th>
+            <th>
+                CÓDIGO
+            </th>
+            <th></th>
         </tr>
-    }
-
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CursoDocente.cursodocente_id)
+                </td>
+                <td>
+                    @item.CursoDocente.Curso.nombre
+                </td>
+                <td>
+                    @item.CursoDocente.Curso.curso_cod
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.silabo_id }) |
+                    @Html.ActionLink("Ver", "Pdf", new { id = item.silabo_id }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.silabo_id })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+<script>
+    jQuery(function($){
+        $('.table').footable();
+    });
+</script>

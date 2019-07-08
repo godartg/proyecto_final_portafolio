@@ -22,7 +22,8 @@ namespace SistemaPortafolio.Areas.User.Controllers
         // GET: User/Silabos
         public ActionResult Index()
         {
-            var silabo = db.Silabo.Include(s => s.CursoDocente);
+            var personaId = db.Usuario.Find(idUsuario).Persona.persona_id;
+            var silabo = db.Silabo.Include(s => s.CursoDocente).Where(x => x.CursoDocente.Persona.persona_id == personaId);
             return View(silabo.ToList());
         }
 
