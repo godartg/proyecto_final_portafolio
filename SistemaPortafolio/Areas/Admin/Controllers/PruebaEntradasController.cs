@@ -69,15 +69,31 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            var path = Path.Combine(Server.MapPath("~/Server"), "PruebaEntrada" + id +".pdf");
+            //RUTA GRAFICOS
+            var documento = new Documento();
+            var personaId = db.Usuario.Find(idUsuario).persona_id;
+            var cursos = db.CursoDocente.Where(x => x.persona_id == personaId).Select(x => x.Curso).ToList();
+
+            var curso = db.Curso.Find(pruebaEntrada.CursoDocente.curso_id);
+            var planEstudio = db.PlanEstudio.FirstOrDefault(x => x.estado == "Activo");
+            var docente = db.Persona.Find(personaId);
+
+            var cursoNombre = curso.curso_cod + " " + curso.curso_id;
+            var planEstudioNombre = planEstudio.nombre;
+            var docenteNombre = docente.nombre + " " + docente.apellido;
+
+            var rutaServer = "~/Server/EPIS/Docs/PruebaEntrada/";
+            var rutaOneDrive = "EPIS/Portafolio/Portafolio" + planEstudioNombre + "/" + docenteNombre + "/" + cursoNombre + "/3.Prueba_de_Entrada/";
+
+            var path = Path.Combine(Server.MapPath(rutaServer), "PruebaEntrada" + id + ".pdf");
             var report = new Rotativa.ActionAsPdf("Details", new { id });
             var pdfBytes = report.BuildFile(ControllerContext);
             var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
             fileStream.Write(pdfBytes, 0, pdfBytes.Length);
             fileStream.Close();
-            
 
-            string result = await OfficeAccessSession.UploadFileAsync(path, "EPIS/Portafolio/Portafolio"+pruebaEntrada.CursoDocente.Curso.PlanEstudio.nombre+"/"+pruebaEntrada.CursoDocente.Persona.nombre+" "+ pruebaEntrada.CursoDocente.Persona.apellido + "/3.Prueba de Entrada/PruebaEntrada" + pruebaEntrada.CursoDocente.Curso.PlanEstudio.nombre + ".pdf");
+            //var result = await OfficeAccessSession.UploadFileAsync(Path.Combine(Server.MapPath(rutaServer), fileName), rutaOneDrive + fileName);
+            string result = await OfficeAccessSession.UploadFileAsync(path, rutaOneDrive + "PruebaEntrada_" + id + ".pdf");
 
             return report;
         }

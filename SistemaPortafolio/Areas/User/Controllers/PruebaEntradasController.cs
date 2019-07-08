@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using SistemaPortafolio.CSOneDriveAccess;
 using SistemaPortafolio.Models;
 
 
@@ -22,6 +25,19 @@ namespace SistemaPortafolio.Areas.User.Controllers
             var personaId = db.Usuario.Find(idUsuario).persona_id;
             var pruebaEntrada = db.PruebaEntrada.Include(p => p.CursoDocente).Where(x => x.CursoDocente.Persona.persona_id == personaId);
             return View(pruebaEntrada.ToList());
+        }
+        public O365RestSession OfficeAccessSession
+        {
+            get
+            {
+                var officeAccess = Session["OfficeAccess"];
+                if (officeAccess == null)
+                {
+                    officeAccess = new O365RestSession(Token.ClientId, Token.Secret, Token.CallbackUri);
+                    Session["OfficeAccess"] = officeAccess;
+                }
+                return officeAccess as O365RestSession;
+            }
         }
 
         // GET: User/PruebaEntradas/Details/5
@@ -40,7 +56,7 @@ namespace SistemaPortafolio.Areas.User.Controllers
             return View(pruebaEntrada);
         }
 
-        public ActionResult Pdf(int? id)
+        public async Task<ActionResult> Pdf(int? id)
         {
             if (id == null)
             {
@@ -52,7 +68,32 @@ namespace SistemaPortafolio.Areas.User.Controllers
                 return HttpNotFound();
             }
 
-            var report = new Rotativa.ActionAsPdf("Details", new {id});
+            //RUTA GRAFICOS
+            var documento = new Documento();
+            var personaId = db.Usuario.Find(idUsuario).persona_id;
+            var cursos = db.CursoDocente.Where(x => x.persona_id == personaId).Select(x => x.Curso).ToList();
+
+            var curso = db.Curso.Find(pruebaEntrada.CursoDocente.curso_id);
+            var planEstudio = db.PlanEstudio.FirstOrDefault(x => x.estado == "Activo");
+            var docente = db.Persona.Find(personaId);
+
+            var cursoNombre = curso.curso_cod + " " + curso.curso_id;
+            var planEstudioNombre = planEstudio.nombre;
+            var docenteNombre = docente.nombre + " " + docente.apellido;
+
+            var rutaServer = "~/Server/EPIS/Docs/PruebaEntrada/";
+            var rutaOneDrive = "EPIS/Portafolio/Portafolio" + planEstudioNombre + "/" + docenteNombre + "/" + cursoNombre + "/3.Prueba_de_Entrada/";
+
+            var path = Path.Combine(Server.MapPath(rutaServer), "PruebaEntrada" + id + ".pdf");
+            var report = new Rotativa.ActionAsPdf("Details", new { id });
+            var pdfBytes = report.BuildFile(ControllerContext);
+            var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
+            fileStream.Write(pdfBytes, 0, pdfBytes.Length);
+            fileStream.Close();
+
+            //var result = await OfficeAccessSession.UploadFileAsync(Path.Combine(Server.MapPath(rutaServer), fileName), rutaOneDrive + fileName);
+            string result = await OfficeAccessSession.UploadFileAsync(path, rutaOneDrive + "PruebaEntrada_" + id + ".pdf");
+
             return report;
         }
 
