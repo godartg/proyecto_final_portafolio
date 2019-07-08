@@ -18,6 +18,11 @@ namespace SistemaPortafolio.Models
             HojaVidaDocenteFC = new HashSet<HojaVidaDocenteFC>();
             HojaVidaDocenteCRP = new HashSet<HojaVidaDocenteCRP>();
             HojaVidaDocenteEX = new HashSet<HojaVidaDocenteEX>();
+            HojaVidaDocenteActividadesDesarrolloProfesional = new HashSet<HojaVidaDocenteActividadesDesarrolloProfesional>();
+            HojaVidaDocenteActividadServicios = new HashSet<HojaVidaDocenteActividadServicios>();
+            HojaVidaDocenteHonoresPremios = new HashSet<HojaVidaDocenteHonoresPremios>();
+            HojaVidaDocenteMembresia = new HashSet<HojaVidaDocenteMembresia>();
+            HojaVidaDocentePublicaciones = new HashSet<HojaVidaDocentePublicaciones>();
         }
 
         [Key]
@@ -38,6 +43,17 @@ namespace SistemaPortafolio.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HojaVidaDocenteEX> HojaVidaDocenteEX { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HojaVidaDocenteActividadesDesarrolloProfesional> HojaVidaDocenteActividadesDesarrolloProfesional { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HojaVidaDocenteActividadServicios> HojaVidaDocenteActividadServicios { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HojaVidaDocenteHonoresPremios> HojaVidaDocenteHonoresPremios { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HojaVidaDocenteMembresia> HojaVidaDocenteMembresia { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HojaVidaDocentePublicaciones> HojaVidaDocentePublicaciones { get; set; }
+
         public List<HojaVida> Listar()
         {
             var rango = new List<HojaVida>();
@@ -63,36 +79,43 @@ namespace SistemaPortafolio.Models
                 using (var db = new ModeloDatos())
                 {
                     grilla.Inicializar();
-                    var query = db.HojaVida.Where(x => x.hojavida_id > 0);
+                    var query = db.HojaVida.Include(x =>x.Persona).Where(x => x.hojavida_id > 0);
+                    
                     //obtener los campos y que permita ordenar
-                    if (grilla.columna == "hojavida_id")
+                    if (grilla.columna == "hojavida_Id")
                     {
                         query = grilla.columna_orden == "DESC" ? query.OrderByDescending(x => x.hojavida_id)
                                                     : query.OrderBy(x => x.hojavida_id);
                     }
-                    if (grilla.columna == "persona_id")
+                    if (grilla.columna == "Persona_id")
                     {
                         query = grilla.columna_orden == "DESC" ? query.OrderByDescending(x => x.persona_id)
-                                                    : query.OrderBy(x => x.persona_id);
+                                                    : query.OrderBy(x => x.Persona.nombre);
                     }
+                    
                     // Filtrar
                     foreach (var f in grilla.filtros)
                     {
-                        if (f.columna == "hojavida_id")
-                            query = query.Where(x => x.hojavida_id.ToString().StartsWith(f.valor));
+                        if (f.columna == "Persona_id")
+                            query = query.Where(x => x.persona_id.ToString() == f.valor);
+                        
                     }
-
                     var rango = query.Skip(grilla.pagina)
                                     .Take(grilla.limite)
                                     .ToList();
-                    var total = query.Count();//cantidad de registros
 
+                    var total = query.Count();//cantidad de registros
+                    
                     grilla.SetData(
                             from m in rango
                             select new
                             {
                                 m.hojavida_id,
-                                m.persona_id,
+                                Persona = new
+                                {
+                                    nombre= m.Persona.nombre,
+                                    apellido= m.Persona.apellido
+                                }
                             },
                             total
                         );

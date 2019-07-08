@@ -43,7 +43,7 @@
                         }
                     },
 
-                    { leyenda: "NOMBRE DEL CURSO", columna: "nombrecurso", class: "info", ordenable: true, filtro: true },
+                    { leyenda: "NOMBRE DEL CURSO", columna: "nombrecurso", class: "info" },
                     { leyenda: "PRE-REQUISITO", columna: "prerequisito", class: "info" },
 
                     { style: 'Width: 40px;', class: "info" },//visualizar
@@ -55,14 +55,7 @@
 
                     { propiedad: "curso_cod" },
                     { propiedad: "nombre" },
-                    {
-                        propiedad: "nombrecurso", formato: function (tr, obj, valor) {
-                            return anexGrid_link({
-                                href: '@Url.Content("~/Admin/Curso/AgregarEditar/")'
-                            + obj.plan_id, contenido: valor
-                            });
-                        }
-                    },
+                    { propiedad: "nombrecurso" },
                     { propiedad: "prerequisito" },
 
                     {
@@ -107,7 +100,7 @@
                 paginable: true, //para mostrar la paginación
                 limite: [10, 20, 50, 100], //para mostrar un combobox donde se muestra la cantidad de registros por pagina
                 columna: 'curso_cod',
-                columna_orden: "DESC"
+                columna_orden: "ASC"
             });
     })
 </script>

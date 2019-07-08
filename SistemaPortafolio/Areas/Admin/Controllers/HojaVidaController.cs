@@ -118,7 +118,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             //HttpPostedFileBase objFile = (HttpPostedFileBase)new MemoryPostedFile(pdf);
             
 
-            string result = await OfficeAccessSession.UploadFileAsync(archivo_ruta, "Server/Docs/Curriculum Vitae ICACIT/HojaVida.pdf");
+            string result = await OfficeAccessSession.UploadFileAsync(archivo_ruta, "EPIS/Portafolio/"+hojavida.Persona.nombre+" "+ hojavida.Persona.apellido + "1.Curriculum Vitae ICACIT/curriculum_vitae_ICACIT.pdf");
 
 
             
@@ -126,22 +126,10 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
             return new FileContentResult(pdf, "application/pdf");
             //return View();
         }
-        /**
-        public async Task<ActionResult> DirectUpload()
+        public JsonResult CargarGrilla(AnexGRID grid)
         {
-            //if user is not login, redirect to office 365 for authenticate
-            if (string.IsNullOrEmpty(OfficeAccessSession.AccessCode))
-            {
-                string url = OfficeAccessSession.GetLoginUrl("onedrive.readwrite");
-
-                return new RedirectResult(url);
-            }
-
-            string result = await OfficeAccessSession.UploadFileAsync("C:\Users\Drei\Dropbox\UPT\eXtra Work\proyecto_final_portafolio\SistemaPortafolio\Server\Docs\Curriculum Vitae ICACIT\hojaVida.pdf", "ojio.pdf");
-
-
-            return View();
-        }*/
+            return Json(hojavida.ListarGrilla(grid));
+        }
         public async void SubirArchivo(string nombre, byte[] pdf)
         {
             var archivo_ruta = Path.Combine(Server.MapPath("~/Server/Docs/Curriculum Vitae ICACIT/"), Path.GetFileName(nombre));
