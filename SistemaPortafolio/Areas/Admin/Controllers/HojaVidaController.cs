@@ -88,7 +88,10 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
 
         public async Task<ActionResult> Imprimir(int persona_id=0)
         {
-
+            if (persona_id == 0)
+            {
+                persona_id = usuario.persona_id;
+            }
             Documento doc = new Documento();
             TipoDocumento tipoDocumento = new TipoDocumento();
             var planEstudiosId = (from lista in plan.listar() where lista.estado == "Activo" select lista.plan_id).FirstOrDefault();

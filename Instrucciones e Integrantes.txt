@@ -1,0 +1,14 @@
+Integrantes:
+Edwin César Condori Vilcapuma 
+Carol Fiorella Husnayo Cutipa
+Rosalia Mamani
+Christian Cespedes
+
+Instrucciones de despliegue
+Crear solo la base de datos y configurar el web.config
+Correr las migraciones dirigirse a Herramientas -> Administrador de Packet Nugets -> Consola de Administrador de Paquetes
+comando update-database
+En el sql server ejecutar el script insert
+Crearse la aplicación web de https://apps.dev.microsoft.com/
+
+

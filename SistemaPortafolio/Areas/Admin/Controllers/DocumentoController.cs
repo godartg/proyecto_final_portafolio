@@ -17,7 +17,7 @@ namespace SistemaPortafolio.Areas.Admin.Controllers
     [Autenticado]
     public class DocumentoController : Controller
     {
-        string token = Token.token;
+        //string token = Token.token;
         Documento documento = new Documento();
         Usuario usuario = new Usuario().Obtener(SessionHelper.GetUser());
         // GET: Admin/Documento
